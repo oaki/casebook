@@ -14,10 +14,10 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import PrimaryButton from "../../components/PrimaryButton";
-import styled from "@emotion/styled";
 import isEmail from "validator/lib/isEmail";
 import { useFormStatus } from "react-dom";
-import { sendLoginEmailAction } from "../actions/sendLoginEmailAction";
+import {sendLoginEmailAction} from "@/app/libs/actions/sendLoginEmailAction";
+
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -30,17 +30,23 @@ const SubmitButton = () => {
   );
 };
 
-const Login: FC = () => {
+const LoginPage: FC = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState<string>("");
   const [agree, setAgree] = useState<boolean>(false);
-  const emailValid = isEmail(email);
+    const [emailTouched, setEmailTouched] = useState<boolean>(false);
+
+    const emailValid = isEmail(email);
 
   const [state, formAction] = useActionState(sendLoginEmailAction, {
     error: undefined,
     message: undefined,
   });
+
+    const showEmailError = !emailValid && email.length > 0 && emailTouched;
+
+    console.log({state})
 
   useEffect(() => {
     if (state.message === "Success") {
@@ -101,11 +107,12 @@ const Login: FC = () => {
               fullWidth
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => setEmailTouched(true)}
               autoComplete="email"
               required
-              error={!emailValid && email.length > 0}
+              error={showEmailError}
               helperText={
-                !emailValid && email.length > 0 ? "Please enter a valid email address" : ""
+                  showEmailError ? "Please enter a valid email address" : ""
               }
             />
           </FormControl>
@@ -144,12 +151,4 @@ const Login: FC = () => {
   );
 };
 
-export default function LoginPage() {
-  return <Login />;
-}
-
-const StyledLogo = styled(Image)`
-  max-width: 339px;
-  max-height: 120px;
-  width: 100%;
-`;
+export default LoginPage;

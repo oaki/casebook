@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import type { NextAuthOptions } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import {prisma} from "@/app/libs/databaseConnection";
+import {prisma} from "@/app/libs/services/databaseConnection";
 
 
 declare module "next-auth" {
