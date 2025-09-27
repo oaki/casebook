@@ -25,8 +25,6 @@ const SubmitButton: FC = () => {
     const { pending } = useFormStatus();
     const { t } = useTranslation();
 
-    console.log('Submit button pending:', {pending});
-
     return (
         <PrimaryButton type="submit" disabled={pending} loading={pending}>
             {t('form.submit.continue')}

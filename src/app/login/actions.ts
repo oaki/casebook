@@ -5,11 +5,24 @@ import {sendEmail} from "@/app/libs/services/sendEmail";
 import { parseWithZod } from '@conform-to/zod';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import jwt from 'jsonwebtoken';
+import { getLoginEmailHtml } from './LoginEmailTemplate';
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email'),
     agree: z.string().optional().transform(val => val === 'on')
 });
+
+// JWT
+const generateLoginToken = (email: string): string => {
+    const payload = {
+        email,
+        purpose: 'login',
+        exp: Math.floor(Date.now() / 1000) + (60 * 15) // 15 min expiry
+    };
+    return jwt.sign(payload, process.env.JWT_SECRET!, { algorithm: 'HS256' });
+};
+
 
 export async function sendLoginEmailAction(prevState: any, formData: FormData) {
     const submission = parseWithZod(formData, { schema: loginSchema });
@@ -23,24 +36,36 @@ export async function sendLoginEmailAction(prevState: any, formData: FormData) {
     if (!email || !isEmail(email)) {
         return submission.reply({
             fieldErrors: {
-                email: ['Please enter a valid email address']
+                email: ['Prosím zadajte platnú emailovú adresu'] // Using direct Slovak text for validation
             }
         });
     }
 
     try {
+        const token = generateLoginToken(email);
+        const magicLinkUrl = `${process.env.NEXTAUTH_URL}/auth/verify?token=${token}`;
+
+        const emailHtml = getLoginEmailHtml(magicLinkUrl, 'sk');
+
         await sendEmail(
             email,
-            'Your login link',
-            `<p>Click <a href="${process.env.NEXTAUTH_URL}/login?email=${encodeURIComponent(email)}">here</a> to login.</p>`
+            'Prístup do Nutricia I CASEBOOK',
+            emailHtml
         );
+        console.log('email send and going to redirect')
 
-        // On success, redirect to verify-request page
-        redirect('/verify-request');
     } catch (error) {
         console.error('Server Action Error:', error);
         return submission.reply({
-            formErrors: ['Failed to send email. Please try again.']
+            formErrors: ['Nepodarilo sa odoslať email. Prosím skúste znovu.'] // Slovak error message
         });
     }
+    redirect('/verify-request');
 }
+
+type LoginFormErrors = {
+    fieldErrors?: {
+        email?: string[];
+    };
+    formErrors?: string[];
+};
