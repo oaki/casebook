@@ -6,8 +6,6 @@ import { parseWithZod } from '@conform-to/zod';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-
-// Simple schema for server-side validation
 const loginSchema = z.object({
     email: z.string().email('Invalid email'),
     agree: z.string().optional().transform(val => val === 'on')
