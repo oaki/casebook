@@ -1,8 +1,14 @@
 'use client';
 
+import Header from "@/app/header";
+import BabyTeaser from "@/components/BabyTeaser";
+
 const DashboardPage = () => {
     return (
-        <div>sssss</div>
+        <div style={{marginTop: "85px"}}>
+            <Header />
+            <BabyTeaser />
+        </div>
     );
 };
 
