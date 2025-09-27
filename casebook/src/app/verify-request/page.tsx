@@ -1,7 +1,12 @@
+"use client";
 import { Box, Typography } from "@mui/material";
-import styled from "@emotion/styled";
+import { useTranslation } from 'react-i18next';
+import Logo from "../../components/Logo";
+import "@/lib/i18n"; // Import i18n config
 
 export default function VerifyRequest() {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -13,38 +18,16 @@ export default function VerifyRequest() {
         py: 6,
       }}
     >
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: 1040,
-          pb: 6,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <StyledLogo
-          src="/assets/nutricia-casebook-logo.svg"
-          alt="NUTRICIA Casebook"
-          width={339}
-          height={120}
-          loading="eager"
-        />
-      </Box>
+      <Logo />
 
       <Box sx={{ width: "100%", maxWidth: 680, textAlign: "center" }}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Check your email
+          {t('verifyRequest.title')}
         </Typography>
         <Typography variant="body1" sx={{ maxWidth: 720, mx: "auto", mb: 5 }}>
-          A sign in link has been sent to your email address. Please check your inbox and click the link to continue.
+          {t('verifyRequest.subtitle')}
         </Typography>
       </Box>
     </Box>
   );
 }
-
-const StyledLogo = styled.img`
-  max-width: 339px;
-  max-height: 120px;
-  width: 100%;
-`;

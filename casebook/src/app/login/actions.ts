@@ -28,4 +28,3 @@ export async function sendLoginEmailAction(
         return {error: 'InternalServerError'};
     }
 }
-

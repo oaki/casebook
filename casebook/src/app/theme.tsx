@@ -85,6 +85,14 @@ export const theme = createTheme({
                     borderRadius: 8,
                     "& .MuiFilledInput-root": {
                         borderRadius: 8,
+                        // Fix error border to respect border radius
+                        "&.Mui-error::before": {
+                            borderBottom: "none", // Remove the default error border
+                        },
+                        "&.Mui-error": {
+                            border: "1px solid #f44336", // Add a proper border for error state
+                            borderRadius: 8, // Ensure border radius is maintained
+                        },
                     },
                     "& .MuiInputLabel-root": {
                         fontWeight: 500,
@@ -100,6 +108,14 @@ export const theme = createTheme({
                             color: "#000000",
                             "&:hover": { backgroundColor: "#f0f0f0" }, // slight change on hover
                             "&.Mui-focused": { backgroundColor: "#ffffff" },
+                            // Error state for primary variant
+                            "&.Mui-error": {
+                                backgroundColor: "#ffffff",
+                                border: "1px solid #f44336",
+                                "&::before": {
+                                    display: "none", // Hide the default error line
+                                },
+                            },
                         },
                         "& .MuiInputLabel-root": {
                             color: "#000000",
@@ -116,6 +132,14 @@ export const theme = createTheme({
                             color: "#000000",
                             "&:hover": { backgroundColor: "#f0f0f0" },
                             "&.Mui-focused": { backgroundColor: "#ffffff" },
+                            // Error state for secondary variant
+                            "&.Mui-error": {
+                                backgroundColor: "#ffffff",
+                                border: "1px solid #f44336",
+                                "&::before": {
+                                    display: "none", // Hide the default error line
+                                },
+                            },
                         },
                         "& .MuiInputLabel-root": {
                             color: "#000000",
