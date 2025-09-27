@@ -1,24 +1,16 @@
-import { object, string, boolean, refine } from "superstruct";
+import { z } from "zod";
 import { TFunction } from 'i18next';
-import isEmail from 'validator/lib/isEmail';
 
 export const createLoginSchema = (t: TFunction) => {
-  const Email = refine(string(), 'email', (value) => {
-    if (!value) return t('validation.email.required');
-    return isEmail(value) || t('validation.email.invalid');
-  });
-
-  const Agreement = refine(boolean(), 'agreement', (value) => {
-    return value === true || t('validation.agreement.required');
-  });
-
-  return object({
-    email: Email,
-    agree: Agreement
+  return z.object({
+    email: z.string()
+      .min(1, t('validation.email.required'))
+      .email(t('validation.email.invalid')),
+    agree: z.boolean()
+      .refine(val => val === true, {
+        message: t('validation.agreement.required')
+      })
   });
 };
 
-export type LoginFormData = {
-  email: string;
-  agree: boolean;
-};
+export type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;

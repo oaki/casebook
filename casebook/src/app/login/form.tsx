@@ -1,5 +1,5 @@
 'use client'
-import {FC, useActionState, useEffect} from "react";
+import {FC, useActionState} from "react";
 import {
     Alert,
     Box,
@@ -11,13 +11,12 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import {useRouter} from "next/navigation";
-import {Controller, useForm} from "react-hook-form";
-import {superstructResolver} from "@hookform/resolvers/superstruct";
 import {useTranslation} from 'react-i18next';
+import { useForm } from '@conform-to/react';
+import { parseWithZod } from '@conform-to/zod';
 import PrimaryButton from "../../components/PrimaryButton";
 import {sendLoginEmailAction} from "./actions";
-import {createLoginSchema, LoginFormData} from "./validation";
+import {createLoginSchema} from "./validation";
 import "@/lib/i18n";
 import { useFormStatus } from "react-dom";
 
@@ -37,40 +36,20 @@ const SubmitButton: FC = () => {
 };
 
 const LoginForm: FC = () => {
-    const router = useRouter();
     const {t} = useTranslation();
 
     const loginSchema = createLoginSchema(t);
 
-    const {
-        control,
-        handleSubmit,
-        formState: {errors}
-    } = useForm<LoginFormData>({
-        resolver: superstructResolver(loginSchema),
-        defaultValues: {
-            email: "",
-            agree: false
+    const [lastResult, formAction] = useActionState(sendLoginEmailAction, undefined);
+
+    const [form, fields] = useForm({
+        lastResult,
+        onValidate({ formData }) {
+            return parseWithZod(formData, { schema: loginSchema });
         },
-        mode: "onBlur"
+        shouldValidate: 'onBlur',
+        shouldRevalidate: 'onInput',
     });
-
-    const [state, formAction] = useActionState(sendLoginEmailAction, {
-        error: undefined,
-        message: undefined,
-    });
-
-    useEffect(() => {
-        if (state.message === "Success") {
-            router.push("/verify-request");
-        }
-    }, [state.message, router]);
-
-    const onSubmit = (data: LoginFormData) => {
-        const formData = new FormData();
-        formData.append('email', data.email);
-        formAction(formData);
-    };
 
     return (
         <Box sx={{width: "100%", maxWidth: 680, textAlign: "center"}}>
@@ -81,59 +60,52 @@ const LoginForm: FC = () => {
                 {t('page.subtitle')}
             </Typography>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form id={form.id} onSubmit={form.onSubmit} action={formAction} noValidate>
                 <FormControl fullWidth sx={{mb: 3}}>
-                    <Controller
-                        name="email"
-                        control={control}
-                        render={({field}) => (
-                            <TextField
-                                {...field}
-                                id="email"
-                                label={t('form.email.label')}
-                                type="email"
-                                variant="filled"
-                                fullWidth
-                                autoComplete="email"
-                                error={!!errors.email}
-                                helperText={errors.email?.message}
-                            />
-                        )}
+                    <TextField
+                        key={fields.email.key}
+                        name={fields.email.name}
+                        id="email"
+                        label={t('form.email.label')}
+                        type="email"
+                        variant="filled"
+                        fullWidth
+                        autoComplete="email"
+                        defaultValue={fields.email.initialValue}
+                        error={!fields.email.valid}
+                        helperText={fields.email.errors?.[0]}
+                        required
                     />
                 </FormControl>
 
-                <FormControl error={!!errors.agree} sx={{mb: 2}}>
-                    <Controller
-                        name="agree"
-                        control={control}
-                        render={({field}) => (
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        {...field}
-                                        checked={field.value}
-                                        sx={{color: "#5a47ff"}}
-                                    />
-                                }
-                                label={
-                                    <Typography component="span">
-                                        {t('form.agreement.label')}{" "}
-                                        <Link href="/terms" target="_blank" rel="noopener">
-                                            {t('form.agreement.termsLink')}
-                                        </Link>
-                                    </Typography>
-                                }
+                <FormControl error={!fields.agree.valid} sx={{mb: 2}}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                key={fields.agree.key}
+                                name={fields.agree.name}
+                                defaultChecked={fields.agree.initialValue === 'on'}
+                                sx={{color: "#5a47ff"}}
+                                required
                             />
-                        )}
+                        }
+                        label={
+                            <Typography component="span">
+                                {t('form.agreement.label')}{" "}
+                                <Link href="/terms" target="_blank" rel="noopener">
+                                    {t('form.agreement.termsLink')}
+                                </Link>
+                            </Typography>
+                        }
                     />
-                    {errors.agree && (
-                        <FormHelperText>{errors.agree.message}</FormHelperText>
+                    {fields.agree.errors && (
+                        <FormHelperText>{fields.agree.errors[0]}</FormHelperText>
                     )}
                 </FormControl>
 
-                {state.error && (
+                {form.errors && (
                     <Alert severity="error" sx={{mt: 2}}>
-                        {state.error}
+                        {form.errors[0]}
                     </Alert>
                 )}
 
