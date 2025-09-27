@@ -19,12 +19,9 @@ const BabyWithCircles = () => {
 
   return (
     <Box sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'relative',
+      position: 'absolute',
+      left: '-50%',
       width: '100%',
-      height: '100%',
     }}>
       {/* Circles positioned relative to baby container */}
       <Box sx={{
@@ -68,7 +65,7 @@ const BabyWithCircles = () => {
       </Box>
 
       <motion.div
-        initial={{ x: '50%', opacity: 0.5 }}
+        initial={{ x: '100%', opacity: 0.5 }}
         animate={{
           x: animationComplete ? '0%' : '50%',
           opacity: 1

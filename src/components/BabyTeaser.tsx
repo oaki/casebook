@@ -3,23 +3,21 @@
 import React from 'react';
 import {Box, Grid} from '@mui/material';
 import BabyWithCircles from './BabyWithCircles';
-import CategoryTeasers from './CategoryTeasers';
+import CategoryTeasers from "@/components/CategoryTeasers";
 
 const BabyTeaser = () => {
     return (
-        <Box sx={{
-            position: 'relative',
-            height: 'calc(100vh - 80px)',
-            overflow: 'hidden',
-            backgroundColor: 'background.default'
-        }}>
-            <BabyWithCircles/>
-            <Grid container sx={{height: '100%', position: 'relative', zIndex: 1}}>
-                <Grid item xs={12} md={6}>
+        <>
+            <Box sx={{
+                position: 'relative',
+                maxWidth: '1440px',
+            }}>
+                <BabyWithCircles/>
+                <Grid container sx={{ zIndex: 1}}>
                     <CategoryTeasers/>
                 </Grid>
-            </Grid>
-        </Box>
+            </Box>
+        </>
     );
 };
 
