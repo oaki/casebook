@@ -11,6 +11,10 @@ const resources = {
         },
         agreement: {
           required: 'You must agree to the Terms of Service'
+        },
+        token: {
+          missing: 'Missing verification token',
+          invalid: 'Invalid or expired token'
         }
       },
       form: {
@@ -32,6 +36,24 @@ const resources = {
       verifyRequest: {
         title: 'Check your email',
         subtitle: 'A sign in link has been sent to your email address. Please check your inbox and click the link to continue.'
+      },
+      auth: {
+        verification: {
+          loading: 'Verifying your access...',
+          wait: 'Please wait while we verify your token.',
+          failed: 'Verification failed',
+          error: 'Error verifying token'
+        },
+        login: {
+          success: 'Successfully logged in',
+          successful: 'Successful login'
+        },
+        redirect: {
+          message: 'Redirecting you to the main page...'
+        },
+        back: {
+          login: 'Back to login'
+        }
       }
     }
   },
@@ -44,6 +66,10 @@ const resources = {
         },
         agreement: {
           required: 'Musíte súhlasiť s podmienkami používania'
+        },
+        token: {
+          missing: 'Chýbajúci token pre overenie',
+          invalid: 'Neplatný alebo vypršaný token'
         }
       },
       form: {
@@ -65,6 +91,24 @@ const resources = {
       verifyRequest: {
         title: 'Skontrolujte svoj email',
         subtitle: 'Prihlasovací odkaz bol odoslaný na vašu emailovú adresu. Prosím skontrolujte svoju schránku a kliknite na odkaz pre pokračovanie.'
+      },
+      auth: {
+        verification: {
+          loading: 'Overujeme váš prístup...',
+          wait: 'Prosím počkajte, zatiaľ čo overujeme váš token.',
+          failed: 'Chyba overenia',
+          error: 'Chyba pri overovaní tokenu'
+        },
+        login: {
+          success: 'Úspešne ste sa prihlásili',
+          successful: 'Úspešné prihlásenie'
+        },
+        redirect: {
+          message: 'Presmerúvame vás na hlavnú stránku...'
+        },
+        back: {
+          login: 'Späť na prihlásenie'
+        }
       }
     }
   }

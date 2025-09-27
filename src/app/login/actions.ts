@@ -18,7 +18,7 @@ const generateLoginToken = (email: string): string => {
     const payload = {
         email,
         purpose: 'login',
-        exp: Math.floor(Date.now() / 1000) + (60 * 15) // 15 min expiry
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7) // 7 days expiry
     };
     return jwt.sign(payload, process.env.JWT_SECRET!, { algorithm: 'HS256' });
 };
@@ -52,7 +52,6 @@ export async function sendLoginEmailAction(prevState: any, formData: FormData) {
             'Prístup do Nutricia I CASEBOOK',
             emailHtml
         );
-        console.log('email send and going to redirect')
 
     } catch (error) {
         console.error('Server Action Error:', error);
@@ -63,9 +62,3 @@ export async function sendLoginEmailAction(prevState: any, formData: FormData) {
     redirect('/verify-request');
 }
 
-type LoginFormErrors = {
-    fieldErrors?: {
-        email?: string[];
-    };
-    formErrors?: string[];
-};
