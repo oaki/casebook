@@ -28,15 +28,10 @@ const StyledAppBar = styled(AppBar)(({theme}) => ({
     borderRadius: '20px',
     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", // Subtle shadow
     marginTop: theme.spacing(2), // Space from the top
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "calc(100% - 32px)", // Adjust width to leave some space on sides
-    maxWidth: "1400px", // Max width for larger screens
-    position: "fixed", // Make it floating
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: theme.zIndex.drawer + 1,
+    width: `calc(100% - ${theme.spacing(4)})`,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: `calc(${theme.breakpoints.values.lg}px - ${theme.spacing(4)})`,
 }));
 
 // Mock logo component (replace with your actual logo)
@@ -62,7 +57,7 @@ const navItems = [
 
 const Header: React.FC = () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [mobileOpen, setMobileOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -124,7 +119,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <StyledAppBar elevation={0}>
+            <StyledAppBar elevation={0} position="sticky">
                 <Toolbar sx={{justifyContent: "space-between"}}>
                     <Logo/>
                     {isMobile ? (

@@ -37,13 +37,7 @@ const CategoryTeasers = () => {
   ];
 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      p: 4,
-      height: '100%'
-    }}>
+    <div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: animationComplete ? 1 : 0, y: animationComplete ? 0 : 20 }}
@@ -67,7 +61,7 @@ const CategoryTeasers = () => {
           </motion.div>
         ))}
       </motion.div>
-    </Box>
+    </div>
   );
 };
 

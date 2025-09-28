@@ -1,24 +1,24 @@
 'use client';
 
 import React from 'react';
-import {Box, Grid} from '@mui/material';
+import {Container, Grid, useTheme} from '@mui/material';
 import BabyWithCircles from './BabyWithCircles';
 import CategoryTeasers from "@/components/CategoryTeasers";
 
-const BabyTeaser = () => {
+const CategoryFilter = () => {
+    const theme = useTheme();
     return (
         <>
-            <Box sx={{
+            <Grid size={4}  sx={{
                 position: 'relative',
-                maxWidth: '1440px',
             }}>
                 <BabyWithCircles/>
-                <Grid container sx={{ zIndex: 1}}>
-                    <CategoryTeasers/>
-                </Grid>
-            </Box>
+            </Grid>
+            <Grid size={8}>
+                <CategoryTeasers/>
+            </Grid>
         </>
     );
 };
 
-export default BabyTeaser;
+export default CategoryFilter;
