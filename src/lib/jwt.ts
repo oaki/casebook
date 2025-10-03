@@ -15,6 +15,7 @@ export type SessionPayload = {
     type: 'session';
     user?: {
         email: string;
+        roles?: string[];
     };
     expires?: number;
 }
@@ -27,4 +28,3 @@ export type MagicLinkPayload = {
 }
 
 export type TokenPayload = SessionPayload | MagicLinkPayload;
-

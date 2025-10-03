@@ -18,8 +18,12 @@ const categoryTranslations: Record<string, { title: string; description: string 
   },
 };
 
+type CategoryTeasersProps = {
+    isAdmin?: boolean;
+}
+
 // Server component that fetches data
-export const CategoryTeasers = async () => {
+export const CategoryTeasers = async ({ isAdmin = false }: CategoryTeasersProps) => {
 
   try {
     // Fetch body parts directly from database
@@ -49,7 +53,7 @@ export const CategoryTeasers = async () => {
     }));
 
     // Pass data to client component for animations and interactions
-    return <CategoryTeasersClient categories={categories} />;
+    return <CategoryTeasersClient categories={categories} isAdmin={isAdmin} />;
 
   } catch (error) {
     console.error('Error fetching body parts:', error);

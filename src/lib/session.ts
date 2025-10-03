@@ -2,14 +2,52 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { encrypt, decrypt, SessionPayload } from "./jwt";
+import { prisma } from "@/app/libs/services/databaseConnection";
 
 const SESSION_COOKIE_NAME = "auth_session";
 const SESSION_DURATION_MS = 365 * 24 * 60 * 60 * 1000; // 1 year
 
 export async function login(email: string) {
-    const user = { email };
+    let user = await prisma.users.findUnique({
+        where: { email },
+        include: {
+            user_roles: {
+                include: {
+                    roles: true
+                }
+            }
+        }
+    });
+
+    // If user doesn't exist, create a new one
+    if (!user) {
+        user = await prisma.users.create({
+            data: {
+                email,
+                name: email.split('@')[0], // Use email prefix as default name
+            },
+            include: {
+                user_roles: {
+                    include: {
+                        roles: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Extract role codes from user_roles
+    const roles = user.user_roles.map(ur => ur.roles.code);
+
     const expires = Date.now() + SESSION_DURATION_MS;
-    const payload: SessionPayload = { type: 'session', user, expires };
+    const payload: SessionPayload = {
+        type: 'session',
+        user: {
+            email: user.email,
+            roles
+        },
+        expires
+    };
     const session = await encrypt(payload, { expiresIn: `${SESSION_DURATION_MS / 1000}s` });
     const cookieStore = await cookies();
     cookieStore.set(SESSION_COOKIE_NAME, session, {
@@ -36,7 +74,9 @@ export async function getSession() {
 
 export async function updateSession(request: NextRequest) {
     const session = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-    if (!session) return;
+    if (!session) {
+        return;
+    }
     try {
         const parsed = await decrypt<SessionPayload>(session);
         const expires = Date.now() + SESSION_DURATION_MS;

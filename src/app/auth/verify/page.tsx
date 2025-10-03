@@ -21,7 +21,7 @@ function VerifyContent() {
         const verifyAndSignIn = async () => {
             // 1. Verify the token via server action
             const result = await verifyMagicLinkToken(token || '');
-            console.log({result, token})
+
             if (!result.success || !result.email) {
                 setStatus('error');
                 setMessage(result.error || 'Verification failed.');

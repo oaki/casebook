@@ -1,26 +1,22 @@
 import Header from "@/app/header";
 import CategoryFilter from "@/components/CategoryFilter";
-import { Container, Grid } from "@mui/material";
-import { getSession } from "@/lib/session";
-import { redirect } from "next/navigation";
+import {Container, Grid} from "@mui/material";
+import {requireAuth} from "@/lib/auth";
 
 const DashboardPage = async () => {
-    const session = await getSession();
+    const session = await requireAuth();
+    const isAdmin = session.user?.roles?.includes('admin') ?? false;
 
-    if (!session || !session.user) {
-        redirect("/");
-    }
     return (
         <div>
             <Header/>
             <Container maxWidth="lg">
                 <Grid spacing={2} container>
-                    <CategoryFilter/>
+                    <CategoryFilter isAdmin={isAdmin}/>
                 </Grid>
             </Container>
         </div>
     );
 };
-
 
 export default DashboardPage;

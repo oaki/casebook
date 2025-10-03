@@ -4,7 +4,11 @@ import BabyWithCircles from './BabyWithCircles';
 import {CategoryTeasers} from "@/components/CategoryTeasers";
 import {Provider} from "jotai";
 
-const CategoryFilter = () => {
+interface CategoryFilterProps {
+    isAdmin?: boolean;
+}
+
+const CategoryFilter = ({ isAdmin = false }: CategoryFilterProps) => {
 
     return (
         <Provider>
@@ -14,7 +18,7 @@ const CategoryFilter = () => {
                 <BabyWithCircles/>
             </Grid>
             <Grid size={8}>
-                <CategoryTeasers/>
+                <CategoryTeasers isAdmin={isAdmin} />
             </Grid>
         </Provider>
     );
