@@ -3,7 +3,7 @@ import { Container, Grid } from "@mui/material";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const ProductsPage = async () => {
+const CaseStudies = async () => {
     const session = await getSession();
 
     if (!session || !session.user) {
@@ -14,7 +14,7 @@ const ProductsPage = async () => {
             <Header/>
             <Container maxWidth="lg">
                 <Grid spacing={2} container>
-                   Products
+                    CaseStudies
                 </Grid>
             </Container>
         </div>
@@ -22,4 +22,4 @@ const ProductsPage = async () => {
 };
 
 
-export default ProductsPage;
+export default CaseStudies;

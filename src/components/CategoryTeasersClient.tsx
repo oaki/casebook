@@ -53,7 +53,7 @@ const getIconConfig = (svgRegion: string): { path: string; color: string } => {
     };
 };
 
-export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categories, isAdmin = false}) => {
+export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categories}) => {
 
     const [organHighlight, setOrganHighlight] = useAtom(organHighlightAtom);
     console.log({organHighlight})
@@ -162,14 +162,6 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                     </StyledCategoryTeaser>
                 </Box>
             </Box>
-
-            {isAdmin && (
-                <div style={{display: 'flex'}}>
-                    <PrimaryButton startIcon={<span style={{fontSize: '20px', fontWeight: 'bold'}}>+</span>}>
-                        Pridať novú kazuistiku
-                    </PrimaryButton>
-                </div>
-            )}
         </>
     );
 };
@@ -186,5 +178,4 @@ type Category = {
 
 type CategoryTeasersClientProps = {
     categories: Category[];
-    isAdmin?: boolean;
 }
