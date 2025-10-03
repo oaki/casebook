@@ -5,7 +5,8 @@ import {Box, Paper, Typography} from '@mui/material';
 import {styled} from '@mui/material/styles';
 import Image from 'next/image';
 import {useAtom} from 'jotai';
-import {hoverTeaserAtom} from "@/components/hoverTeaserAtom";
+import {organHighlightAtom} from "@/components/hoverTeaserAtom";
+import PrimaryButton from "@/components/PrimaryButton";
 
 const StyledCategoryTeaser = styled(Paper)(() => ({
     display: 'flex',
@@ -54,93 +55,119 @@ const getIconConfig = (svgRegion: string): { path: string; color: string } => {
 
 export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categories}) => {
 
-    const [hover, setHover] = useAtom(hoverTeaserAtom);
-    console.log({hover})
+    const [organHighlight, setOrganHighlight] = useAtom(organHighlightAtom);
+    console.log({organHighlight})
     const allIconMap = getIconConfig('all');
     return (
-        <Box sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            p: 4,
-            gap: 2,
-            maxWidth: '600px',
-            marginLeft: 'auto',
-            mt: 16
-        }}>
-            {categories.map((category) => {
-                const iconConfig = getIconConfig(category.svg_region);
-                return (
+        <>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                p: 4,
+                gap: 3,
+            }}>
+                <Box sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: 2,
+                    maxWidth: '600px',
+                    width: '100%',
+                }}>
+                    {categories.map((category) => {
+                        const iconConfig = getIconConfig(category.svg_region);
+                        return (
+                            <StyledCategoryTeaser
+                                key={category.id}
+                                elevation={0}
+                                title={category.description}
+                                onMouseEnter={() => {
+                                    setOrganHighlight({
+                                        hover: [category.svg_region],
+                                        position: '0px'
+                                    });
+                                }}
+                                onMouseLeave={() => {
+                                    setOrganHighlight({
+                                        hover: [],
+                                        position: '0px'
+                                    });
+                                }}
+                                onClick={() => {
+                                    // Handle category click - could navigate to specific body part cases
+                                    console.log('Selected category:', category);
+                                }}
+                            >
+                                <Box sx={{
+                                    borderRadius: '24px',
+                                    background: iconConfig.color,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: '8px',
+                                }}>
+                                    <Image
+                                        src={iconConfig.path}
+                                        alt={category.title}
+                                        width={64}
+                                        height={64}
+                                        style={{filter: 'brightness(0) invert(1)'}}
+                                    />
+                                </Box>
+                                <Typography variant="h5" gutterBottom sx={{margin: 0}}>{category.title}</Typography>
+                                {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
+                            </StyledCategoryTeaser>
+                        );
+                    })}
+
                     <StyledCategoryTeaser
-                        key={category.id}
                         elevation={0}
-                        title={category.description}
+                        title={"Všetky kazuistiky"}
                         onMouseEnter={() => {
-                            setHover(category.svg_region);
+                            setOrganHighlight({
+                                hover: ['all'],
+                                position: '0px'
+                            });
                         }}
                         onMouseLeave={() => {
-                            setHover('');
+                            setOrganHighlight({
+                                hover: [],
+                                position: '0px'
+                            });
                         }}
                         onClick={() => {
                             // Handle category click - could navigate to specific body part cases
-                            console.log('Selected category:', category);
+                            console.log('Selected all categories');
                         }}
                     >
                         <Box sx={{
                             borderRadius: '24px',
-                            background: iconConfig.color,
+                            background: allIconMap.color,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             padding: '8px',
                         }}>
                             <Image
-                                src={iconConfig.path}
-                                alt={category.title}
+                                src={allIconMap.path}
+                                alt={'Všetky kazuistiky'}
                                 width={64}
                                 height={64}
                                 style={{filter: 'brightness(0) invert(1)'}}
                             />
                         </Box>
-                        <Typography variant="h5" gutterBottom sx={{margin: 0}}>{category.title}</Typography>
+                        <Typography variant="h5" gutterBottom sx={{margin: 0}}>Všetky kazuistiky</Typography>
                         {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
                     </StyledCategoryTeaser>
-                );
-            })}
-
-            <StyledCategoryTeaser
-                elevation={0}
-                title={"Všetky kazuistiky"}
-                onMouseEnter={() => {
-                    setHover('all');
-                }}
-                onMouseLeave={() => {
-                    setHover('');
-                }}
-                onClick={() => {
-                    // Handle category click - could navigate to specific body part cases
-                    console.log('Selected all categories');
-                }}
-            >
-                <Box sx={{
-                    borderRadius: '24px',
-                    background: allIconMap.color,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '8px',
-                }}>
-                    <Image
-                        src={allIconMap.path}
-                        alt={'Všetky kazuistiky'}
-                        width={64}
-                        height={64}
-                        style={{filter: 'brightness(0) invert(1)'}}
-                    />
                 </Box>
-                <Typography variant="h5" gutterBottom sx={{margin: 0}}>Všetky kazuistiky</Typography>
-                {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
-            </StyledCategoryTeaser>
-        </Box>
+
+
+            </Box>
+            <div style={{display: 'flex'}}>
+                <PrimaryButton startIcon={<span style={{fontSize: '20px', fontWeight: 'bold'}}>+</span>}
+                >Pridať novú kazuistiku</PrimaryButton>
+            </div>
+        </>
     );
 };
 

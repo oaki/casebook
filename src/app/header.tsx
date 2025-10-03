@@ -97,16 +97,17 @@ const Header: React.FC = () => {
                                 </Box>
                             ) : (
                                 <Link href={item.href || "#"} passHref style={{textDecoration: "none", color: "inherit", width: "100%"}}>
-                                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", gap: 1}}>
+                                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", gap: 0}}>
                                         {item.icon && (
                                             <Image
                                                 src={item.icon}
                                                 alt=""
                                                 width={24}
                                                 height={24}
+                                                style={{filter: 'brightness(0) invert(1)'}}
                                             />
                                         )}
-                                        <ListItemText primary={item.label}/>
+                                        <span>{item.label}</span>
                                     </Box>
                                 </Link>
                             )}
@@ -149,7 +150,7 @@ const Header: React.FC = () => {
                                     <Button
                                         key={item.label}
                                         color="inherit"
-                                        sx={{textTransform: "none", mx: 1, display: "flex", alignItems: "center", gap: 1}}
+                                        sx={{textTransform: "none", mx: 1, display: "flex", alignItems: "center", gap: 0}}
                                         component={Link}
                                         href={item.href || "#"}
                                         startIcon={item.icon ? (
@@ -158,6 +159,7 @@ const Header: React.FC = () => {
                                                 alt=""
                                                 width={16}
                                                 height={16}
+                                                style={{filter: 'brightness(0) invert(1)'}}
                                             />
                                         ) : undefined}
                                     >

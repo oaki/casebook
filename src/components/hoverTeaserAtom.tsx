@@ -1,4 +1,12 @@
 import {atom} from 'jotai';
 
 
-export const hoverTeaserAtom = atom<string>('');
+interface OrganHighlightState {
+    hover: string[];
+    position: string;
+}
+
+export const organHighlightAtom = atom<OrganHighlightState>({
+    hover: [],
+    position: '0px'
+});

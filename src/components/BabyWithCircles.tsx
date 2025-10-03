@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {Box} from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import {useAtom} from "jotai/index";
-import {hoverTeaserAtom} from "@/components/hoverTeaserAtom";
+import {organHighlightAtom} from "@/components/hoverTeaserAtom";
 
 // Map database svg_region to actual file paths for the three available body parts
 const organFileMap: Record<string, { src: string; alt: string }> = {
@@ -19,28 +19,24 @@ interface BabyProps {
 }
 
 const BabyWithCircles = () => {
-    const [hover] = useAtom(hoverTeaserAtom);
-    console.log('hover',hover)
+    const [organHighlight] = useAtom(organHighlightAtom);
+    console.log('organHighlight', organHighlight)
     const [animationComplete, setAnimationComplete] = useState(false);
 
     // Determine visible organs based on hover state
     const visibleOrgans = React.useMemo(() => {
-        if (!hover || hover === '') {
+        if (!organHighlight.hover || organHighlight.hover.length === 0) {
             return [];
         }
 
         // If hovering "all", show all available organs
-        if (hover === 'all') {
+        if (organHighlight.hover.includes('all')) {
             return Object.keys(organFileMap);
         }
 
-        // If hovering a specific organ that exists in organFileMap, show only that one
-        if (organFileMap[hover]) {
-            return [hover];
-        }
-
-        return [];
-    }, [hover]);
+        // Return the organs that exist in organFileMap
+        return organHighlight.hover.filter(organ => organFileMap[organ]);
+    }, [organHighlight.hover]);
 
     useEffect(() => {
         // Start animation after component mounts
