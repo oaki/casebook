@@ -1,11 +1,10 @@
-import { Box, Typography, Button } from '@mui/material';
-import { Error } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next';
-import { useRouter } from 'next/navigation';
+import {Box, Button, Typography} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {useRouter} from 'next/navigation';
 import Logo from "@/components/Logo";
 
-export const VerificationError = ({ message }: { message: string }) => {
-    const { t } = useTranslation();
+export const VerificationError = ({message}: { message: string }) => {
+    const {t} = useTranslation();
     const router = useRouter();
 
     return (
@@ -19,11 +18,11 @@ export const VerificationError = ({ message }: { message: string }) => {
                 gap: 2
             }}
         >
-            <Logo />
-            <Typography variant="h4" component="h2" sx={{ color: '#ef4444' }} gutterBottom>
+            <Logo/>
+            <Typography variant="h4" component="h2" sx={{color: '#ef4444'}} gutterBottom>
                 {t('auth.verification.failed') || 'Chyba overenia'}
             </Typography>
-            <Typography variant="body1" gutterBottom sx={{ color: '#ef4444', textAlign: 'center' }}>
+            <Typography variant="body1" gutterBottom sx={{color: '#ef4444', textAlign: 'center'}}>
                 {message}
             </Typography>
             <Button

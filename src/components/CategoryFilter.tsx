@@ -1,15 +1,14 @@
-'use client';
-
 import React from 'react';
-import {Container, Grid, useTheme} from '@mui/material';
+import {Grid} from '@mui/material';
 import BabyWithCircles from './BabyWithCircles';
-import CategoryTeasers from "@/components/CategoryTeasers";
+import {CategoryTeasers} from "@/components/CategoryTeasers";
+import {Provider} from "jotai";
 
 const CategoryFilter = () => {
-    const theme = useTheme();
+
     return (
-        <>
-            <Grid size={4}  sx={{
+        <Provider>
+            <Grid size={4} sx={{
                 position: 'relative',
             }}>
                 <BabyWithCircles/>
@@ -17,7 +16,7 @@ const CategoryFilter = () => {
             <Grid size={8}>
                 <CategoryTeasers/>
             </Grid>
-        </>
+        </Provider>
     );
 };
 

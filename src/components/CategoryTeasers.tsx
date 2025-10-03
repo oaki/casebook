@@ -1,68 +1,68 @@
-'use client';
+import { prisma } from '@/app/libs/services/databaseConnection';
+import { CategoryTeasersClient } from './CategoryTeasersClient';
 
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { motion } from 'framer-motion';
+// Map svg_region to Slovak translations for the three body parts
+const categoryTranslations: Record<string, { title: string; description: string }> = {
 
-const CategoryTeaser = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  marginBottom: theme.spacing(2),
-  borderRadius: '10px',
-  transition: 'transform 0.3s ease-in-out',
-  cursor: 'pointer',
-  '&:hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: theme.shadows[4],
-  }
-}));
-
-const CategoryTeasers = () => {
-  const [animationComplete, setAnimationComplete] = useState(false);
-
-  useEffect(() => {
-    // Trigger animation after component mounts
-    const timer = setTimeout(() => {
-      setAnimationComplete(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const categories = [
-    { title: "Kožné problémy", description: "Riešenia pre kožné ťažkosti a starostlivosť" },
-    { title: "Pľúcne problémy", description: "Podpora dýchacieho systému a pľúc" },
-    { title: "Črevné problémy", description: "Starostlivosť o trávenie a črevá" },
-    { title: "Všeobecné problémy", description: "Celková zdravotná starostlivosť" }
-  ];
-
-  return (
-    <div>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: animationComplete ? 1 : 0, y: animationComplete ? 0 : 20 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-      >
-        <Typography variant="h3" component="h1" gutterBottom sx={{ mb: 4 }}>
-          Kategórie problémov
-        </Typography>
-
-        {categories.map((category, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: animationComplete ? 1 : 0, y: animationComplete ? 0 : 20 }}
-            transition={{ delay: 1 + (index * 0.2), duration: 0.5 }}
-          >
-            <CategoryTeaser elevation={2}>
-              <Typography variant="h5" gutterBottom>{category.title}</Typography>
-              <Typography variant="body1" color="text.secondary">{category.description}</Typography>
-            </CategoryTeaser>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  );
+  'digestive_system': {
+    title: 'Tráviaci trakt',
+    description: 'Starostlivosť o trávenie a črevá'
+  },
+  'skin': {
+    title: 'Koža',
+    description: 'Riešenia pre kožné ťažkosti a starostlivosť'
+  },
+  'respiratory_system': {
+    title: 'Respiračný trakt',
+    description: 'Podpora dýchacieho systému a pľúc'
+  },
 };
 
-export default CategoryTeasers;
+// Server component that fetches data
+export const CategoryTeasers = async () => {
+
+  try {
+    // Fetch body parts directly from database
+    const bodyParts = await prisma.body_parts.findMany({
+      select: {
+          id: true,
+          code: true,
+          svg_region: true,
+          order: true,
+      },
+      where: {
+        is_active: true,
+      },
+      orderBy: {
+        order: 'asc',
+      }
+    });
+
+    // Create categories from loaded body parts
+    const categories = bodyParts.map(bodyPart => ({
+      id: bodyPart.id,
+      code: bodyPart.code,
+      svg_region: bodyPart.svg_region,
+      order: bodyPart.order,
+      title: categoryTranslations[bodyPart.code]?.title || bodyPart.code,
+      description: categoryTranslations[bodyPart.code]?.description || 'Zdravotná starostlivosť'
+    }));
+
+    // Pass data to client component for animations and interactions
+    return <CategoryTeasersClient categories={categories} />;
+
+  } catch (error) {
+    console.error('Error fetching body parts:', error);
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        padding: '2rem'
+      }}>
+        Error loading categories
+      </div>
+    );
+  }
+};

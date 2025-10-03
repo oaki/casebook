@@ -5,7 +5,7 @@ import {sendEmail} from "@/app/libs/services/sendEmail";
 import { parseWithZod } from '@conform-to/zod';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import jwt from 'jsonwebtoken';
+import { encrypt, MagicLinkPayload } from '@/lib/jwt';
 import { getLoginEmailHtml } from './LoginEmailTemplate';
 
 const loginSchema = z.object({
@@ -13,16 +13,8 @@ const loginSchema = z.object({
     agree: z.string().optional().transform(val => val === 'on')
 });
 
-// JWT
-const generateLoginToken = (email: string): string => {
-    const payload = {
-        email,
-        purpose: 'login',
-        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7) // 7 days expiry
-    };
-    return jwt.sign(payload, process.env.JWT_SECRET!, { algorithm: 'HS256' });
-};
-
+const LOGIN_TOKEN_PURPOSE = 'login';
+const LOGIN_TOKEN_EXPIRY_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
 export async function sendLoginEmailAction(prevState: any, formData: FormData) {
     const submission = parseWithZod(formData, { schema: loginSchema });
@@ -36,29 +28,37 @@ export async function sendLoginEmailAction(prevState: any, formData: FormData) {
     if (!email || !isEmail(email)) {
         return submission.reply({
             fieldErrors: {
-                email: ['Prosím zadajte platnú emailovú adresu'] // Using direct Slovak text for validation
+                email: ['Prosím zadajte platnú emailovú adresu']
             }
         });
     }
 
     try {
-        const token = generateLoginToken(email);
+        const exp = Math.floor(Date.now() / 1000) + LOGIN_TOKEN_EXPIRY_SECONDS;
+        const tokenPayload: MagicLinkPayload = {
+            type: 'magic-link',
+            email,
+            purpose: LOGIN_TOKEN_PURPOSE,
+            exp
+        };
+        const token = await encrypt(tokenPayload);
         const magicLinkUrl = `${process.env.NEXTAUTH_URL}/auth/verify?token=${token}`;
 
         const emailHtml = getLoginEmailHtml(magicLinkUrl, 'sk');
 
+        console.log('start sendEmail');
         await sendEmail(
             email,
             'Prístup do Nutricia I CASEBOOK',
             emailHtml
         );
 
+        console.log('end sendEmail');
     } catch (error) {
         console.error('Server Action Error:', error);
         return submission.reply({
-            formErrors: ['Nepodarilo sa odoslať email. Prosím skúste znovu.'] // Slovak error message
+            formErrors: ['Nepodarilo sa odoslať email. Prosím skúste znovu.']
         });
     }
     redirect('/verify-request');
 }
-

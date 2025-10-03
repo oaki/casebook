@@ -1,0 +1,159 @@
+'use client';
+
+import {FC} from 'react';
+import {Box, Paper, Typography} from '@mui/material';
+import {styled} from '@mui/material/styles';
+import Image from 'next/image';
+import {useAtom} from 'jotai';
+import {hoverTeaserAtom} from "@/components/hoverTeaserAtom";
+
+const StyledCategoryTeaser = styled(Paper)(() => ({
+    display: 'flex',
+    padding: '32px',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '16px',
+    flexShrink: 0,
+    borderRadius: '12px',
+    background: 'rgba(255, 255, 255, 0.05)',
+    boxShadow: '-1px -3px 3px 0 rgba(255, 255, 255, 0.10) inset, 1px 3px 5px 0 rgba(255, 255, 255, 0.30) inset, 0 0 14px 0 rgba(255, 255, 255, 0.35) inset, 0 2px 10px 5px rgba(53, 53, 53, 0.05) inset, 0 3px 8px 3px rgba(53, 53, 53, 0.05)',
+    backdropFilter: 'blur(5px)',
+    cursor: 'pointer',
+    transition: 'transform 0.3s ease-in-out',
+    '&:hover': {
+        transform: 'translateY(-5px)',
+    }
+}));
+
+// Map svg_region to icon paths and colors
+const getIconConfig = (svgRegion: string): { path: string; color: string } => {
+    const iconMap: Record<string, { path: string; color: string }> = {
+        "digestive_system": {
+            path: '/assets/icons/intestine.svg',
+            color: '#8B7BA8', // Purple
+        },
+        'skin': {
+            path: '/assets/icons/skin.svg',
+            color: '#D4916C', // Orange/Peach
+        },
+        'respiratory_system': {
+            path: '/assets/icons/lungs.svg',
+            color: '#82A884', // Green
+        },
+        'all': {
+            path: '/assets/icons/stethoscope.svg',
+            color: '#B8A888', // Beige
+        },
+    };
+
+    return iconMap[svgRegion] || {
+        path: '/assets/icons/stethoscope.svg',
+        color: '#B8A888',
+    };
+};
+
+export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categories}) => {
+
+    const [hover, setHover] = useAtom(hoverTeaserAtom);
+    console.log({hover})
+    const allIconMap = getIconConfig('all');
+    return (
+        <Box sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            p: 4,
+            gap: 2,
+            maxWidth: '600px',
+            marginLeft: 'auto',
+            mt: 16
+        }}>
+            {categories.map((category) => {
+                const iconConfig = getIconConfig(category.svg_region);
+                return (
+                    <StyledCategoryTeaser
+                        key={category.id}
+                        elevation={0}
+                        title={category.description}
+                        onMouseEnter={() => {
+                            setHover(category.svg_region);
+                        }}
+                        onMouseLeave={() => {
+                            setHover('');
+                        }}
+                        onClick={() => {
+                            // Handle category click - could navigate to specific body part cases
+                            console.log('Selected category:', category);
+                        }}
+                    >
+                        <Box sx={{
+                            borderRadius: '24px',
+                            background: iconConfig.color,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '8px',
+                        }}>
+                            <Image
+                                src={iconConfig.path}
+                                alt={category.title}
+                                width={64}
+                                height={64}
+                                style={{filter: 'brightness(0) invert(1)'}}
+                            />
+                        </Box>
+                        <Typography variant="h5" gutterBottom sx={{margin: 0}}>{category.title}</Typography>
+                        {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
+                    </StyledCategoryTeaser>
+                );
+            })}
+
+            <StyledCategoryTeaser
+                elevation={0}
+                title={"Všetky kazuistiky"}
+                onMouseEnter={() => {
+                    setHover('all');
+                }}
+                onMouseLeave={() => {
+                    setHover('');
+                }}
+                onClick={() => {
+                    // Handle category click - could navigate to specific body part cases
+                    console.log('Selected all categories');
+                }}
+            >
+                <Box sx={{
+                    borderRadius: '24px',
+                    background: allIconMap.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '8px',
+                }}>
+                    <Image
+                        src={allIconMap.path}
+                        alt={'Všetky kazuistiky'}
+                        width={64}
+                        height={64}
+                        style={{filter: 'brightness(0) invert(1)'}}
+                    />
+                </Box>
+                <Typography variant="h5" gutterBottom sx={{margin: 0}}>Všetky kazuistiky</Typography>
+                {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
+            </StyledCategoryTeaser>
+        </Box>
+    );
+};
+
+// Types placed at the end of file
+type Category = {
+    id: number;
+    code: string;
+    svg_region: string;
+    order: number;
+    title: string;
+    description: string;
+}
+
+type CategoryTeasersClientProps = {
+    categories: Category[];
+}

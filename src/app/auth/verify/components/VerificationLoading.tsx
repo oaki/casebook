@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import {Box, CircularProgress} from '@mui/material';
 import Logo from "@/components/Logo";
 
 export const VerificationLoading = () => {
@@ -13,7 +13,7 @@ export const VerificationLoading = () => {
                 gap: 3
             }}
         >
-            <Logo />
+            <Logo/>
             <CircularProgress
                 size={50}
                 sx={{

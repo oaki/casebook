@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -12,6 +12,8 @@ model body_parts {
   id              Int               @id @default(autoincrement())
   code            String            @unique(map: "code") @db.VarChar(100)
   svg_region      String            @db.Text
+  order           Int               @default(0)
+  is_active       Boolean           @default(true)
   created_by      Int?
   created_at      DateTime          @default(now()) @db.DateTime(0)
   updated_by      Int?
@@ -20,6 +22,7 @@ model body_parts {
   case_body_parts case_body_parts[]
 
   @@index([created_by], map: "idx_bp_created_by")
+  @@index([order], map: "idx_bp_order")
 }
 
 model case_body_parts {
@@ -228,7 +231,6 @@ model users {
   specialization String?        @db.VarChar(255)
   workplace      String?        @db.VarChar(255)
   email          String         @unique(map: "email") @db.VarChar(255)
-  password_hash  String         @db.VarChar(255)
   created_by     Int?
   created_at     DateTime       @default(now()) @db.DateTime(0)
   updated_by     Int?
@@ -260,11 +262,11 @@ enum patients_gender {
 }
 
 model translation {
-  id        Int    @id @default(autoincrement())
-  language  String @db.VarChar(10)
-  key       String @db.VarChar(255)
-  value     String @db.Text
+  id       Int    @id @default(autoincrement())
+  language String @db.VarChar(10)
+  key      String @db.VarChar(255)
+  value    String @db.Text
 
-  @@index([language], map: "idx_translation_language")
   @@unique([language, key], map: "unq_translation_language_key")
+  @@index([language], map: "idx_translation_language")
 }

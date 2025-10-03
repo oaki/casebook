@@ -1,54 +1,46 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useState, Suspense} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import {Box} from '@mui/material';
-import {verifyMagicLinkAction} from './actions';
-import {useTranslation} from "react-i18next";
+import {verifyMagicLinkToken} from './actions';
 import {VerificationLoading} from './components/VerificationLoading';
 import {VerificationSuccess} from './components/VerificationSuccess';
 import {VerificationError} from './components/VerificationError';
+import {login} from "@/lib/session";
 
-const VerifyPage = () => {
+function VerifyContent() {
     const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
     const [message, setMessage] = useState('');
     const searchParams = useSearchParams();
     const router = useRouter();
-    const {t} = useTranslation();
 
     useEffect(() => {
         const token = searchParams.get('token');
 
-        if (!token) {
-            setStatus('error');
-            setMessage(t('validation.token.missing') || 'Chýbajúci token pre overenie');
-            return;
-        }
-
-        const verifyToken = async () => {
-            try {
-                const result = await verifyMagicLinkAction(token);
-
-                if (result.success) {
-                    setStatus('success');
-                    setMessage(t('auth.login.success') || 'Úspešne ste sa prihlásili');
-                    // Redirect to dashboard after 2 seconds
-                    setTimeout(() => {
-                        router.push('/dashboard');
-                    }, 2000);
-                } else {
-                    setStatus('error');
-                    setMessage(result.error || t('validation.token.invalid') || 'Neplatný alebo vypršaný token');
-                }
-            } catch (error) {
-                console.error('Verification error:', error);
+        const verifyAndSignIn = async () => {
+            // 1. Verify the token via server action
+            const result = await verifyMagicLinkToken(token || '');
+            console.log({result, token})
+            if (!result.success || !result.email) {
                 setStatus('error');
-                setMessage(t('auth.verification.error') || 'Chyba pri overovaní tokenu');
+                setMessage(result.error || 'Verification failed.');
+                return;
             }
+
+            // 2. If token is valid, use NextAuth's signIn to create a session
+            await login(result.email)
+
+            setStatus('success');
+            setMessage('Successfully signed in. Redirecting...');
+            setTimeout(() => {
+                router.push('/dashboard');
+
+            }, 2000);
         };
 
-        verifyToken();
-    }, [searchParams, router, t]);
+        verifyAndSignIn();
+    }, [searchParams, router]);
 
     return (
         <Box
@@ -65,6 +57,12 @@ const VerifyPage = () => {
             {status === 'error' && <VerificationError message={message}/>}
         </Box>
     );
-};
+}
 
-export default VerifyPage;
+export default function VerifyPage() {
+    return (
+        <Suspense fallback={<VerificationLoading/>}>
+            <VerifyContent/>
+        </Suspense>
+    );
+}

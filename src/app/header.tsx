@@ -52,7 +52,7 @@ const Logo = () => (
 const navItems = [
     {label: "Zoznam produktov", href: "/products"},
     {label: "Jazyk", dropdown: true},
-    {label: "Odišiel", href: "/logout", icon: "/assets/icons/exit.svg"},
+    {label: "Odhlásiť", href: "/logout", icon: "/assets/icons/exit.svg"},
 ];
 
 const Header: React.FC = () => {
