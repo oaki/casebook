@@ -17,7 +17,7 @@ export const Step4Diagnosis: FC<Step4DiagnosisProps> = ({
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Krok 3/5: Diagnóza
+                Krok 3/6: Diagnóza
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
@@ -53,7 +53,6 @@ export const Step4Diagnosis: FC<Step4DiagnosisProps> = ({
 type Step4DiagnosisProps = {
     formData: CaseFormData;
     errors: Record<string, string>;
-    onChange: (field: string, value: string | string[]) => void;
+    onChange: (field: string, value: string | string[] | File[]) => void;
     onBlur: (field: string) => void;
 };
-

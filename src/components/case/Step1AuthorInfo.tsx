@@ -54,6 +54,6 @@ export const Step1AuthorInfo: FC<Step1AuthorInfoProps> = ({formData, errors, onC
 type Step1AuthorInfoProps = {
     formData: CaseFormData;
     errors: Record<string, string>;
-    onChange: (field: string, value: string | string[]) => void;
+    onChange: (field: string, value: string | string[] | File[]) => void;
     onBlur: (field: string) => void;
 };

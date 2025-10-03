@@ -11,13 +11,14 @@ import {Step2CaseInfo} from '@/components/case/Step2CaseInfo';
 import {Step3ExaminationFindings} from '@/components/case/Step3ExaminationFindings';
 import {Step4Diagnosis} from '@/components/case/Step4Diagnosis';
 import {Step5TreatmentAttachments} from '@/components/case/Step5TreatmentAttachments';
+import {Step6Summary} from '@/components/case/Step6Summary';
 import {Provider as JotaiProvider, useAtom} from 'jotai';
 import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
 import {step1Schema, step2Schema, step3Schema, step4Schema, step5Schema} from '@/components/case/validation';
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
 
-const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
+const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}) => {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     const [formData, setFormData] = useAtom(caseFormDataAtom);
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -39,7 +40,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
         }
     }, [currentStep]);
 
-    const handleFormChange = (field: string, value: string | string[]) => {
+    const handleFormChange = (field: string, value: string | string[] | File[]) => {
         setFormData((prev) => ({
             ...prev,
             [field]: value,
@@ -73,8 +74,11 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
     };
 
     const handleNext = () => {
-        if (!validateCurrentStep()) {
-            return;
+        // Skip validation for summary step (step 5)
+        if (currentStep < TOTAL_STEPS - 1) {
+            if (!validateCurrentStep()) {
+                return;
+            }
         }
 
         if (currentStep < TOTAL_STEPS - 1) {
@@ -108,7 +112,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
             attachments: [],
         });
         setErrors({});
-        onClose();
+        onCloseAction();
     };
 
     const handleBack = () => {
@@ -178,8 +182,14 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
                     <Step5TreatmentAttachments
                         formData={formData}
                         errors={errors}
-                        onChange={handleFormChange}
+                        onChange={handleFormChange as (field: string, value: string | string[] | File[]) => void}
                         onBlur={handleFieldBlur}
+                    />
+                );
+            case 5:
+                return (
+                    <Step6Summary
+                        formData={formData}
                     />
                 );
             default:
@@ -228,24 +238,24 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
     );
 };
 
-export const AddCaseModal: FC<AddCaseModalProps> = ({open, onClose}) => {
+export const AddCaseModal: FC<AddCaseModalProps> = ({open, onCloseAction}) => {
     if (!open) {
         return null;
     }
 
     return (
         <JotaiProvider>
-            <AddCaseModalContent open={open} onClose={onClose}/>
+            <AddCaseModalContent open={open} onCloseAction={onCloseAction}/>
         </JotaiProvider>
     );
 };
 
 type AddCaseModalProps = {
     open: boolean;
-    onClose: () => void;
+    onCloseAction: () => void;
 };
 
 type AddCaseModalContentProps = {
     open: boolean;
-    onClose: () => void;
+    onCloseAction: () => void;
 };

@@ -63,7 +63,7 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Krok 2/5: Vyšetrenie a nález
+                Krok 2/6: Vyšetrenie a nález
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
@@ -211,6 +211,6 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
 type Step3ExaminationFindingsProps = {
     formData: CaseFormData;
     errors: Record<string, string>;
-    onChange: (field: string, value: string | string[]) => void;
+    onChange: (field: string, value: string | string[] | File[]) => void;
     onBlur: (field: string) => void;
 };

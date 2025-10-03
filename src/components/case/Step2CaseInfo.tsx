@@ -14,7 +14,7 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Krok 1/5: Základné údaje prípadu
+                Krok 1/6: Základné údaje prípadu
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <LabeledInput
@@ -98,6 +98,6 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
 type Step2CaseInfoProps = {
     formData: CaseFormData;
     errors: Record<string, string>;
-    onChange: (field: string, value: string | string[]) => void;
+    onChange: (field: string, value: string | string[] | File[]) => void;
     onBlur: (field: string) => void;
 };

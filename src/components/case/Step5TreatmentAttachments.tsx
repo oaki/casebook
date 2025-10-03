@@ -1,12 +1,13 @@
 'use client';
 
 import {FC} from 'react';
-import {Button, Box, Typography, MenuItem} from '@mui/material';
+import {Box, Typography, MenuItem} from '@mui/material';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
 import {FormSelect} from '@/components/form/FormSelect';
 import {FormTextArea} from '@/components/form/FormTextArea';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
+import {ImageUpload} from '@/components/form/ImageUpload';
 import {CaseFormData} from '@/state/caseFormAtoms';
 
 const productOptions = [
@@ -22,23 +23,10 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
     onChange,
     onBlur,
 }) => {
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if (files) {
-            const fileArray = Array.from(files);
-            onChange('attachments', [...formData.attachments, ...fileArray]);
-        }
-    };
-
-    const handleRemoveFile = (index: number) => {
-        const newFiles = formData.attachments.filter((_, i) => i !== index);
-        onChange('attachments', newFiles);
-    };
-
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Liečba a prílohy
+                Krok 4/6: Liečba a prílohy
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
@@ -113,68 +101,10 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                     >
                         Prílohy
                     </Typography>
-                    <Box>
-                        <Button
-                            component="label"
-                            variant="outlined"
-                            sx={{
-                                color: '#51338B',
-                                borderColor: '#51338B',
-                                borderRadius: '28px',
-                                textTransform: 'none',
-                                px: 3,
-                                py: 1.5,
-                                border: '2px solid #51338B',
-                                '&:hover': {
-                                    borderColor: '#51338B',
-                                    backgroundColor: 'rgba(81, 51, 139, 0.04)',
-                                    border: '2px solid #51338B',
-                                },
-                            }}
-                        >
-                            Vybrať súbory
-                            <input
-                                type="file"
-                                hidden
-                                multiple
-                                accept="image/*"
-                                onChange={handleFileChange}
-                            />
-                        </Button>
-
-                        {formData.attachments && formData.attachments.length > 0 && (
-                            <Box sx={{mt: 2}}>
-                                {formData.attachments.map((file, index) => (
-                                    <Box
-                                        key={index}
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
-                                            p: 1,
-                                            mb: 1,
-                                            backgroundColor: '#f5f5f5',
-                                            borderRadius: '8px',
-                                        }}
-                                    >
-                                        <Typography sx={{color: '#3C3C3C', fontSize: '14px'}}>
-                                            {file.name}
-                                        </Typography>
-                                        <Button
-                                            onClick={() => handleRemoveFile(index)}
-                                            sx={{
-                                                color: '#f44336',
-                                                minWidth: 'auto',
-                                                p: 0.5,
-                                            }}
-                                        >
-                                            ×
-                                        </Button>
-                                    </Box>
-                                ))}
-                            </Box>
-                        )}
-                    </Box>
+                    <ImageUpload
+                        files={formData.attachments}
+                        onChange={(files) => onChange('attachments', files)}
+                    />
                 </FormFieldWrapper>
             </Box>
         </Box>

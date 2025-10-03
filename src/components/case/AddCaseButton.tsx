@@ -17,7 +17,7 @@ export const AddCaseButton: FC = () => {
             </PrimaryButton>
             <AddCaseModal
                 open={open}
-                onClose={() => setOpen(false)}
+                onCloseAction={() => setOpen(false)}
             />
         </>
     );
