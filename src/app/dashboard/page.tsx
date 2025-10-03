@@ -2,7 +2,7 @@ import Header from "@/app/header";
 import CategoryFilter from "@/components/CategoryFilter";
 import {Container, Grid} from "@mui/material";
 import {requireAuth} from "@/lib/auth";
-import PrimaryButton from "@/components/PrimaryButton";
+import {AddCaseButton} from "@/components/case/AddCaseButton";
 
 const DashboardPage = async () => {
     const session = await requireAuth();
@@ -17,9 +17,7 @@ const DashboardPage = async () => {
                 </Grid>
                 {isAdmin && (
                     <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '2rem'}}>
-                        <PrimaryButton startIcon={<span style={{fontSize: '20px', fontWeight: 'bold'}}>+</span>}>
-                            Pridať novú kazuistiku
-                        </PrimaryButton>
+                        <AddCaseButton />
                     </div>
                 )}
             </Container>

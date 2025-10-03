@@ -39,6 +39,36 @@ export const theme = createTheme({
                 },
             },
         },
+        // Dialog configuration for white background
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                },
+            },
+        },
+        MuiDialogTitle: {
+            styleOverrides: {
+                root: {
+                    color: '#000000',
+                },
+            },
+        },
+        MuiDialogContent: {
+            styleOverrides: {
+                root: {
+                    color: '#000000',
+                },
+            },
+        },
+        MuiDialogActions: {
+            styleOverrides: {
+                root: {
+                    color: '#000000',
+                },
+            },
+        },
         // NEW: Configuration for the Checkbox
         MuiCheckbox: {
             styleOverrides: {
