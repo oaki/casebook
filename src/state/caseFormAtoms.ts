@@ -26,7 +26,7 @@ export const caseFormDataAtom = atom<CaseFormData>({
     diagnosis: '',
 
     // Step 5: Treatment and attachments
-    usedProduct: '',
+    usedProduct: 'neocate_syneo',
     treatmentDescription: '',
     attachments: [],
 });

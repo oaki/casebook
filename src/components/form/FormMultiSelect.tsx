@@ -92,16 +92,27 @@ export const FormMultiSelect: FC<FormMultiSelectProps> = ({
                                 const newValue = value.filter((item) => item !== val);
                                 onChange?.({target: {value: newValue}} as any);
                             }}
+                            deleteIcon={
+                                <Box
+                                    component="img"
+                                    src="/assets/icons/close.svg"
+                                    alt="Odstrániť"
+                                    aria-hidden
+                                    sx={{width: 24, height: 24, display: 'block'}}
+                                />
+                            }
                             sx={{
-                                height: '32px',
+                                padding: '24px 12px',
                                 backgroundColor: '#FFFFFF',
-                                border: '1px solid #E0E0E0',
-                                borderRadius: '16px',
+                                border: '2px solid #E0E0E0',
+                                borderRadius: '26px',
+                                fontWeight: 700,
                                 '& .MuiChip-label': {
                                     color: '#3C3C3C',
                                     fontSize: '14px',
                                 },
                                 '& .MuiChip-deleteIcon': {
+                                    m: 0,
                                     color: '#3C3C3C',
                                     fontSize: '18px',
                                     '&:hover': {

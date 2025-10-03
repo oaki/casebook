@@ -70,7 +70,6 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>Krok 5/6: Sumár</FormGroupTitle>
-
             <Box sx={{
                 mt: 1,
                 display: 'grid',
@@ -104,23 +103,37 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
 
                 <LabelCell text="Mikrobiómové faktory" />
                 <ValueCell>
-                    {microbiome.length ? microbiome.join(', ') : '-'}
+                    {microbiome.length ? (
+                        <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
+                            {microbiome.map(label => (
+                                <Chip key={label} label={label} sx={{borderRadius: '16px', backgroundColor: '#FFFFFF', border: '2px solid #3C3C3C4D', color: '#3C3C3C'}} />
+                            ))}
+                        </Box>
+                    ) : ('-')}
                 </ValueCell>
 
                 <LabelCell text="Nutričná história" />
                 <ValueCell>{nutrition}</ValueCell>
 
                 <LabelCell text="Klinické symptómy" />
-                <ValueCell>{symptoms.length ? symptoms.join(', ') : '-'}</ValueCell>
+                <ValueCell>
+                    {symptoms.length ? (
+                        <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
+                            {symptoms.map(label => (
+                                <Chip key={label} label={label} sx={{borderRadius: '16px', backgroundColor: '#FFFFFF', border: '2px solid #3C3C3C4D', color: '#3C3C3C'}} />
+                            ))}
+                        </Box>
+                    ) : ('-')}
+                </ValueCell>
 
                 <LabelCell text="Popis problému" />
                 <ValueCell>
-                    <Typography sx={{whiteSpace: 'pre-wrap'}}>{formData.problemDescription || '-'}</Typography>
+                    <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.problemDescription || '-'}</Typography>
                 </ValueCell>
 
                 <LabelCell text="Diagnóza" />
                 <ValueCell>
-                    <Typography sx={{whiteSpace: 'pre-wrap'}}>{formData.diagnosis || '-'}</Typography>
+                    <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.diagnosis || '-'}</Typography>
                 </ValueCell>
 
                 <LabelCell text="Použitý produkt" />
@@ -128,21 +141,8 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
 
                 <LabelCell text="Popis liečby" />
                 <ValueCell>
-                    <Typography sx={{whiteSpace: 'pre-wrap'}}>{formData.treatmentDescription || '-'}</Typography>
+                    <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.treatmentDescription || '-'}</Typography>
                 </ValueCell>
-
-                {formData.attachments?.length ? (
-                    <>
-                        <LabelCell text="Prílohy" />
-                        <ValueCell>
-                            <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
-                                {formData.attachments.map((f, i) => (
-                                    <Chip key={`${f.name}-${i}`} label={f.name} sx={{borderRadius: '16px', backgroundColor: '#F5F5F5', color: '#3C3C3C'}} />
-                                ))}
-                            </Box>
-                        </ValueCell>
-                    </>
-                ) : null}
             </Box>
         </Box>
     );
