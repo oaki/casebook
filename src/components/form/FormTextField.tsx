@@ -11,15 +11,17 @@ export const FormTextField: FC<FormTextFieldProps> = (props) => {
             fullWidth
             sx={{
                 '& .MuiFilledInput-root': {
-                    backgroundColor: '#f5f5f5',
-                    color: '#3C3C3C',
-                    paddingLeft: '0.5rem',
-                    paddingRight: '0.5rem',
+                    backgroundColor: '#f5f5f5', paddingLeft: '16px',
+                    paddingRight: '16px',
+                    borderRadius: '16px',
                     '&:hover': {
                         backgroundColor: '#eeeeee',
                     },
                     '&.Mui-focused': {
                         backgroundColor: '#f5f5f5',
+                    },
+                    '&::before, &::after': {
+                        display: 'none',
                     },
                 },
                 '& .MuiFilledInput-input': {
@@ -29,7 +31,7 @@ export const FormTextField: FC<FormTextFieldProps> = (props) => {
                     alignItems: 'center',
                 },
                 '& .MuiInputLabel-root': {
-                    paddingLeft: '0.5rem',
+                    paddingLeft: '16px',
                 },
                 ...props.sx,
             }}

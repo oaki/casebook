@@ -20,6 +20,7 @@ export const FormSelect: FC<FormSelectProps> = ({
                     color: '#3C3C3C',
                     paddingLeft: '0.5rem',
                     paddingRight: '0.5rem',
+                    borderRadius: '16px',
                     '&:hover': {
                         backgroundColor: '#eeeeee',
                     },
@@ -33,6 +34,12 @@ export const FormSelect: FC<FormSelectProps> = ({
                     '& .MuiSelect-icon': {
                         color: '#3C3C3C',
                         right: '12px',
+                    },
+                    '& fieldset': {
+                        border: 'none',
+                    },
+                    '&::before, &::after': {
+                        display: 'none',
                     },
                     ...props.sx,
                 }}

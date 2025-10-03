@@ -1,0 +1,21 @@
+Field Name	Type	Example Value
+Age	Numeric Field	4
+Gender	Dropdown	Chlapec Dievča
+Family History	Dropdown	Nie Áno, výskyt v rodine
+Microbiome Factors	Multichoice	Predčasne narodené dieťa Pôrod cisárskym rezom Užívanie antibiotík Súrodenci / Veľká domácnosť
+Zvieratá Užívanie ATB u matky Užívanie ATB u dieťaťa Fajčenie
+Nutritional History	Dropdown	MM (bez eliminačnej diéty matky) MM (s eliminačnej diéty matky) Štandardná formula (značka) pHF (značka) eHF (značka) AAF (značka)
+znacka=New_Textfield
+Clinical Symptoms	Multichoice	Ekzém Atopická dermatitída Urtikácia Reflux Regurgitácia Kolika Zápcha Krv / Hlien v stolici Hnačka Plynatosť Dyschézia Tvrdá stolica Sipot Nádcha Respiračné infekcie Neprospievanie
+Photo	Image (optional)
+Product Used	Dropdown	Neocate Syneo Neocate Infant
+Neocate Junior Nutrilon Allergy Care Syneo+ Nutrilon Comfort & Colics Nutrilon AR
+Nutrilon Nutriton
+Case Introduction	Text Area	Dieťa z 1. fyziologickej gravidity, pôrod v 41. týždni, zakalená plodová voda, matka dostala 1 dávku pl. PNC za 4 hod. od pôrodu, po pôrode prechodná cyanóza novorodenca, hypotómia, hypoglykémia, potreba zvýšenej starostlivosti, inkubátor, ďalej bez problémov. Od 4. mesiaca časté grckanie, po týždni sa objavuje krv v stolici dieťaťa. Matka počas eliminačnej diéty trpela oparmi na ústach a nose a bola neustále chorá. 
+Diagnosis	Text Area	2x UZ vyšetrenie pre vylúčenie pylorostenózy a invaginácia. Po zavedení Neocate Syneo rýchly ústup ťažkostí do 48 hodín – po 24 hod. dieťa už nevracalo, po 48 hodinách už zmizla aj krv v stolici. Dojča prospieva, z pôrodnej váhy 3.017 g chlapec po 6 mesiacoch dosahuje 6.640 g.
+Conclusion	Text Area	Neocate Syneo mal v prípade chlapca zásadný význam na jeho zdravie a pohodu rodiny. Masívny nález krvi v stolici nielen veľmi stresoval rodičov, ale samozrejme ohrozoval zdravie dieťaťa (napr. anémiou). Aj pomerne časté zvracanie mohlo ohroziť dieťa (neprospievanie, rozvrat minerálového metabolizmu).
+Organ System	Dropdown
+(multiselect)	Tráviaci trakt
+Koža
+Respiračný trakt
+Name	Text Field	Nazov pre kazuistiku

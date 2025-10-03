@@ -9,11 +9,26 @@ export const caseFormDataAtom = atom<CaseFormData>({
     specialization: '',
     workplace: '',
 
-    // Step 2: Case info (will be added later)
+    // Step 2: Case info
     caseName: '',
     patientAgeMonths: '',
-    gender: '',
+    gender: 'male', // Default to male
     affectedSystems: [],
+
+    // Step 3: Examination and findings
+    familyHistory: 'nie', // Default to "Nie"
+    microbiomeFactors: [],
+    nutritionalHistory: '',
+    clinicalSymptoms: [],
+    problemDescription: '',
+
+    // Step 4: Diagnosis
+    diagnosis: '',
+
+    // Step 5: Treatment and attachments
+    usedProduct: '',
+    treatmentDescription: '',
+    attachments: [],
 });
 
 export type CaseFormData = {
@@ -28,5 +43,19 @@ export type CaseFormData = {
     patientAgeMonths: string;
     gender: string;
     affectedSystems: string[];
-};
 
+    // Step 3
+    familyHistory: string;
+    microbiomeFactors: string[];
+    nutritionalHistory: string;
+    clinicalSymptoms: string[];
+    problemDescription: string;
+
+    // Step 4
+    diagnosis: string;
+
+    // Step 5
+    usedProduct: string;
+    treatmentDescription: string;
+    attachments: File[];
+};

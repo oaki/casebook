@@ -14,19 +14,9 @@ export const Step1AuthorInfo: FC<Step1AuthorInfoProps> = ({formData, errors, onC
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <LabeledInput
-                    name="title"
-                    label="Váš titul"
-                    placeholder="Mudr."
-                    value={formData.title}
-                    onChange={(e) => onChange('title', e.target.value)}
-                    onBlur={() => onBlur('title')}
-                    error={!!errors.title}
-                    helperText={errors.title}
-                />
-                <LabeledInput
                     name="name"
                     label="Vaše meno"
-                    placeholder="Ján Novák"
+                    placeholder="MUDr.Ján Novák PhD."
                     required
                     value={formData.name}
                     onChange={(e) => onChange('name', e.target.value)}

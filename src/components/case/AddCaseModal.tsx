@@ -1,33 +1,21 @@
 'use client';
 
-import {FC, useState, useMemo} from 'react';
-import {
-    Dialog,
-    DialogContent,
-    DialogActions,
-    Box,
-    Stepper,
-    StepLabel,
-} from '@mui/material';
+import {FC, useMemo, useState} from 'react';
+import {Box, Dialog, DialogActions, DialogContent,} from '@mui/material';
 import {DialogTitleWithClose} from '@/components/dialog/DialogTitleWithClose';
 import {NextButton} from '@/components/form/NextButton';
 import {CancelButton} from '@/components/form/CancelButton';
 import {BackButton} from '@/components/form/BackButton';
 import {Step1AuthorInfo} from '@/components/case/Step1AuthorInfo';
 import {Step2CaseInfo} from '@/components/case/Step2CaseInfo';
+import {Step3ExaminationFindings} from '@/components/case/Step3ExaminationFindings';
+import {Step4Diagnosis} from '@/components/case/Step4Diagnosis';
+import {Step5TreatmentAttachments} from '@/components/case/Step5TreatmentAttachments';
 import {Provider as JotaiProvider, useAtom} from 'jotai';
-import {currentStepAtom, caseFormDataAtom} from '@/state/caseFormAtoms';
-import {step1Schema, step2Schema} from '@/components/case/validation';
+import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
+import {step1Schema, step2Schema, step3Schema, step4Schema, step5Schema} from '@/components/case/validation';
 
 const TOTAL_STEPS = 5;
-
-const stepLabels = [
-    'Základné údaje prípadu',
-    'Informácie o pacientovi',
-    'Anamnéza',
-    'Diagnostika',
-    'Liečba a výsledky',
-];
 
 const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
@@ -40,6 +28,12 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
                 return step1Schema;
             case 1:
                 return step2Schema;
+            case 2:
+                return step3Schema;
+            case 3:
+                return step4Schema;
+            case 4:
+                return step5Schema;
             default:
                 return step1Schema;
         }
@@ -101,8 +95,17 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
             workplace: '',
             caseName: '',
             patientAgeMonths: '',
-            gender: '',
+            gender: 'male',
             affectedSystems: [],
+            familyHistory: 'nie',
+            microbiomeFactors: [],
+            nutritionalHistory: '',
+            clinicalSymptoms: [],
+            problemDescription: '',
+            diagnosis: '',
+            usedProduct: '',
+            treatmentDescription: '',
+            attachments: [],
         });
         setErrors({});
         onClose();
@@ -146,6 +149,33 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onClose}) => {
             case 1:
                 return (
                     <Step2CaseInfo
+                        formData={formData}
+                        errors={errors}
+                        onChange={handleFormChange}
+                        onBlur={handleFieldBlur}
+                    />
+                );
+            case 2:
+                return (
+                    <Step3ExaminationFindings
+                        formData={formData}
+                        errors={errors}
+                        onChange={handleFormChange}
+                        onBlur={handleFieldBlur}
+                    />
+                );
+            case 3:
+                return (
+                    <Step4Diagnosis
+                        formData={formData}
+                        errors={errors}
+                        onChange={handleFormChange}
+                        onBlur={handleFieldBlur}
+                    />
+                );
+            case 4:
+                return (
+                    <Step5TreatmentAttachments
                         formData={formData}
                         errors={errors}
                         onChange={handleFormChange}
@@ -205,7 +235,7 @@ export const AddCaseModal: FC<AddCaseModalProps> = ({open, onClose}) => {
 
     return (
         <JotaiProvider>
-            <AddCaseModalContent open={open} onClose={onClose} />
+            <AddCaseModalContent open={open} onClose={onClose}/>
         </JotaiProvider>
     );
 };

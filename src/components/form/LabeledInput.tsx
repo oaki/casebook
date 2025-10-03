@@ -4,6 +4,7 @@ import {FC} from 'react';
 import {Typography} from '@mui/material';
 import {FormTextField} from '@/components/form/FormTextField';
 import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
+import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
 
 export const LabeledInput: FC<LabeledInputProps> = ({
     label,
@@ -29,7 +30,7 @@ export const LabeledInput: FC<LabeledInputProps> = ({
                 }}
             >
                 {label}
-                {required && <span style={{color: '#4c4c4c'}}> *</span>}
+                {required && <RequiredAsterisk />}
             </Typography>
             <FormTextField
                 {...textFieldProps}
