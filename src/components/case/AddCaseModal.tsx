@@ -12,11 +12,12 @@ import {Step3ExaminationFindings} from '@/components/case/Step3ExaminationFindin
 import {Step4Diagnosis} from '@/components/case/Step4Diagnosis';
 import {Step5TreatmentAttachments} from '@/components/case/Step5TreatmentAttachments';
 import {Step6Summary} from '@/components/case/Step6Summary';
+import {Step7SubmissionMessage} from '@/components/case/Step7SubmissionMessage';
 import {Provider as JotaiProvider, useAtom} from 'jotai';
 import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
 import {step1Schema, step2Schema, step3Schema, step4Schema, step5Schema} from '@/components/case/validation';
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 7; // Steps 0-4 (form), 5 (summary), 6 (submission message)
 
 const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}) => {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
@@ -74,20 +75,23 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
     };
 
     const handleNext = () => {
-        // Skip validation for summary step (step 5)
-        if (currentStep < TOTAL_STEPS - 1) {
-            if (!validateCurrentStep()) {
-                return;
-            }
+        // For steps with editable inputs (0..4) validate
+        if (currentStep <= 4) {
+            if (!validateCurrentStep()) return;
         }
-
-        if (currentStep < TOTAL_STEPS - 1) {
-            setCurrentStep(currentStep + 1);
-        } else {
-            // Final step - submit form
-            console.log('Form submitted:', formData);
+        // Step 5 (summary) -> submit (log) and advance to final message
+        if (currentStep === 5) {
+            console.log('Submitting case form data:', formData);
+            setCurrentStep(6);
+            return;
+        }
+        // Final message step closes
+        if (currentStep === 6) {
             handleClose();
+            return;
         }
+        // Advance normally
+        setCurrentStep(currentStep + 1);
     };
 
     const handleClose = () => {
@@ -107,7 +111,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
             clinicalSymptoms: [],
             problemDescription: '',
             diagnosis: '',
-            usedProduct: '',
+            usedProduct: 'neocate_syneo',
             treatmentDescription: '',
             attachments: [],
         });
@@ -187,11 +191,9 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
                     />
                 );
             case 5:
-                return (
-                    <Step6Summary
-                        formData={formData}
-                    />
-                );
+                return <Step6Summary formData={formData} />;
+            case 6:
+                return <Step7SubmissionMessage />;
             default:
                 return <Box sx={{pt: 2}}>Krok {currentStep + 1} - Coming soon</Box>;
         }
@@ -219,20 +221,22 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
                 {renderStepContent()}
             </DialogContent>
             <DialogActions sx={{p: 2, justifyContent: 'space-between'}}>
-                <Box>
-                    {currentStep === 0 ? (
-                        <CancelButton onClick={handleClose}>
-                            Zrušiť
-                        </CancelButton>
-                    ) : (
-                        <BackButton onClick={handleBack}>
-                            Späť
-                        </BackButton>
-                    )}
+                {currentStep < 6 && (
+                    <Box>
+                        {currentStep === 0 ? (
+                            <CancelButton onClick={handleClose}>Zrušiť</CancelButton>
+                        ) : (
+                            <BackButton onClick={handleBack}>Späť</BackButton>
+                        )}
+                    </Box>
+                )}
+                <Box sx={{ml: 'auto'}}>
+                    <NextButton onClick={handleNext}>
+                        {currentStep === 5 && 'Odoslať'}
+                        {currentStep < 5 && 'Pokračovať'}
+                        {currentStep === 6 && 'Zavrieť'}
+                    </NextButton>
                 </Box>
-                <NextButton onClick={handleNext}>
-                    {currentStep === TOTAL_STEPS - 1 ? 'Odoslať' : 'Pokračovať'}
-                </NextButton>
             </DialogActions>
         </Dialog>
     );

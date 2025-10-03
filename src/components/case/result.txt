@@ -1,0 +1,26 @@
+{
+    "title": "",
+    "name": "we",
+    "specialization": "sdf",
+    "workplace": "sdf",
+    "caseName": "dsfds",
+    "patientAgeMonths": "33",
+    "gender": "male",
+    "affectedSystems": [
+        "skin",
+        "respiratory"
+    ],
+    "familyHistory": "nie",
+    "microbiomeFactors": [
+        "predcasne_narodene_dieta"
+    ],
+    "nutritionalHistory": "mm_s_eliminacnej_diery",
+    "clinicalSymptoms": [
+        "kolika"
+    ],
+    "problemDescription": "2332233232332",
+    "diagnosis": "323322332323232",
+    "usedProduct": "neocate_syneo",
+    "treatmentDescription": "323233223323232",
+    "attachments": []
+}
