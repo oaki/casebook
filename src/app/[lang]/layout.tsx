@@ -1,24 +1,26 @@
-import { ReactNode } from 'react';
-import { notFound } from 'next/navigation';
-import { SUPPORTED_LOCALES } from '@/lib/locales';
+import {ReactNode} from 'react';
+import {notFound} from 'next/navigation';
+import {isSupportedLocale} from '@/lib/locales';
 
-function isSupportedLocale(lang: string): lang is typeof SUPPORTED_LOCALES[number] {
-  return (SUPPORTED_LOCALES as readonly string[]).includes(lang);
-}
-
-// Layout validating locale segment
-export default function LangLayout({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { lang: string };
+export default async function LangLayout({
+                                       children,
+                                       params,
+                                   }: {
+    children: ReactNode;
+    params: Promise<{ lang: string }>;
 }) {
-    const {lang} = params;
+
+    const { lang } = await params;
 
     if (!isSupportedLocale(lang)) {
         notFound();
     }
 
-    return children;
+    return (
+        <html lang={lang}>
+        <body>
+        {children}
+        </body>
+        </html>
+    );
 }

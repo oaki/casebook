@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -19,7 +19,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import Image from "next/image"; // Assuming Next.js for routing
+import Image from "next/image";
+import {PREFERRED_LANG_KEY, SUPPORTED_LOCALES} from "@/lib/locales"; // Assuming Next.js for routing
 
 const StyledAppBar = styled(AppBar)(({theme}) => ({
     backgroundColor: "rgba(255, 255, 255, 0.05)", // Semi-transparent white
@@ -37,7 +38,7 @@ const StyledAppBar = styled(AppBar)(({theme}) => ({
 
 const Logo = () => (
     <Box sx={{display: "flex", alignItems: "center"}}>
-        <Link href="/" style={{ display: "inline-block" }}>
+        <Link href="/" style={{display: "inline-block"}}>
             <Image
                 src="/assets/nutricia-casebook-logo.svg"
                 alt="NUTRICIA Casebook"
@@ -55,7 +56,7 @@ const navItems = [
     {label: "Odhlásiť", href: "/logout", icon: "/assets/icons/exit.svg"},
 ];
 
-const Header: React.FC = () => {
+const Header: FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -69,8 +70,10 @@ const Header: React.FC = () => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleLanguageClose = () => {
+    const handleLanguageClose = (lang: string)=>() => {
         setAnchorEl(null);
+        localStorage.setItem(PREFERRED_LANG_KEY, lang);
+        window.location.href = `/${lang}`;
     };
 
     const drawer = (
@@ -96,7 +99,8 @@ const Header: React.FC = () => {
                                     <KeyboardArrowDownIcon sx={{ml: 1}}/>
                                 </Box>
                             ) : (
-                                <Link href={item.href || "#"} passHref style={{textDecoration: "none", color: "inherit", width: "100%"}}>
+                                <Link href={item.href || "#"} passHref
+                                      style={{textDecoration: "none", color: "inherit", width: "100%"}}>
                                     <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", gap: 0}}>
                                         {item.icon && (
                                             <Image
@@ -150,7 +154,13 @@ const Header: React.FC = () => {
                                     <Button
                                         key={item.label}
                                         color="inherit"
-                                        sx={{textTransform: "none", mx: 1, display: "flex", alignItems: "center", gap: 0}}
+                                        sx={{
+                                            textTransform: "none",
+                                            mx: 1,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: 0
+                                        }}
                                         component={Link}
                                         href={item.href || "#"}
                                         startIcon={item.icon ? (
@@ -202,11 +212,12 @@ const Header: React.FC = () => {
                     "aria-labelledby": "basic-button",
                 }}
             >
-                <MenuItem onClick={handleLanguageClose}>Slovenčina</MenuItem>
-                <MenuItem onClick={handleLanguageClose}>Čeština</MenuItem>
+                {SUPPORTED_LOCALES.map((value) => {
+                    return <MenuItem key={value.code} onClick={handleLanguageClose(value.code)}>
+                        {value.label}
+                    </MenuItem>;
+                })}
             </Menu>
-            {/* This Box creates space below the fixed header so content doesn't get hidden */}
-            {/*<Box sx={{height: 80}}/> /!* Adjust height as needed *!/*/}
         </>
     );
 };

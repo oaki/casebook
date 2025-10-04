@@ -1,8 +1,9 @@
 "use client";
 import { Box, Typography } from "@mui/material";
 import { useTranslation } from 'react-i18next';
-import Logo from "../../components/Logo";
-import "@/lib/i18n"; // Import i18n config
+
+import "@/lib/i18n";
+import Logo from "@/components/Logo"; // Import i18n config
 
 export default function VerifyRequest() {
   const { t } = useTranslation();

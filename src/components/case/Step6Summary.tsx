@@ -69,7 +69,7 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
 
     return (
         <Box sx={{pt: 2}}>
-            <FormGroupTitle>Krok 5/6: Sumár</FormGroupTitle>
+            <FormGroupTitle>Krok 5/5: Sumár</FormGroupTitle>
             <Box sx={{
                 mt: 1,
                 display: 'grid',

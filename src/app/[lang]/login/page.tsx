@@ -1,7 +1,7 @@
 'use client'
 import { FC } from "react";
 import { Box } from "@mui/material";
-import Logo from "../../components/Logo";
+import Logo from "../../../components/Logo";
 import LoginForm from "./form";
 
 const LoginPage: FC = () => {
