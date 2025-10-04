@@ -26,6 +26,6 @@ export const emailTranslations = {
   }
 };
 
-type EmailTranslations = typeof emailTranslations;
-type Language = keyof EmailTranslations;
-type TranslationKey = keyof EmailTranslations[Language];
+// type EmailTranslations = typeof emailTranslations;
+// type Language = keyof EmailTranslations;
+// type TranslationKey = keyof EmailTranslations[Language];

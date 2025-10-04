@@ -18,12 +18,8 @@ const categoryTranslations: Record<string, { title: string; description: string 
   },
 };
 
-type CategoryTeasersProps = {
-
-}
-
 // Server component that fetches data
-export const CategoryTeasers = async ({  }: CategoryTeasersProps) => {
+export const CategoryTeasers = async () => {
 
   try {
     // Fetch body parts directly from database

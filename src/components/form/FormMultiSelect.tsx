@@ -1,7 +1,7 @@
 'use client';
 
 import {FC, useState} from 'react';
-import {Select, SelectProps, FormControl, FormHelperText, MenuItem, Chip, Box} from '@mui/material';
+import {Select, SelectProps, FormControl, FormHelperText, MenuItem, Chip, Box, SelectChangeEvent} from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const FormMultiSelect: FC<FormMultiSelectProps> = ({
@@ -15,7 +15,7 @@ export const FormMultiSelect: FC<FormMultiSelectProps> = ({
 }) => {
     const [open, setOpen] = useState(false);
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: SelectChangeEvent<string[]>) => {
         onChange?.(event);
         // Close dropdown after selection
         setOpen(false);
@@ -90,7 +90,7 @@ export const FormMultiSelect: FC<FormMultiSelectProps> = ({
                             onDelete={(e) => {
                                 e.stopPropagation();
                                 const newValue = value.filter((item) => item !== val);
-                                onChange?.({target: {value: newValue}} as any);
+                                onChange?.({target: {value: newValue}} as SelectChangeEvent<string[]>);
                             }}
                             deleteIcon={
                                 <Box
@@ -134,5 +134,5 @@ type FormMultiSelectProps = Omit<SelectProps<string[]>, 'multiple' | 'renderValu
     options: Array<{value: string; label: string}>;
     placeholder?: string;
     value?: string[];
-    onChange?: (event: any) => void;
+    onChange?: (event: SelectChangeEvent<string[]>) => void;
 };

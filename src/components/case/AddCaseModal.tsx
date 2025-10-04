@@ -17,7 +17,7 @@ import {Provider as JotaiProvider, useAtom} from 'jotai';
 import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
 import {step1Schema, step2Schema, step3Schema, step4Schema, step5Schema} from '@/components/case/validation';
 
-const TOTAL_STEPS = 7; // Steps 0-4 (form), 5 (summary), 6 (submission message)
+// const TOTAL_STEPS = 7; // Steps 0-4 (form), 5 (summary), 6 (submission message)
 
 const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}) => {
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);

@@ -6,7 +6,6 @@ import {styled} from '@mui/material/styles';
 import Image from 'next/image';
 import {useAtom} from 'jotai';
 import {organHighlightAtom} from "@/components/hoverTeaserAtom";
-import PrimaryButton from "@/components/PrimaryButton";
 
 const StyledCategoryTeaser = styled(Paper)(() => ({
     display: 'flex',
