@@ -16,7 +16,7 @@ const loginSchema = z.object({
 const LOGIN_TOKEN_PURPOSE = 'login';
 const LOGIN_TOKEN_EXPIRY_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
-export async function sendLoginEmailAction(prevState: any, formData: FormData) {
+export async function sendLoginEmailAction(prevState: unknown, formData: FormData) {
     const submission = parseWithZod(formData, { schema: loginSchema });
 
     if (submission.status !== 'success') {

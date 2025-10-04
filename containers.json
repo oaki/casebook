@@ -1,0 +1,12 @@
+{
+  "casebook": {
+    "image": ":casebook.latest",
+    "environment": {
+      "NODE_ENV": "production"
+    },
+    "ports": {
+      "3000": "HTTP"
+    }
+  }
+}
+
