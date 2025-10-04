@@ -37,7 +37,7 @@ if ! command -v aws &> /dev/null; then
 fi
 
 echo "🏗️  Building Docker image..."
-docker build -t ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:${TIMESTAMP} .
+docker buildx build --platform linux/amd64 -t ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:${TIMESTAMP} --load .
 
 if [ $? -ne 0 ]; then
   echo "❌ Docker build failed"
@@ -75,4 +75,3 @@ echo "   • JWT_SECRET"
 echo "   • NODE_ENV=production"
 echo ""
 echo "🌐 Or use Web Console for easier setup!"
-

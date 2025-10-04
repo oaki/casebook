@@ -34,7 +34,7 @@ const StyledAppBar = styled(AppBar)(({theme}) => ({
     maxWidth: `calc(${theme.breakpoints.values.lg}px - ${theme.spacing(4)})`,
 }));
 
-// Mock logo component (replace with your actual logo)
+
 const Logo = () => (
     <Box sx={{display: "flex", alignItems: "center"}}>
         <Link href="/" style={{ display: "inline-block" }}>
@@ -204,7 +204,6 @@ const Header: React.FC = () => {
             >
                 <MenuItem onClick={handleLanguageClose}>Slovenčina</MenuItem>
                 <MenuItem onClick={handleLanguageClose}>Čeština</MenuItem>
-                <MenuItem onClick={handleLanguageClose}>English</MenuItem>
             </Menu>
             {/* This Box creates space below the fixed header so content doesn't get hidden */}
             {/*<Box sx={{height: 80}}/> /!* Adjust height as needed *!/*/}

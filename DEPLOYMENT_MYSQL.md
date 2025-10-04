@@ -62,13 +62,6 @@ Budeš používať tieto hodnoty z tvojho `.env` súboru v Lightsail Console:
 DATABASE_URL="mysql://kazuistika:O2g%3Ea(giz4ZWc%40YvJ2dj@mariadb114.r4.websupport.sk:3306/kazuistika_prod"
 SHADOW_DATABASE_URL="mysql://kazuistika:O2g%3Ea(giz4ZWc%40YvJ2dj@mariadb114.r4.websupport.sk:3306/kazuistika_prisma_migrate"
 
-# SMTP (z tvojho .env)
-SMTP_HOST="smtp.m1.websupport.sk"
-SMTP_PORT="465"
-SMTP_SECURE="true"
-SMTP_USER="nutricia@bincik.sk"
-SMTP_PASS="v0)tm$Zx$aU]t-f$wfH~"
-
 # JWT & Auth
 JWT_SECRET="v0)tm$Zx$aU]t-f$wfH~v0)tm$Zx$aU]t-f$wfH~v0)tm$Zx$aU]t-f$wfH~"
 NEXTAUTH_SECRET="v0)tm$Zx$aU]t-f$wfH~"
@@ -101,8 +94,8 @@ chmod +x deploy-quick.sh
 #### Manuálny spôsob:
 
 ```bash
-# Build image
-docker build -t casebook:latest .
+# Build image for the correct architecture (important for Apple Silicon Macs)
+docker buildx build --platform linux/amd64 -t casebook:latest .
 
 # Test lokálne (voliteľné)
 docker run -p 3000:3000 --env-file .env casebook:latest
@@ -140,11 +133,6 @@ aws lightsail create-container-service-deployment \
 4. **Nastav environment variables** (KĽÚČOVÉ!):
    - `DATABASE_URL` = tvoj MySQL connection string
    - `SHADOW_DATABASE_URL` = tvoj shadow DB string
-   - `SMTP_HOST` = smtp.m1.websupport.sk
-   - `SMTP_PORT` = 465
-   - `SMTP_SECURE` = true
-   - `SMTP_USER` = nutricia@bincik.sk
-   - `SMTP_PASS` = tvoje SMTP heslo
    - `JWT_SECRET` = tvoj JWT secret
    - `NEXTAUTH_SECRET` = tvoj secret
    - `NEXTAUTH_URL` = https://tvoja-url.amazonaws.com
@@ -204,12 +192,8 @@ aws lightsail get-container-log \
 - Alternatíva: Presunúť DB na cloud (PlanetScale, Railway, Lightsail DB)
 
 ### Build fails
-- Skontroluj Docker build lokálne: `docker build -t casebook:latest .`
+- Skontroluj Docker build lokálne: `docker buildx build --platform linux/amd64 -t casebook:latest .`
 - Over, či sú všetky dependencies v package.json
-
-### SMTP issues
-- Over SMTP credentials
-- Websupport SMTP môže vyžadovať whitelist IP adries
 
 ## Náklady (orientačne)
 
@@ -253,14 +237,10 @@ chmod +x deploy-quick.sh
 ./deploy-quick.sh casebook-prod
 
 # 4. V Lightsail Console nastav environment variables a deploy
+echo "   • DATABASE_URL (tvoj MySQL connection string)"
+echo "   • SHADOW_DATABASE_URL"
+echo "   • NEXTAUTH_URL, NEXTAUTH_SECRET"
+echo "   • JWT_SECRET"
+echo "   • NODE_ENV=production"
+echo ""
 ```
-
-## Podpora
-
-Ak máš problémy:
-1. Skontroluj logy v Lightsail Console
-2. Over environment variables
-3. Over database connection (ping mariadb114.r4.websupport.sk)
-4. Kontaktuj Websupport support pre whitelist
-5. Pozri DEPLOYMENT_CHECKLIST.md pre kompletný checklist
-
