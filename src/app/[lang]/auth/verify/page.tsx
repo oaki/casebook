@@ -1,7 +1,7 @@
 'use client';
 
 import {useEffect, useState, Suspense} from 'react';
-import {useRouter, useSearchParams} from 'next/navigation';
+import {useRouter, useSearchParams, useParams} from 'next/navigation';
 import {Box} from '@mui/material';
 import {verifyMagicLinkToken} from './actions';
 import {VerificationLoading} from './components/VerificationLoading';
@@ -14,6 +14,8 @@ function VerifyContent() {
     const [message, setMessage] = useState('');
     const searchParams = useSearchParams();
     const router = useRouter();
+    const params = useParams();
+    const lang = params.lang;
 
     useEffect(() => {
         const token = searchParams.get('token');
@@ -34,29 +36,21 @@ function VerifyContent() {
             setStatus('success');
             setMessage('Successfully signed in. Redirecting...');
             setTimeout(() => {
-                router.push('/dashboard');
-
+                router.push(`/${lang}/dashboard`);
             }, 2000);
         };
 
         verifyAndSignIn();
-    }, [searchParams, router]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '100vh',
-                padding: 2
-            }}
-        >
-            {status === 'loading' && <VerificationLoading/>}
-            {status === 'success' && <VerificationSuccess message={message}/>}
-            {status === 'error' && <VerificationError message={message}/>}
-        </Box>
-    );
+    if (status === 'loading') {
+        return <VerificationLoading/>;
+    }
+    if (status === 'success') {
+        return <VerificationSuccess message={message}/>;
+    }
+    return <VerificationError message={message}/>;
 }
 
 export default function VerifyPage() {

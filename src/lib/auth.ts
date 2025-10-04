@@ -11,11 +11,11 @@ export async function requireAuth() {
     return session;
 }
 
-export async function requireAdmin() {
+export async function requireAdmin(lang: string) {
     const session = await requireAuth();
 
     if (!session.user?.roles?.includes('admin')) {
-        redirect('/dashboard');
+        redirect(`/${lang}/dashboard`);
     }
 
     return session;
@@ -25,4 +25,3 @@ export async function hasRole(role: string) {
     const session = await getSession();
     return session?.user?.roles?.includes(role) ?? false;
 }
-

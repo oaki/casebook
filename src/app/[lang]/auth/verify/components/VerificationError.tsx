@@ -1,11 +1,13 @@
 import {Box, Button, Typography} from '@mui/material';
 import {useTranslation} from 'react-i18next';
-import {useRouter} from 'next/navigation';
+import {useRouter, useParams} from 'next/navigation';
 import Logo from "@/components/Logo";
 
 export const VerificationError = ({message}: { message: string }) => {
     const {t} = useTranslation();
     const router = useRouter();
+    const params = useParams();
+    const lang = params.lang;
 
     return (
         <Box
@@ -27,7 +29,7 @@ export const VerificationError = ({message}: { message: string }) => {
             </Typography>
             <Button
                 variant="contained"
-                onClick={() => router.push('/login')}
+                onClick={() => router.push(`/${lang}/login`)}
                 sx={{
                     backgroundColor: '#4814A7',
                     '&:hover': {

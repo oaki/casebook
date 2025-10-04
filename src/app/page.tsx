@@ -1,12 +1,6 @@
-import {redirect} from "next/navigation"
-import {getSession} from "@/lib/session";
+import {redirect} from "next/navigation";
 
-export default async function Home() {
-    const session = await getSession();
-
-    if (!session) {
-        redirect('/login')
-    }
-
-    redirect('/dashboard')
+export default function Home() {
+    // Redirect to default language (sk)
+    redirect("/sk");
 }

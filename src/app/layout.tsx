@@ -8,13 +8,9 @@ export const metadata: Metadata = {
     description: "Secure healthcare case management platform",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="sk">
         <body>
         <Bootstrap>
             {children}
