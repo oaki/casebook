@@ -1,8 +1,7 @@
 'use client';
 
-import {useEffect, useState, Suspense} from 'react';
-import {useRouter, useSearchParams, useParams} from 'next/navigation';
-import {Box} from '@mui/material';
+import {Suspense, useEffect, useState} from 'react';
+import {useParams, useRouter, useSearchParams} from 'next/navigation';
 import {verifyMagicLinkToken} from './actions';
 import {VerificationLoading} from './components/VerificationLoading';
 import {VerificationSuccess} from './components/VerificationSuccess';
