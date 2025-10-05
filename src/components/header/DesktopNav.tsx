@@ -19,7 +19,7 @@ type DesktopNavProps = {
   onNavigate?: () => void; // invoked after link / logout action (mobile use)
 }
 
-const ICON_FILTER = { filter: 'brightness(0) invert(1)' } as const;
+
 
 export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLang, mode = 'desktop', onNavigate }) => {
   const mobile = mode === 'mobile';
@@ -71,7 +71,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLan
               alt=""
               width={mobile ? 20 : 16}
               height={mobile ? 20 : 16}
-              style={ICON_FILTER as any}
+              style={{filter: 'brightness(0) invert(1)'}}
             />
           )}
           onClick={onNavigate}

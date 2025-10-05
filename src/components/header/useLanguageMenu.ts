@@ -17,8 +17,8 @@ export const useLanguageMenu = () => {
     // Persist + redirect to lang root
     try {
       localStorage.setItem(PREFERRED_LANG_KEY, lang);
-    } catch (_) {
-      // ignore write errors (private mode, etc.)
+    } catch (e) {
+        console.error(e);
     }
     window.location.href = `/${lang}`;
   }, []);
