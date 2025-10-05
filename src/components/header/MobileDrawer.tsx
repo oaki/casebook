@@ -1,5 +1,5 @@
 "use client";
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -7,14 +7,15 @@ import { useTheme } from '@mui/material/styles';
 import { HeaderLogo } from './HeaderLogo';
 import { DesktopNav } from './DesktopNav';
 
-interface MobileDrawerProps {
+type MobileDrawerProps = {
   open: boolean;
   onClose: () => void;
-  onOpenLanguage: (e: React.MouseEvent<HTMLElement>) => void;
+  onOpenLanguage: (e: MouseEvent<HTMLElement>) => void;
   currentLang: string;
+  t: (key: string) => string;
 }
 
-export const MobileDrawer: FC<MobileDrawerProps> = ({ open, onClose, onOpenLanguage, currentLang }) => {
+export const MobileDrawer: FC<MobileDrawerProps> = ({ open, onClose, onOpenLanguage, currentLang, t }) => {
   const theme = useTheme();
   return (
     <Drawer
@@ -45,6 +46,7 @@ export const MobileDrawer: FC<MobileDrawerProps> = ({ open, onClose, onOpenLangu
           onOpenLanguage={onOpenLanguage}
           onNavigate={onClose}
           sx={{ flex: 1 }}
+          t={t}
         />
       </Box>
     </Drawer>

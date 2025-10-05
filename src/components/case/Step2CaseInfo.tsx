@@ -9,18 +9,20 @@ import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
 import {AffectedSystemsToggle} from '@/components/form/AffectedSystemsToggle';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
 import {CaseFormData} from '@/state/caseFormAtoms';
+import {useTranslation} from "react-i18next";
 
 export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChange, onBlur}) => {
+    const { t } = useTranslation();
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Krok 1/6: Základné údaje prípadu
+                {t('caseForm.caseInfo.title')}
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <LabeledInput
                     name="caseName"
-                    label="Názov kazuistiky"
-                    placeholder="Problémy so zažívaním dieťaťa po liečbe matky ATB"
+                    label={t('caseForm.caseInfo.caseNameLabel')}
+                    placeholder={t('caseForm.caseInfo.caseNamePlaceholder')}
                     required
                     value={formData.caseName}
                     onChange={(e) => onChange('caseName', e.target.value)}
@@ -30,8 +32,8 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
                 />
                 <LabeledInput
                     name="patientAgeMonths"
-                    label="Vek pacienta v mesiacoch"
-                    placeholder="4"
+                    label={t('caseForm.caseInfo.patientAgeLabel')}
+                    placeholder={t('caseForm.caseInfo.patientAgePlaceholder')}
                     type="number"
                     required
                     value={formData.patientAgeMonths}
@@ -52,7 +54,7 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
                             },
                         }}
                     >
-                        Pohlavie<RequiredAsterisk />
+                        {t('caseForm.caseInfo.genderLabel')}<RequiredAsterisk />
                     </Typography>
                     <FormSelect
                         name="gender"
@@ -62,8 +64,8 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
                         error={!!errors.gender}
                         helperText={errors.gender}
                     >
-                        <MenuItem value="male">Chlapec</MenuItem>
-                        <MenuItem value="female">Dievča</MenuItem>
+                        <MenuItem value="male">{t('caseForm.caseInfo.genderMale')}</MenuItem>
+                        <MenuItem value="female">{t('caseForm.caseInfo.genderFemale')}</MenuItem>
                     </FormSelect>
                 </FormFieldWrapper>
                 <FormFieldWrapper>
@@ -78,7 +80,7 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
                             },
                         }}
                     >
-                        Postihnuté sústavy<RequiredAsterisk />
+                        {t('caseForm.caseInfo.affectedSystemsLabel')}<RequiredAsterisk />
                     </Typography>
                     <Box>
                         <AffectedSystemsToggle

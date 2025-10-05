@@ -15,11 +15,12 @@ import {Step6Summary} from '@/components/case/Step6Summary';
 import {Step7SubmissionMessage} from '@/components/case/Step7SubmissionMessage';
 import {Provider as JotaiProvider, useAtom} from 'jotai';
 import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
-import {step1Schema, step2Schema, step3Schema, step4Schema, step5Schema} from '@/components/case/validation';
+import {getStep1Schema, getStep2Schema, getStep3Schema, getStep4Schema, getStep5Schema} from '@/components/case/validation';
+import {useTranslation} from "react-i18next";
 
-// const TOTAL_STEPS = 7; // Steps 0-4 (form), 5 (summary), 6 (submission message)
 
 const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}) => {
+    const {t} = useTranslation();
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     const [formData, setFormData] = useAtom(caseFormDataAtom);
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -27,19 +28,19 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
     const currentSchema = useMemo(() => {
         switch (currentStep) {
             case 0:
-                return step1Schema;
+                return getStep1Schema(t);
             case 1:
-                return step2Schema;
+                return getStep2Schema(t);
             case 2:
-                return step3Schema;
+                return getStep3Schema(t);
             case 3:
-                return step4Schema;
+                return getStep4Schema(t);
             case 4:
-                return step5Schema;
+                return getStep5Schema(t);
             default:
-                return step1Schema;
+                return getStep1Schema(t);
         }
-    }, [currentStep]);
+    }, [currentStep, t]);
 
     const handleFormChange = (field: string, value: string | string[] | File[]) => {
         setFormData((prev) => ({
@@ -75,6 +76,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
     };
 
     const handleNext = () => {
+        console.log('handleNext')
         // For steps with editable inputs (0..4) validate
         if (currentStep <= 4) {
             if (!validateCurrentStep()) return;
@@ -109,7 +111,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
             microbiomeFactors: [],
             nutritionalHistory: '',
             clinicalSymptoms: [],
-            problemDescription: '',
+            otherSymptoms: '',
             diagnosis: '',
             usedProduct: 'neocate_syneo',
             treatmentDescription: '',
@@ -191,9 +193,9 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
                     />
                 );
             case 5:
-                return <Step6Summary formData={formData} />;
+                return <Step6Summary formData={formData}/>;
             case 6:
-                return <Step7SubmissionMessage />;
+                return <Step7SubmissionMessage/>;
             default:
                 return <Box sx={{pt: 2}}>Krok {currentStep + 1} - Coming soon</Box>;
         }
@@ -215,7 +217,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
             }}
         >
             <DialogTitleWithClose onClose={handleClose}>
-                Pridať novú kazuistiku
+                {t('caseForm.addCaseTitle')}
             </DialogTitleWithClose>
             <DialogContent dividers>
                 {renderStepContent()}
@@ -224,17 +226,17 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
                 {currentStep < 6 && (
                     <Box>
                         {currentStep === 0 ? (
-                            <CancelButton onClick={handleClose}>Zrušiť</CancelButton>
+                            <CancelButton onClick={handleClose}>{t('caseForm.buttons.cancel')}</CancelButton>
                         ) : (
-                            <BackButton onClick={handleBack}>Späť</BackButton>
+                            <BackButton onClick={handleBack}>{t('caseForm.buttons.back')}</BackButton>
                         )}
                     </Box>
                 )}
                 <Box sx={{ml: 'auto'}}>
                     <NextButton onClick={handleNext}>
-                        {currentStep === 5 && 'Odoslať'}
-                        {currentStep < 5 && 'Pokračovať'}
-                        {currentStep === 6 && 'Zavrieť'}
+                        {currentStep === 5 && t('caseForm.buttons.submit')}
+                        {currentStep < 5 && t('caseForm.buttons.continue')}
+                        {currentStep === 6 && t('caseForm.buttons.close')}
                     </NextButton>
                 </Box>
             </DialogActions>

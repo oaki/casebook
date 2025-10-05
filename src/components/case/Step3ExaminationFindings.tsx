@@ -9,61 +9,26 @@ import {FormMultiSelect} from '@/components/form/FormMultiSelect';
 import {FormTextArea} from '@/components/form/FormTextArea';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
 import {CaseFormData} from '@/state/caseFormAtoms';
-
-const familyHistoryOptions = [
-    {value: 'nie', label: 'Nie'},
-    {value: 'ano_vyskyt_v_rodine', label: 'Áno, výskyt v rodine'},
-];
-
-const microbiomeFactorsOptions = [
-    {value: 'predcasne_narodene_dieta', label: 'Predčasne narodené dieťa'},
-    {value: 'porod_cisarskym_rezom', label: 'Pôrod cisárskym rezom'},
-    {value: 'uzivanie_antibiotik', label: 'Užívanie antibiotík'},
-    {value: 'surodenci_velka_domacnost', label: 'Súrodenci / Veľká domácnosť'},
-    {value: 'zvierata', label: 'Zvieratá'},
-    {value: 'uzivanie_atb_u_matky', label: 'Užívanie ATB u matky'},
-    {value: 'uzivanie_atb_u_dietata', label: 'Užívanie ATB u dieťaťa'},
-    {value: 'fajcenie', label: 'Fajčenie'},
-];
-
-const nutritionalHistoryOptions = [
-    {value: 'mm_bez_eliminacnej_diery', label: 'MM (bez eliminačnej diéty matky)'},
-    {value: 'mm_s_eliminacnej_diery', label: 'MM (s eliminačnej diéty matky)'},
-    {value: 'standardna_formula', label: 'Štandardná formula (značka)'},
-    {value: 'phf', label: 'pHF (značka)'},
-    {value: 'ehf', label: 'eHF (značka)'},
-    {value: 'aaf', label: 'AAF (značka)'},
-];
-
-const clinicalSymptomsOptions = [
-    {value: 'ekzem', label: 'Ekzém'},
-    {value: 'atopicka_dermatitida', label: 'Atopická dermatitída'},
-    {value: 'urtikacia', label: 'Urtikácia'},
-    {value: 'reflux', label: 'Reflux'},
-    {value: 'regurgitacia', label: 'Regurgitácia'},
-    {value: 'kolika', label: 'Kolika'},
-    {value: 'zacpa', label: 'Zápcha'},
-    {value: 'krv_hlien_v_stolici', label: 'Krv / Hlien v stolici'},
-    {value: 'hnacka', label: 'Hnačka'},
-    {value: 'plynatost', label: 'Plynatosť'},
-    {value: 'dyschezia', label: 'Dyschézia'},
-    {value: 'tvrda_stolica', label: 'Tvrdá stolica'},
-    {value: 'sipot', label: 'Sipot'},
-    {value: 'nadcha', label: 'Nádcha'},
-    {value: 'respiracne_infekcie', label: 'Respiračné infekcie'},
-    {value: 'neprospievanie', label: 'Neprospievanie'},
-];
+import {useTranslation} from "react-i18next";
+import {i18nConfig} from "@/lib/i18n-config";
 
 export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
-    formData,
-    errors,
-    onChange,
-    onBlur,
-}) => {
+                                                                                 formData,
+                                                                                 errors,
+                                                                                 onChange,
+                                                                                 onBlur,
+                                                                             }) => {
+    const {t} = useTranslation();
+
+    const familyHistoryOptions = Object.entries(i18nConfig.resources.sk.translation.caseForm.examinationFindings.familyHistoryOptions).map(([value]) => ({ value, label: t(`caseForm.examinationFindings.familyHistoryOptions.${value}`) }));
+    const microbiomeFactorsOptions = Object.entries(i18nConfig.resources.sk.translation.caseForm.examinationFindings.microbiomeFactorsOptions).map(([value ]) => ({ value, label: t(`caseForm.examinationFindings.microbiomeFactorsOptions.${value}`) }));
+    const nutritionalHistoryOptions = Object.entries(i18nConfig.resources.sk.translation.caseForm.examinationFindings.nutritionalHistoryOptions).map(([value]) => ({ value, label: t(`caseForm.examinationFindings.nutritionalHistoryOptions.${value}`) }));
+    const clinicalSymptomsOptions = Object.entries(i18nConfig.resources.sk.translation.caseForm.examinationFindings.clinicalSymptomsOptions).map(([value]) => ({ value, label: t(`caseForm.examinationFindings.clinicalSymptomsOptions.${value}`) }));
+
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Krok 2/6: Vyšetrenie a nález
+                {t('caseForm.examinationFindings.title')}
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
@@ -78,7 +43,7 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                             },
                         }}
                     >
-                        Rodinná anamnéza<RequiredAsterisk />
+                        {t('caseForm.examinationFindings.familyHistoryLabel')}<RequiredAsterisk/>
                     </Typography>
                     <FormSelect
                         name="familyHistory"
@@ -108,16 +73,16 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                             },
                         }}
                     >
-                        Mikrobiómové faktory<RequiredAsterisk />
+                        {t('caseForm.examinationFindings.microbiomeFactorsLabel')}<RequiredAsterisk/>
                     </Typography>
                     <FormMultiSelect
                         name="microbiomeFactors"
                         value={formData.microbiomeFactors}
-                        onChange={(e) => onChange('microbiomeFactors', e.target.value)}
-                        options={microbiomeFactorsOptions}
-                        placeholder="Vyberte..."
+                        onChange={(e) => onChange('microbiomeFactors', e.target.value as string[])}
+                        onBlur={() => onBlur('microbiomeFactors')}
                         error={!!errors.microbiomeFactors}
                         helperText={errors.microbiomeFactors}
+                        options={microbiomeFactorsOptions}
                     />
                 </FormFieldWrapper>
 
@@ -133,18 +98,16 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                             },
                         }}
                     >
-                        Nutričná história<RequiredAsterisk />
+                        {t('caseForm.examinationFindings.nutritionalHistoryLabel')}<RequiredAsterisk/>
                     </Typography>
                     <FormSelect
                         name="nutritionalHistory"
                         value={formData.nutritionalHistory}
                         onChange={(e) => onChange('nutritionalHistory', e.target.value as string)}
                         onBlur={() => onBlur('nutritionalHistory')}
-                        displayEmpty
                         error={!!errors.nutritionalHistory}
                         helperText={errors.nutritionalHistory}
                     >
-                        <MenuItem value="" disabled>Vyberte...</MenuItem>
                         {nutritionalHistoryOptions.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
                                 {option.label}
@@ -165,44 +128,28 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                             },
                         }}
                     >
-                        Klinické symptómy<RequiredAsterisk />
+                        {t('caseForm.examinationFindings.clinicalSymptomsLabel')}<RequiredAsterisk/>
                     </Typography>
                     <FormMultiSelect
                         name="clinicalSymptoms"
                         value={formData.clinicalSymptoms}
-                        onChange={(e) => onChange('clinicalSymptoms', e.target.value)}
-                        options={clinicalSymptomsOptions}
-                        placeholder="Krv / Hlien v stolici"
+                        onChange={(e) => onChange('clinicalSymptoms', e.target.value as string[])}
+                        onBlur={() => onBlur('clinicalSymptoms')}
                         error={!!errors.clinicalSymptoms}
                         helperText={errors.clinicalSymptoms}
+                        options={clinicalSymptomsOptions}
                     />
                 </FormFieldWrapper>
 
-                <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
-                        Popis problému<RequiredAsterisk />
-                    </Typography>
-                    <FormTextArea
-                        name="problemDescription"
-                        value={formData.problemDescription}
-                        onChange={(e) => onChange('problemDescription', e.target.value)}
-                        onBlur={() => onBlur('problemDescription')}
-                        placeholder="Dieťa z 1. fyziologickej gravidity, pôrod v 41. týždni, zakalená plodová voda..."
-                        rows={6}
-                        error={!!errors.problemDescription}
-                        helperText={errors.problemDescription}
-                    />
-                </FormFieldWrapper>
+                <FormTextArea
+                    name="otherSymptoms"
+                    label={t('caseForm.examinationFindings.otherSymptomsLabel')}
+                    value={formData.otherSymptoms}
+                    onChange={(e) => onChange('otherSymptoms', e.target.value)}
+                    onBlur={() => onBlur('otherSymptoms')}
+                    error={!!errors.otherSymptoms}
+                    helperText={errors.otherSymptoms}
+                />
             </Box>
         </Box>
     );

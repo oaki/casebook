@@ -1,75 +1,26 @@
 'use client';
 
 import {FC, useMemo} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Box, Chip, Typography} from '@mui/material';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {CaseFormData} from '@/state/caseFormAtoms';
 
-const SYSTEM_LABELS: Record<string, string> = {
-    digestive: 'Tráviaci trakt',
-    skin: 'Koža',
-    respiratory: 'Respiračný trakt',
-};
-
-const MICROBIOME_LABELS: Record<string, string> = {
-    predcasne_narodene_dieta: 'Predčasne narodené dieťa',
-    porod_cisarskym_rezom: 'Pôrod cisárskym rezom',
-    uzivanie_antibiotik: 'Užívanie antibiotík',
-    surodenci_velka_domacnost: 'Súrodenci / Veľká domácnosť',
-    zvierata: 'Zvieratá',
-    uzivanie_atb_u_matky: 'Užívanie ATB u matky',
-    uzivanie_atb_u_dietata: 'Užívanie ATB u dieťaťa',
-    fajcenie: 'Fajčenie',
-};
-
-const NUTRITION_LABELS: Record<string, string> = {
-    mm_bez_eliminacnej_diery: 'MM (bez eliminačnej diéty matky)',
-    mm_s_eliminacnej_diery: 'MM (s eliminačnej diéty matky)',
-    standardna_formula: 'Štandardná formula (značka)',
-    phf: 'pHF (značka)',
-    ehf: 'eHF (značka)',
-    aaf: 'AAF (značka)',
-};
-
-const SYMPTOM_LABELS: Record<string, string> = {
-    ekzem: 'Ekzém',
-    atopicka_dermatitida: 'Atopická dermatitída',
-    urtikacia: 'Urtikácia',
-    reflux: 'Reflux',
-    regurgitacia: 'Regurgitácia',
-    kolika: 'Kolika',
-    zacpa: 'Zápcha',
-    krv_hlien_v_stolici: 'Krv / Hlien v stolici',
-    hnacka: 'Hnačka',
-    plynatost: 'Plynatosť',
-    dyschezia: 'Dyschézia',
-    tvrda_stolica: 'Tvrdá stolica',
-    sipot: 'Sipot',
-    nadcha: 'Nádcha',
-    respiracne_infekcie: 'Respiračné infekcie',
-    neprospievanie: 'Neprospievanie',
-};
-
-const PRODUCT_LABELS: Record<string, string> = {
-    neocate_syneo: 'Neocate Syneo',
-    neocate_lcp: 'Neocate LCP',
-    neocate_advance: 'Neocate Advance',
-    neocate_junior: 'Neocate Junior',
-};
-
 export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
-    const genderLabel = formData.gender === 'male' ? 'Chlapec' : formData.gender === 'female' ? 'Dievča' : formData.gender;
-    const familyHistoryLabel = formData.familyHistory?.startsWith('ano') ? 'Áno' : 'Nie';
+    const {t} = useTranslation();
 
-    const affectedSystems = useMemo(() => formData.affectedSystems.map((v) => SYSTEM_LABELS[v] || v), [formData.affectedSystems]);
-    const microbiome = useMemo(() => formData.microbiomeFactors.map((v) => MICROBIOME_LABELS[v] || v), [formData.microbiomeFactors]);
-    const nutrition = NUTRITION_LABELS[formData.nutritionalHistory] || formData.nutritionalHistory || '-';
-    const symptoms = useMemo(() => formData.clinicalSymptoms.map((v) => SYMPTOM_LABELS[v] || v), [formData.clinicalSymptoms]);
-    const product = PRODUCT_LABELS[formData.usedProduct] || formData.usedProduct || '-';
+    const genderLabel = formData.gender === 'male' ? t('caseForm.caseInfo.genderMale') : formData.gender === 'female' ? t('caseForm.caseInfo.genderFemale') : formData.gender;
+    const familyHistoryLabel = formData.familyHistory?.startsWith('ano') ? t('caseForm.examinationFindings.familyHistoryOptions.yes') : t('caseForm.examinationFindings.familyHistoryOptions.no');
+
+    const affectedSystems = useMemo(() => formData.affectedSystems.map((v) => t(`caseForm.caseInfo.affectedSystemsOptions.${v}`)), [formData.affectedSystems, t]);
+    const microbiome = useMemo(() => formData.microbiomeFactors.map((v) => t(`caseForm.examinationFindings.microbiomeFactorsOptions.${v}`)), [formData.microbiomeFactors, t]);
+    const nutrition = t(`caseForm.examinationFindings.nutritionalHistoryOptions.${formData.nutritionalHistory}`) || formData.nutritionalHistory || '-';
+    const symptoms = useMemo(() => formData.clinicalSymptoms.map((v) => t(`caseForm.examinationFindings.clinicalSymptomsOptions.${v}`)), [formData.clinicalSymptoms, t]);
+    const product = t(`caseForm.treatment.productOptions.${formData.usedProduct}`) || formData.usedProduct || '-';
 
     return (
         <Box sx={{pt: 2}}>
-            <FormGroupTitle>Krok 5/5: Sumár</FormGroupTitle>
+            <FormGroupTitle>{t('caseForm.summary.title')}</FormGroupTitle>
             <Box sx={{
                 mt: 1,
                 display: 'grid',
@@ -78,16 +29,16 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
                 columnGap: 3,
                 alignItems: 'start',
             }}>
-                <LabelCell text="Názov kazuistiky" />
+                <LabelCell text={t('caseForm.summary.caseNameLabel')} />
                 <ValueCell>{formData.caseName || '-'}</ValueCell>
 
-                <LabelCell text="Vek dieťaťa v mesiacoch" />
-                <ValueCell>{formData.patientAgeMonths ? `${formData.patientAgeMonths} mesiace` : '-'}</ValueCell>
+                <LabelCell text={t('caseForm.summary.patientAgeLabel')} />
+                <ValueCell>{formData.patientAgeMonths ? `${formData.patientAgeMonths} ${t('caseForm.summary.patientAgeMonths')}` : '-'}</ValueCell>
 
-                <LabelCell text="Pohlavie" />
+                <LabelCell text={t('caseForm.summary.genderLabel')} />
                 <ValueCell>{genderLabel}</ValueCell>
 
-                <LabelCell text="Postihnuté sústavy" />
+                <LabelCell text={t('caseForm.summary.affectedSystemsLabel')} />
                 <ValueCell>
                     {affectedSystems.length ? (
                         <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
@@ -98,10 +49,10 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
                     ) : ('-')}
                 </ValueCell>
 
-                <LabelCell text="Rodinná anamnéza" />
+                <LabelCell text={t('caseForm.summary.familyHistoryLabel')} />
                 <ValueCell>{familyHistoryLabel}</ValueCell>
 
-                <LabelCell text="Mikrobiómové faktory" />
+                <LabelCell text={t('caseForm.summary.microbiomeFactorsLabel')} />
                 <ValueCell>
                     {microbiome.length ? (
                         <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
@@ -112,10 +63,10 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
                     ) : ('-')}
                 </ValueCell>
 
-                <LabelCell text="Nutričná história" />
+                <LabelCell text={t('caseForm.summary.nutritionalHistoryLabel')} />
                 <ValueCell>{nutrition}</ValueCell>
 
-                <LabelCell text="Klinické symptómy" />
+                <LabelCell text={t('caseForm.summary.clinicalSymptomsLabel')} />
                 <ValueCell>
                     {symptoms.length ? (
                         <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
@@ -126,20 +77,20 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
                     ) : ('-')}
                 </ValueCell>
 
-                <LabelCell text="Popis problému" />
+                <LabelCell text={t('caseForm.summary.otherSymptomsLabel')} />
                 <ValueCell>
-                    <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.problemDescription || '-'}</Typography>
+                    <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.otherSymptoms || '-'}</Typography>
                 </ValueCell>
 
-                <LabelCell text="Diagnóza" />
+                <LabelCell text={t('caseForm.summary.diagnosisLabel')} />
                 <ValueCell>
                     <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.diagnosis || '-'}</Typography>
                 </ValueCell>
 
-                <LabelCell text="Použitý produkt" />
+                <LabelCell text={t('caseForm.summary.usedProductLabel')} />
                 <ValueCell>{product}</ValueCell>
 
-                <LabelCell text="Popis liečby" />
+                <LabelCell text={t('caseForm.summary.treatmentDescriptionLabel')} />
                 <ValueCell>
                     <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.treatmentDescription || '-'}</Typography>
                 </ValueCell>

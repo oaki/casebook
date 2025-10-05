@@ -6,6 +6,7 @@ import {styled} from '@mui/material/styles';
 import Image from 'next/image';
 import {useAtom} from 'jotai';
 import {organHighlightAtom} from "@/components/hoverTeaserAtom";
+import {useTranslation} from "react-i18next";
 
 const StyledCategoryTeaser = styled(Paper)(() => ({
     display: 'flex',
@@ -58,6 +59,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
     console.log({organHighlight})
     const allIconMap = getIconConfig('all');
 
+    const {t} = useTranslation();
     return (
         <>
             <Box sx={{
@@ -80,7 +82,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                             <StyledCategoryTeaser
                                 key={category.id}
                                 elevation={0}
-                                title={category.description}
+
                                 onMouseEnter={() => {
                                     setOrganHighlight({
                                         hover: [category.svg_region],
@@ -122,7 +124,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
 
                     <StyledCategoryTeaser
                         elevation={0}
-                        title={"Všetky kazuistiky"}
+                        title={t('buttons.allCases')}
                         onMouseEnter={() => {
                             setOrganHighlight({
                                 hover: ['all'],
@@ -150,14 +152,13 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                         }}>
                             <Image
                                 src={allIconMap.path}
-                                alt={'Všetky kazuistiky'}
+                                alt={t('buttons.allCases')}
                                 width={64}
                                 height={64}
                                 style={{filter: 'brightness(0) invert(1)'}}
                             />
                         </Box>
-                        <Typography variant="h5" gutterBottom sx={{margin: 0}}>Všetky kazuistiky</Typography>
-                        {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
+                        <Typography variant="h5" gutterBottom sx={{margin: 0}}>{t('buttons.allCases')}</Typography>
                     </StyledCategoryTeaser>
                 </Box>
             </Box>
@@ -165,14 +166,12 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
     );
 };
 
-// Types placed at the end of file
-type Category = {
+export type Category = {
     id: number;
     code: string;
     svg_region: string;
     order: number;
     title: string;
-    description: string;
 }
 
 type CategoryTeasersClientProps = {

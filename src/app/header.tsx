@@ -12,9 +12,10 @@ import {LanguageMenu} from "@/components/header/LanguageMenu";
 import {useLanguageMenu} from "@/components/header/useLanguageMenu";
 import {usePathname} from 'next/navigation';
 import {DEFAULT_LOCALE, isSupportedLocale, Locale} from '@/lib/locales';
+import {useTranslation} from 'react-i18next';
 
 const Header: FC = () => {
-    // Derive current language from pathname (/sk/..., /cz/..., etc.)
+    const {t} = useTranslation();
     const pathname = usePathname();
     const segments = pathname.split('/');
     const maybeLang = segments[1];
@@ -30,7 +31,6 @@ const Header: FC = () => {
             <StyledAppBar elevation={0} position="sticky">
                 <Toolbar sx={{justifyContent: "space-between"}}>
                     <HeaderLogo/>
-                    {/* Mobile hamburger (visible xs-only) */}
                     <IconButton
                         color="inherit"
                         aria-label="toggle navigation drawer"
@@ -40,11 +40,11 @@ const Header: FC = () => {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    {/* Desktop navigation (hidden on xs) */}
                     <DesktopNav
                         onOpenLanguage={openMenu}
                         currentLang={currentLang}
                         sx={{display: {xs: 'none', sm: 'flex'}}}
+                        t={t}
                     />
                 </Toolbar>
             </StyledAppBar>
@@ -55,6 +55,7 @@ const Header: FC = () => {
                     onClose={toggleMobile}
                     onOpenLanguage={openMenu}
                     currentLang={currentLang}
+                    t={t}
                 />
             </nav>
 

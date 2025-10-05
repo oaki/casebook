@@ -1,37 +1,38 @@
 import {z} from 'zod';
+import {TFunction} from 'i18next';
 
-export const step1Schema = z.object({
-    name: z.string().min(1, 'Vaše meno je povinné'),
-    specialization: z.string().min(1, 'Vaša špecializácia je povinná'),
-    workplace: z.string().min(1, 'Vaše pracovisko je povinné'),
+export const getStep1Schema = (t: TFunction) => z.object({
+    name: z.string().min(1, t('caseForm.validation.nameRequired')),
+    specialization: z.string().min(1, t('caseForm.validation.specializationRequired')),
+    workplace: z.string().min(1, t('caseForm.validation.workplaceRequired')),
 });
 
-export const step2Schema = z.object({
-    caseName: z.string().min(3, 'Názov kazuistiky musí mať aspoň 3 znaky'),
-    patientAgeMonths: z.string().min(1, 'Vek pacienta je povinný'),
-    gender: z.string().min(1, 'Pohlavie je povinné'),
-    affectedSystems: z.array(z.string()).min(1, 'Vyberte aspoň jeden postihnutý systém'),
+export const getStep2Schema = (t: TFunction) => z.object({
+    caseName: z.string().min(3, t('caseForm.validation.caseNameMin')),
+    patientAgeMonths: z.string().min(1, t('caseForm.validation.patientAgeRequired')),
+    gender: z.string().min(1, t('caseForm.validation.genderRequired')),
+    affectedSystems: z.array(z.string()).min(1, t('caseForm.validation.affectedSystemsMin')),
 });
 
-export const step3Schema = z.object({
-    familyHistory: z.string().min(1, 'Rodinná anamnéza je povinná'),
-    microbiomeFactors: z.array(z.string()).min(1, 'Vyberte aspoň jeden mikrbiómový faktor'),
-    nutritionalHistory: z.string().min(1, 'Nutričná história je povinná'),
-    clinicalSymptoms: z.array(z.string()).min(1, 'Vyberte aspoň jeden klinický symptóm'),
-    problemDescription: z.string().min(10, 'Popis problému musí mať aspoň 10 znakov'),
+export const getStep3Schema = (t: TFunction) => z.object({
+    familyHistory: z.string().min(1, t('caseForm.validation.familyHistoryRequired')),
+    microbiomeFactors: z.array(z.string()).min(1, t('caseForm.validation.microbiomeFactorsMin')),
+    nutritionalHistory: z.string().min(1, t('caseForm.validation.nutritionalHistoryRequired')),
+    clinicalSymptoms: z.array(z.string()).min(1, t('caseForm.validation.clinicalSymptomsMin')),
+    otherSymptoms: z.string().min(10, t('caseForm.validation.otherSymptomsMin')),
 });
 
-export const step4Schema = z.object({
-    diagnosis: z.string().min(10, 'Diagnóza musí mať aspoň 10 znakov'),
+export const getStep4Schema = (t: TFunction) => z.object({
+    diagnosis: z.string().min(10, t('caseForm.validation.diagnosisMin')),
 });
 
-export const step5Schema = z.object({
-    usedProduct: z.string().min(1, 'Použitý produkt je povinný'),
-    treatmentDescription: z.string().min(10, 'Popis liečby musí mať aspoň 10 znakov'),
+export const getStep5Schema = (t: TFunction) => z.object({
+    usedProduct: z.string().min(1, t('caseForm.validation.usedProductRequired')),
+    treatmentDescription: z.string().min(10, t('caseForm.validation.treatmentDescriptionMin')),
 });
 
-export type Step1FormData = z.infer<typeof step1Schema>;
-export type Step2FormData = z.infer<typeof step2Schema>;
-export type Step3FormData = z.infer<typeof step3Schema>;
-export type Step4FormData = z.infer<typeof step4Schema>;
-export type Step5FormData = z.infer<typeof step5Schema>;
+export type Step1FormData = z.infer<ReturnType<typeof getStep1Schema>>;
+export type Step2FormData = z.infer<ReturnType<typeof getStep2Schema>>;
+export type Step3FormData = z.infer<ReturnType<typeof getStep3Schema>>;
+export type Step4FormData = z.infer<ReturnType<typeof getStep4Schema>>;
+export type Step5FormData = z.infer<ReturnType<typeof getStep5Schema>>;

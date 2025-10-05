@@ -1,6 +1,7 @@
 'use client';
 
 import {FC} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Box, Typography, MenuItem} from '@mui/material';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
@@ -23,10 +24,16 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
     onChange,
     onBlur,
 }) => {
+    const {t} = useTranslation();
+    const translatedProductOptions = productOptions.map(option => ({
+        ...option,
+        label: t(`caseForm.treatment.productOptions.${option.value}`)
+    }));
+
     return (
         <Box sx={{pt: 2}}>
             <FormGroupTitle>
-                Krok 4/6: Liečba a prílohy
+                {t('caseForm.treatment.title')}
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
@@ -41,7 +48,7 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                             },
                         }}
                     >
-                        Použitý produkt<RequiredAsterisk />
+                        {t('caseForm.treatment.usedProductLabel')}<RequiredAsterisk />
                     </Typography>
                     <FormSelect
                         name="usedProduct"
@@ -52,8 +59,8 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                         error={!!errors.usedProduct}
                         helperText={errors.usedProduct}
                     >
-                        <MenuItem value="" disabled>Neocate Syneo</MenuItem>
-                        {productOptions.map((option) => (
+                        <MenuItem value="" disabled>{t('caseForm.treatment.usedProductPlaceholder')}</MenuItem>
+                        {translatedProductOptions.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
                                 {option.label}
                             </MenuItem>
@@ -73,14 +80,14 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                             },
                         }}
                     >
-                        Popis liečby<RequiredAsterisk />
+                        {t('caseForm.treatment.treatmentDescriptionLabel')}<RequiredAsterisk />
                     </Typography>
                     <FormTextArea
                         name="treatmentDescription"
                         value={formData.treatmentDescription}
                         onChange={(e) => onChange('treatmentDescription', e.target.value)}
                         onBlur={() => onBlur('treatmentDescription')}
-                        placeholder="Popíšte liečbu"
+                        placeholder={t('caseForm.treatment.treatmentDescriptionPlaceholder')}
                         rows={6}
                         error={!!errors.treatmentDescription}
                         helperText={errors.treatmentDescription}
@@ -99,7 +106,7 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                             },
                         }}
                     >
-                        Prílohy
+                        {t('caseForm.treatment.attachmentsLabel')}
                     </Typography>
                     <ImageUpload
                         files={formData.attachments}

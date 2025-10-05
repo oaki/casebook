@@ -72,6 +72,154 @@ export const i18nConfig = {
                     signature: "Tím Nutricia I CASEBOOK",
                     viewOnline: "Zobraziť e-mail online",
                     subject: 'Prístup do Nutricia | CASEBOOK'
+                },
+                caseForm: {
+
+                    addCaseTitle: 'Pridať novú kazuistiku',
+                    buttons: {
+                        cancel: 'Zrušiť',
+                        back: 'Späť',
+                        submit: 'Odoslať',
+                        continue: 'Pokračovať',
+                        close: 'Zavrieť'
+                    },
+                    authorInfo: {
+                        title: 'Základné údaje o autorovi',
+                        nameLabel: 'Vaše meno',
+                        namePlaceholder: 'MUDr. Ján Novák, PhD.',
+                        specializationLabel: 'Vaša špecializácia',
+                        specializationPlaceholder: 'Pediater',
+                        workplaceLabel: 'Vaše pracovisko',
+                        workplacePlaceholder: 'Univerzitná Nemocnica Bratislava'
+                    },
+                    caseInfo: {
+                        title: 'Krok 1/6: Základné údaje prípadu',
+                        caseNameLabel: 'Názov kazuistiky',
+                        caseNamePlaceholder: 'Problémy so zažívaním dieťaťa po liečbe matky ATB',
+                        patientAgeLabel: 'Vek pacienta v mesiacoch',
+                        patientAgePlaceholder: '4',
+                        genderLabel: 'Pohlavie',
+                        genderMale: 'Chlapec',
+                        genderFemale: 'Dievča',
+                        affectedSystemsLabel: 'Postihnuté sústavy',
+                        affectedSystemsOptions: {
+                            digestive: 'Tráviaci trakt',
+                            skin: 'Koža',
+                            respiratory: 'Respiračný trakt'
+                        }
+                    },
+                    examinationFindings: {
+                        title: 'Krok 2/6: Vyšetrenie a nález',
+                        familyHistoryLabel: 'Rodinná anamnéza',
+                        familyHistoryOptions: {
+                            no: 'Nie',
+                            yes: 'Áno, výskyt v rodine'
+                        },
+                        microbiomeFactorsLabel: 'Faktory ovplyvňujúce mikrobióm',
+                        microbiomeFactorsOptions: {
+                            premature: 'Predčasne narodené dieťa',
+                            cSection: 'Pôrod cisárskym rezom',
+                            antibiotics: 'Užívanie antibiotík',
+                            siblings: 'Súrodenci / Veľká domácnosť',
+                            animals: 'Zvieratá',
+                            motherAtb: 'Užívanie ATB u matky',
+                            childAtb: 'Užívanie ATB u dieťaťa',
+                            smoking: 'Fajčenie'
+                        },
+                        nutritionalHistoryLabel: 'Nutričná anamnéza',
+                        nutritionalHistoryOptions: {
+                            mm_no_elimination: 'MM (bez eliminačnej diéty matky)',
+                            mm_with_elimination: 'MM (s eliminačnej diéty matky)',
+                            standard_formula: 'Štandardná formula (značka)',
+                            phf: 'pHF (značka)',
+                            ehf: 'eHF (značka)',
+                            aaf: 'AAF (značka)'
+                        },
+                        clinicalSymptomsLabel: 'Klinické symptómy',
+                        clinicalSymptomsOptions: {
+                            eczema: 'Ekzém',
+                            atopicDermatitis: 'Atopická dermatitída',
+                            urticaria: 'Urtikácia',
+                            reflux: 'Reflux',
+                            regurgitation: 'Regurgitácia',
+                            colic: 'Kolika',
+                            constipation: 'Zápcha',
+                            bloodMucusInStool: 'Krv / Hlien v stolici',
+                            diarrhea: 'Hnačka',
+                            flatulence: 'Plynatosť',
+                            dyschezia: 'Dyschézia',
+                            hardStool: 'Tvrdá stolica',
+                            wheezing: 'Sipot',
+                            rhinitis: 'Nádcha',
+                            respiratoryInfections: 'Respiračné infekcie',
+                            failureToThrive: 'Neprospievanie'
+                        },
+                        otherSymptomsLabel: 'Iné symptómy / Poznámky',
+                        otherSymptomsPlaceholder: 'Zadajte ďalšie symptómy alebo poznámky...'
+                    },
+                    diagnosis: {
+                        title: 'Krok 3/6: Diagnóza',
+                        diagnosisLabel: 'Diagnóza',
+                        diagnosisPlaceholder: '2x UZ vyšetrenie pre vylúčenie pylorostenózy a invaginácie. Po zavedení Neocate Syneo rýchly ústup ťažkostí do 48 hodín...'
+                    },
+                    treatment: {
+                        title: 'Krok 4/6: Liečba a prílohy',
+                        usedProductLabel: 'Použitý produkt',
+                        usedProductPlaceholder: 'Neocate Syneo',
+                        treatmentDescriptionLabel: 'Popis liečby',
+                        treatmentDescriptionPlaceholder: 'Popíšte liečbu',
+                        attachmentsLabel: 'Prílohy',
+                        productOptions: {
+                            neocate_syneo: 'Neocate Syneo',
+                            neocate_lcp: 'Neocate LCP',
+                            neocate_advance: 'Neocate Advance',
+                            neocate_junior: 'Neocate Junior'
+                        }
+                    },
+                    summary: {
+                        title: 'Krok 5/6: Súhrn',
+                        caseNameLabel: 'Názov kazuistiky',
+                        patientAgeLabel: 'Vek dieťaťa v mesiacoch',
+                        patientAgeMonths: 'mesiace',
+                        genderLabel: 'Pohlavie',
+                        affectedSystemsLabel: 'Postihnuté sústavy',
+                        familyHistoryLabel: 'Rodinná anamnéza',
+                        microbiomeFactorsLabel: 'Faktory ovplyvňujúce mikrobióm',
+                        nutritionalHistoryLabel: 'Nutričná anamnéza',
+                        clinicalSymptomsLabel: 'Klinické symptómy',
+                        diagnosisLabel: 'Diagnóza',
+                        usedProductLabel: 'Použitý produkt',
+                        treatmentDescriptionLabel: 'Popis liečby'
+                    },
+                    submission: {
+                        title: 'Ďakujeme, Vaša kazuistika bola úspešne odoslaná na schválenie.',
+                        message: 'Naši administrátori teraz podrobia Vašu kazuistiku kontrole. Pokiaľ bude všetko v poriadku, kazuistika bude publikovaná a dostupná k nahliadnutiu v našej aplikácii.'
+                    },
+                    validation: {
+                        nameRequired: 'Vaše meno je povinné',
+                        specializationRequired: 'Vaša špecializácia je povinná',
+                        workplaceRequired: 'Vaše pracovisko je povinné',
+                        caseNameMin: 'Názov kazuistiky musí mať aspoň 3 znaky',
+                        patientAgeRequired: 'Vek pacienta je povinný',
+                        genderRequired: 'Pohlavie je povinné',
+                        affectedSystemsMin: 'Vyberte aspoň jeden postihnutý systém',
+                        familyHistoryRequired: 'Rodinná anamnéza je povinná',
+                        microbiomeFactorsMin: 'Vyberte aspoň jeden mikrobiómový faktor',
+                        nutritionalHistoryRequired: 'Nutričná história je povinná',
+                        clinicalSymptomsMin: 'Vyberte aspoň jeden klinický symptóm',
+                        problemDescriptionMin: 'Popis problému musí mať aspoň 10 znakov',
+                        diagnosisMin: 'Diagnóza musí mať aspoň 10 znakov',
+                        usedProductRequired: 'Použitý produkt je povinný',
+                        treatmentDescriptionMin: 'Popis liečby musí mať aspoň 10 znakov'
+                    }
+                },
+                buttons: {
+                    allCases: 'Všetky kazuistiky'
+                },
+                header: {
+                    productList: 'Zoznam produktov',
+                    language: 'Jazyk',
+                    logout: 'Odhlásiť'
                 }
             }
         },
@@ -147,6 +295,153 @@ export const i18nConfig = {
                     signature: "Tým Nutricia I CASEBOOK",
                     viewOnline: "Zobrazit e-mail online",
                     subject: 'Přístup do Nutricia | CASEBOOK'
+                },
+                caseForm: {
+                    addCaseTitle: 'Přidat novou kazuistiku',
+                    buttons: {
+                        cancel: 'Zrušit',
+                        back: 'Zpět',
+                        submit: 'Odeslat',
+                        continue: 'Pokračovat',
+                        close: 'Zavřít'
+                    },
+                    authorInfo: {
+                        title: 'Základní údaje o autorovi',
+                        nameLabel: 'Vaše jméno',
+                        namePlaceholder: 'MUDr. Jan Novák, PhD.',
+                        specializationLabel: 'Vaše specializace',
+                        specializationPlaceholder: 'Pediatr',
+                        workplaceLabel: 'Vaše pracoviště',
+                        workplacePlaceholder: 'Univerzitní Nemocnice Bratislava'
+                    },
+                    caseInfo: {
+                        title: 'Krok 1/6: Základní údaje případu',
+                        caseNameLabel: 'Název kazuistiky',
+                        caseNamePlaceholder: 'Problémy se zažíváním dítěte po léčbě matky ATB',
+                        patientAgeLabel: 'Věk pacienta v měsících',
+                        patientAgePlaceholder: '4',
+                        genderLabel: 'Pohlaví',
+                        genderMale: 'Chlapec',
+                        genderFemale: 'Dívka',
+                        affectedSystemsLabel: 'Postižené soustavy',
+                        affectedSystemsOptions: {
+                            digestive: 'Trávicí trakt',
+                            skin: 'Kůže',
+                            respiratory: 'Respirační trakt'
+                        }
+                    },
+                    examinationFindings: {
+                        title: 'Krok 2/6: Vyšetření a nález',
+                        familyHistoryLabel: 'Rodinná anamnéza',
+                        familyHistoryOptions: {
+                            no: 'Ne',
+                            yes: 'Ano, výskyt v rodině'
+                        },
+                        microbiomeFactorsLabel: 'Faktory ovlivňující mikrobiom',
+                        microbiomeFactorsOptions: {
+                            premature: 'Předčasně narozené dítě',
+                            cSection: 'Porod císařským řezem',
+                            antibiotics: 'Užívání antibiotik',
+                            siblings: 'Sourozenci / Velká domácnost',
+                            animals: 'Zvířata',
+                            motherAtb: 'Užívání ATB u matky',
+                            childAtb: 'Užívání ATB u dítěte',
+                            smoking: 'Kouření'
+                        },
+                        nutritionalHistoryLabel: 'Nutriční anamnéza',
+                        nutritionalHistoryOptions: {
+                            mm_no_elimination: 'MM (bez eliminační diety matky)',
+                            mm_with_elimination: 'MM (s eliminační dietou matky)',
+                            standard_formula: 'Standardní formule (značka)',
+                            phf: 'pHF (značka)',
+                            ehf: 'eHF (značka)',
+                            aaf: 'AAF (značka)'
+                        },
+                        clinicalSymptomsLabel: 'Klinické symptomy',
+                        clinicalSymptomsOptions: {
+                            eczema: 'Ekzém',
+                            atopicDermatitis: 'Atopická dermatitida',
+                            urticaria: 'Kopřivka',
+                            reflux: 'Reflux',
+                            regurgitation: 'Regurgitace',
+                            colic: 'Kolika',
+                            constipation: 'Zácpa',
+                            bloodMucusInStool: 'Krev / Hlen ve stolici',
+                            diarrhea: 'Průjem',
+                            flatulence: 'Plynatost',
+                            dyschezia: 'Dyschezie',
+                            hardStool: 'Tvrdá stolice',
+                            wheezing: 'Sípání',
+                            rhinitis: 'Rýma',
+                            respiratoryInfections: 'Respirační infekce',
+                            failureToThrive: 'Neprospívání'
+                        },
+                        otherSymptomsLabel: 'Jiné symptomy / Poznámky',
+                        otherSymptomsPlaceholder: 'Zadejte další symptomy nebo poznámky...'
+                    },
+                    diagnosis: {
+                        title: 'Krok 3/6: Diagnóza',
+                        diagnosisLabel: 'Diagnóza',
+                        diagnosisPlaceholder: '2x UZ vyšetření pro vyloučení pylorostenózy a invaginace. Po zavedení Neocate Syneo rychlý ústup potíží do 48 hodin...'
+                    },
+                    treatment: {
+                        title: 'Krok 4/6: Léčba a přílohy',
+                        usedProductLabel: 'Použitý produkt',
+                        usedProductPlaceholder: 'Neocate Syneo',
+                        treatmentDescriptionLabel: 'Popis léčby',
+                        treatmentDescriptionPlaceholder: 'Popište léčbu',
+                        attachmentsLabel: 'Přílohy',
+                        productOptions: {
+                            neocate_syneo: 'Neocate Syneo',
+                            neocate_lcp: 'Neocate LCP',
+                            neocate_advance: 'Neocate Advance',
+                            neocate_junior: 'Neocate Junior'
+                        }
+                    },
+                    summary: {
+                        title: 'Krok 5/6: Souhrn',
+                        caseNameLabel: 'Název kazuistiky',
+                        patientAgeLabel: 'Věk dítěte v měsících',
+                        patientAgeMonths: 'měsíce',
+                        genderLabel: 'Pohlaví',
+                        affectedSystemsLabel: 'Postižené soustavy',
+                        familyHistoryLabel: 'Rodinná anamnéza',
+                        microbiomeFactorsLabel: 'Faktory ovlivňující mikrobiom',
+                        nutritionalHistoryLabel: 'Nutriční anamnéza',
+                        clinicalSymptomsLabel: 'Klinické symptomy',
+                        diagnosisLabel: 'Diagnóza',
+                        usedProductLabel: 'Použitý produkt',
+                        treatmentDescriptionLabel: 'Popis léčby'
+                    },
+                    submission: {
+                        title: 'Děkujeme, Vaše kazuistika byla úspěšně odeslána ke schválení.',
+                        message: 'Naši administrátoři nyní podrobí Vaši kazuistiku kontrole. Pokud bude vše v pořádku, kazuistika bude publikována a dostupná k nahlédnutí v naší aplikaci.'
+                    },
+                    validation: {
+                        nameRequired: 'Vaše jméno je povinné',
+                        specializationRequired: 'Vaše specializace je povinná',
+                        workplaceRequired: 'Vaše pracoviště je povinné',
+                        caseNameMin: 'Název kazuistiky musí mít alespoň 3 znaky',
+                        patientAgeRequired: 'Věk pacienta je povinný',
+                        genderRequired: 'Pohlaví je povinné',
+                        affectedSystemsMin: 'Vyberte alespoň jeden postižený systém',
+                        familyHistoryRequired: 'Rodinná anamnéza je povinná',
+                        microbiomeFactorsMin: 'Vyberte alespoň jeden mikrobiomový faktor',
+                        nutritionalHistoryRequired: 'Nutriční historie je povinná',
+                        clinicalSymptomsMin: 'Vyberte alespoň jeden klinický symptom',
+                        problemDescriptionMin: 'Popis problému musí mít alespoň 10 znaků',
+                        diagnosisMin: 'Diagnóza musí mít alespoň 10 znaků',
+                        usedProductRequired: 'Použitý produkt je povinný',
+                        treatmentDescriptionMin: 'Popis léčby musí mít alespoň 10 znaků'
+                    }
+                },
+                buttons: {
+                    allCases: 'Všechny kazuistiky'
+                },
+                header: {
+                    productList: 'Seznam produktů',
+                    language: 'Jazyk',
+                    logout: 'Odhlásit'
                 }
             }
         }

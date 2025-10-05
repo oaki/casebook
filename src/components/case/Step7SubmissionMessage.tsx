@@ -1,9 +1,12 @@
 'use client';
 
 import {FC} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Box, Typography} from '@mui/material';
 
 export const Step7SubmissionMessage: FC = () => {
+    const {t} = useTranslation();
+
     return (
         <Box sx={{pt: 2}}>
             <Typography
@@ -15,7 +18,7 @@ export const Step7SubmissionMessage: FC = () => {
                     mb: 3,
                 }}
             >
-                Ďakujeme, Vaša kazuistika bola úspešne odoslaná na schválenie.
+                {t('caseForm.submission.title')}
             </Typography>
             <Typography
                 sx={{
@@ -27,10 +30,8 @@ export const Step7SubmissionMessage: FC = () => {
                     mx: 'auto',
                 }}
             >
-                Naši administrátori teraz podrobia Vašu kazuistiku kontrole. Pokiaľ bude všetko v poriadku,
-                kazuistika bude publikovaná a dostupná k nahliadnutiu v našej aplikácii.
+                {t('caseForm.submission.message')}
             </Typography>
         </Box>
     );
 };
-

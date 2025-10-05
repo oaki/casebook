@@ -16,12 +16,11 @@ type DesktopNavProps = {
   sx?: SxProps<Theme>;
   currentLang: string;
   mode?: NavMode;
-  onNavigate?: () => void; // invoked after link / logout action (mobile use)
+  onNavigate?: () => void;
+  t: (key: string) => string;
 }
 
-
-
-export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLang, mode = 'desktop', onNavigate }) => {
+export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLang, mode = 'desktop', onNavigate, t }) => {
   const mobile = mode === 'mobile';
 
   const commonBtn = {
@@ -45,7 +44,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLan
         onClick={onNavigate}
         sx={commonBtn}
       >
-        Zoznam produktov
+        {t('header.productList')}
       </Button>
 
       {/* Language dropdown trigger */}
@@ -55,7 +54,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLan
         sx={commonBtn}
         onClick={onOpenLanguage}
       >
-        Jazyk
+        {t('header.language')}
       </Button>
 
       {/* Logout action */}
@@ -76,7 +75,7 @@ export const DesktopNav: FC<DesktopNavProps> = ({ onOpenLanguage, sx, currentLan
           )}
           onClick={onNavigate}
         >
-          Odhlásiť
+          {t('header.logout')}
         </Button>
       </Box>
     </Box>

@@ -20,7 +20,7 @@ export const caseFormDataAtom = atom<CaseFormData>({
     microbiomeFactors: [],
     nutritionalHistory: '',
     clinicalSymptoms: [],
-    problemDescription: '',
+    otherSymptoms: '',
 
     // Step 4: Diagnosis
     diagnosis: '',
@@ -49,7 +49,7 @@ export type CaseFormData = {
     microbiomeFactors: string[];
     nutritionalHistory: string;
     clinicalSymptoms: string[];
-    problemDescription: string;
+    otherSymptoms: string;
 
     // Step 4
     diagnosis: string;
