@@ -33,7 +33,8 @@ const SubmitButton: FC = () => {
     );
 };
 
-const LoginForm: FC = () => {
+const LoginForm: FC<{ lang: string }> = ({ lang }) => {
+
     const {t} = useTranslation();
 
     const loginSchema = createLoginSchema(t);
@@ -59,6 +60,7 @@ const LoginForm: FC = () => {
             </Typography>
 
             <form id={form.id} onSubmit={form.onSubmit} action={formAction} noValidate>
+                <input type="hidden" name="lang" value={lang} />
                 <FormControl fullWidth sx={{mb: 3}}>
                     <TextField
                         key={fields.email.key}
@@ -82,7 +84,6 @@ const LoginForm: FC = () => {
                             <Checkbox
                                 key={fields.agree.key}
                                 name={fields.agree.name}
-                                defaultChecked={fields.agree.initialValue === 'on'}
                                 sx={{color: "#5a47ff"}}
                                 required
                             />
@@ -90,7 +91,7 @@ const LoginForm: FC = () => {
                         label={
                             <Typography component="span">
                                 {t('form.agreement.label')}{" "}
-                                <Link href="/terms" target="_blank" rel="noopener">
+                                <Link href={`/${lang}/terms`} target="_blank" rel="noopener">
                                     {t('form.agreement.termsLink')}
                                 </Link>
                             </Typography>
@@ -102,8 +103,8 @@ const LoginForm: FC = () => {
                 </FormControl>
 
                 {form.errors && (
-                    <Alert severity="error" sx={{mt: 2}}>
-                        {form.errors[0]}
+                    <Alert severity="error" sx={{mb: 2}}>
+                        {form.errors}
                     </Alert>
                 )}
 
@@ -115,4 +116,4 @@ const LoginForm: FC = () => {
     );
 };
 
-export default LoginForm;
+export { LoginForm };

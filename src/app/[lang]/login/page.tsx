@@ -1,25 +1,30 @@
-'use client'
-import { FC } from "react";
-import { Box } from "@mui/material";
+import {Box} from "@mui/material";
 import Logo from "../../../components/Logo";
-import LoginForm from "./form";
 
-const LoginPage: FC = () => {
-  return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        px: 3,
-        py: 6,
-      }}
-    >
-      <Logo />
-      <LoginForm />
-    </Box>
-  );
+import {getTranslations} from "@/lib/i18n-server";
+import {LoginForm} from "@/app/[lang]/login/form";
+
+type LoginPageProps = {
+    params: Promise<{ lang: string }>;
 };
 
-export default LoginPage;
+export default async function LoginPage({params}: LoginPageProps) {
+    const {lang} = await params;
+    const {t} = await getTranslations(lang);
+    console.log({t, lang})
+    return (
+        <Box
+            sx={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                px: 3,
+                py: 6,
+            }}
+        >
+            <Logo/>
+            <LoginForm lang={lang} />
+        </Box>
+    );
+};

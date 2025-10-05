@@ -1,27 +1,26 @@
-import { emailTranslations } from './emails/translations';
+import { TFunction } from 'i18next';
 
-export function getLoginEmailHtml(magicLinkUrl: string, language: 'sk' | 'en' = 'sk'): string {
-    const t = emailTranslations[language];
+export function getLoginEmailHtml(magicLinkUrl: string, t: TFunction): string {
 
     const emailBody = `
         <p style="font-family: Arial, sans-serif; font-size: 11px;"><span
-            style="font-size: 14px;">${t.greeting}</span>
+            style="font-size: 14px;">${t('email.greeting')}</span>
         </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"> </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"><span
-            style="font-size: 14px;">${t.thankYou} <strong><span
-            style="color: rgb(72, 17, 135);">${t.appName}</span></strong>, ${t.appDescription}</span>
+            style="font-size: 14px;">${t('email.thankYou')} <strong><span
+            style="color: rgb(72, 17, 135);">${t('email.appName')}</span></strong>, ${t('email.appDescription')}</span>
         </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"> </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"><span
-            style="font-size: 14px;">${t.instruction}</span>
+            style="font-size: 14px;">${t('email.instruction')}</span>
         </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"> </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"><strong><span
-            style="font-size: 14px;">🔗 <a href="${magicLinkUrl}" style="color: rgb(72, 17, 135); text-decoration: none;">${t.buttonText}</a></span></strong>
+            style="font-size: 14px;">🔗 <a href="${magicLinkUrl}" style="color: rgb(72, 17, 135); text-decoration: none;">${t('email.buttonText')}</a></span></strong>
         </p>
         <p style="font-family: Arial, sans-serif; font-size: 11px;"><em><span
-            style="font-size: 14px;">${t.linkNote}</span></em>
+            style="font-size: 14px;">${t('email.linkNote')}</span></em>
         </p>
     `;
 
@@ -257,10 +256,10 @@ export function getLoginEmailHtml(magicLinkUrl: string, language: 'sk' | 'en' = 
                                     style="font-size:0px;padding:25px 35px 25px 35px;word-break:break-word;">
                                     <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;text-align:left;color:#000000;">
                                         <p style="font-family: Arial, sans-serif; font-size: 11px;"><span
-                                                style="font-size: 14px;">${t.closing}</span>
+                                                style="font-size: 14px;">${t('email.closing')}</span>
                                         </p>
                                         <p style="font-family: Arial, sans-serif; font-size: 11px;"><br><span
-                                                style="font-size: 14px;">${t.signature}</span></p></div>
+                                                style="font-size: 14px;">${t('email.signature')}</span></p></div>
                                 </td>
                             </tr>
                         </table>
@@ -294,7 +293,7 @@ export function getLoginEmailHtml(magicLinkUrl: string, language: 'sk' | 'en' = 
                                         <p style="font-family: Arial, sans-serif; font-size: 11px; text-align: center;">
                                             <span style="font-size: 10px; font-family: Arial, sans-serif; color: #ffffff;"><a
                                                     style="color: #ffffff;" href="#"><span
-                                                    style="text-decoration: underline;">${t.viewOnline}</span></a><br></span>
+                                                    style="text-decoration: underline;">${t('email.viewOnline')}</span></a><br></span>
                                         </p></div>
                                 </td>
                             </tr>
