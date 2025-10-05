@@ -10,12 +10,13 @@ const CategoryFilter = () => {
 
     return (
         <Provider>
-            <Grid size={4} sx={{
+            <Grid size={{ sm: 4 }} sx={{
+                display: {xs: 'none', sm: 'flex'},
                 position: 'relative',
             }}>
                 <BabyWithCircles/>
             </Grid>
-            <Grid size={8}>
+            <Grid size={{ xs: 12, sm: 8 }}>
                 <CategoryTeasers />
             </Grid>
         </Provider>

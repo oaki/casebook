@@ -9,7 +9,6 @@ import {HeaderLogo} from "@/components/header/HeaderLogo";
 import {DesktopNav} from "@/components/header/DesktopNav";
 import {MobileDrawer} from "@/components/header/MobileDrawer";
 import {LanguageMenu} from "@/components/header/LanguageMenu";
-import {getNavItems} from "@/components/header/config";
 import {useLanguageMenu} from "@/components/header/useLanguageMenu";
 import {usePathname} from 'next/navigation';
 import {DEFAULT_LOCALE, isSupportedLocale, Locale} from '@/lib/locales';
@@ -25,8 +24,6 @@ const Header: FC = () => {
     const {anchorEl, open, openMenu, closeMenu, selectLanguage} = useLanguageMenu();
 
     const toggleMobile = () => setMobileOpen(v => !v);
-
-    const navItems = getNavItems(currentLang);
 
     return (
         <>
@@ -45,7 +42,6 @@ const Header: FC = () => {
                     </IconButton>
                     {/* Desktop navigation (hidden on xs) */}
                     <DesktopNav
-                        items={navItems}
                         onOpenLanguage={openMenu}
                         currentLang={currentLang}
                         sx={{display: {xs: 'none', sm: 'flex'}}}
@@ -57,7 +53,6 @@ const Header: FC = () => {
                 <MobileDrawer
                     open={mobileOpen}
                     onClose={toggleMobile}
-                    items={navItems}
                     onOpenLanguage={openMenu}
                     currentLang={currentLang}
                 />

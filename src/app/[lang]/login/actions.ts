@@ -7,10 +7,12 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { encrypt, MagicLinkPayload } from '@/lib/jwt';
 import { getLoginEmailHtml } from './LoginEmailTemplate';
+import {DEFAULT_LOCALE} from "@/lib/locales";
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email'),
-    agree: z.string().optional().transform(val => val === 'on')
+    agree: z.string().optional().transform(val => val === 'on'),
+    lang: z.string().optional()
 });
 
 const LOGIN_TOKEN_PURPOSE = 'login';
@@ -23,7 +25,7 @@ export async function sendLoginEmailAction(prevState: unknown, formData: FormDat
         return submission.reply();
     }
 
-    const { email } = submission.value;
+    const { email, lang = DEFAULT_LOCALE } = submission.value;
 
     if (!email || !isEmail(email)) {
         return submission.reply({
@@ -42,7 +44,7 @@ export async function sendLoginEmailAction(prevState: unknown, formData: FormDat
             exp
         };
         const token = await encrypt(tokenPayload);
-        const magicLinkUrl = `${process.env.NEXTAUTH_URL}/auth/verify?token=${token}`;
+        const magicLinkUrl = `${process.env.NEXTAUTH_URL}/${lang}/auth/verify?token=${token}`;
 
         const emailHtml = getLoginEmailHtml(magicLinkUrl, 'sk');
 
@@ -60,5 +62,5 @@ export async function sendLoginEmailAction(prevState: unknown, formData: FormDat
             formErrors: ['Nepodarilo sa odoslať email. Prosím skúste znovu.']
         });
     }
-    redirect('/verify-request');
+    redirect(`/${lang}/verify-request`);
 }
