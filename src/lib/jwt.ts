@@ -14,6 +14,7 @@ export async function decrypt<T extends TokenPayload = SessionPayload>(token: st
 export type SessionPayload = {
     type: 'session';
     user?: {
+        id: number;
         email: string;
         roles?: string[];
     };

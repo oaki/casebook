@@ -43,6 +43,43 @@ model users {
   updated_at     DateTime     @default(now()) @db.DateTime(0)
   deleted_at     DateTime?    @db.DateTime(0)
   user_roles     user_roles[]
+  cases          cases[]
 
   @@index([created_by], map: "idx_users_created_by")
+}
+
+model cases {
+  id                    Int                @id @default(autoincrement())
+  user_id               Int
+  case_name             String             @db.VarChar(255)
+  patient_age_months    String             @db.VarChar(50)
+  gender                String             @db.VarChar(10)
+  affected_systems      Json
+  family_history        String             @db.VarChar(50)
+  microbiome_factors    Json
+  nutritional_history   String             @db.VarChar(255)
+  clinical_symptoms     Json
+  other_symptoms        String?            @db.Text
+  diagnosis             String             @db.Text
+  used_product          String             @db.VarChar(100)
+  treatment_description String             @db.Text
+  is_active             Boolean            @default(true)
+  created_at            DateTime           @default(now()) @db.DateTime(0)
+  updated_at            DateTime           @default(now()) @db.DateTime(0)
+  deleted_at            DateTime?          @db.DateTime(0)
+  user                  users              @relation(fields: [user_id], references: [id], onUpdate: Restrict)
+  attachments           case_attachments[]
+
+  @@index([user_id], map: "idx_cases_user_id")
+  @@index([is_active], map: "idx_cases_is_active")
+}
+
+model case_attachments {
+  id         Int      @id @default(autoincrement())
+  case_id    Int
+  file_path  String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  case       cases    @relation(fields: [case_id], references: [id], onUpdate: Restrict, onDelete: Cascade)
+
+  @@index([case_id], map: "idx_case_attachments_case_id")
 }

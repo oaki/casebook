@@ -1,7 +1,7 @@
 'use client';
 
 import {FC, useEffect,useMemo, useState} from 'react';
-import {Box, Dialog, DialogActions, DialogContent,} from '@mui/material';
+import {Box, Dialog, DialogActions, DialogContent, CircularProgress, Alert} from '@mui/material';
 import {DialogTitleWithClose} from '@/components/dialog/DialogTitleWithClose';
 import {NextButton} from '@/components/form/NextButton';
 import {CancelButton} from '@/components/form/CancelButton';
@@ -18,6 +18,7 @@ import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
 import {getStep1Schema, getStep2Schema, getStep3Schema, getStep4Schema, getStep5Schema} from '@/components/case/validation';
 import {useTranslation} from "react-i18next";
 import {UserData} from "@/app/[lang]/dashboard/page";
+import {saveCase, updateUserData} from '@/app/actions/caseActions';
 
 
 const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCloseAction}) => {
@@ -25,6 +26,8 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     const [formData, setFormData] = useAtom(caseFormDataAtom);
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     useEffect(() => {
         if (open && userData?.name && userData?.specialization && userData?.workplace) {
@@ -89,23 +92,55 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
         return true;
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         console.log('handleNext')
         // For steps with editable inputs (0..4) validate
         if (currentStep <= 4) {
             if (!validateCurrentStep()) return;
         }
-        // Step 5 (summary) -> submit (log) and advance to final message
+
+        // Step 5 (summary) -> submit and advance to final message
         if (currentStep === 5) {
-            console.log('Submitting case form data:', formData);
-            setCurrentStep(6);
+            setIsSubmitting(true);
+            setSubmitError(null);
+
+            try {
+                // First update user data if fields were empty before
+                if (!userData?.name || !userData?.specialization || !userData?.workplace) {
+                    const userUpdateResult = await updateUserData({
+                        name: formData.name || undefined,
+                        specialization: formData.specialization || undefined,
+                        workplace: formData.workplace || undefined
+                    });
+
+                    if (!userUpdateResult.success) {
+                        throw new Error(userUpdateResult.error || 'Failed to update user data');
+                    }
+                }
+
+                // Pass the atom state directly to saveCase
+                const saveResult = await saveCase(formData);
+
+                if (!saveResult.success) {
+                    throw new Error(saveResult.error || 'Failed to save case');
+                }
+
+                setCurrentStep(6);
+            } catch (error) {
+                console.error('Error submitting case:', error);
+                setSubmitError(error instanceof Error ? error.message : 'An error occurred while saving your case');
+            } finally {
+                setIsSubmitting(false);
+            }
             return;
         }
+
         // Final message step closes
         if (currentStep === 6) {
             handleClose();
             return;
         }
+
         // Advance normally
         setCurrentStep(currentStep + 1);
     };
@@ -206,7 +241,22 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
                     />
                 );
             case 5:
-                return <Step6Summary formData={formData}/>;
+                return (
+                    <>
+                        <Step6Summary formData={formData}/>
+                        {isSubmitting && (
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, mb: 2 }}>
+                                <CircularProgress size={32} sx={{ mr: 2 }} />
+                                <Box>{t('caseForm.messages.saving')}</Box>
+                            </Box>
+                        )}
+                        {submitError && (
+                            <Alert severity="error" sx={{ mt: 2 }}>
+                                {submitError}
+                            </Alert>
+                        )}
+                    </>
+                );
             case 6:
                 return <Step7SubmissionMessage/>;
             default:

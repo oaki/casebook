@@ -43,6 +43,7 @@ export async function login(email: string) {
     const payload: SessionPayload = {
         type: 'session',
         user: {
+            id: user.id,
             email: user.email,
             roles
         },
