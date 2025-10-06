@@ -8,190 +8,6 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model body_parts {
-  id              Int               @id @default(autoincrement())
-  code            String            @unique(map: "code") @db.VarChar(100)
-  svg_region      String            @db.Text
-  order           Int               @default(0)
-  is_active       Boolean           @default(true)
-  created_by      Int?
-  created_at      DateTime          @default(now()) @db.DateTime(0)
-  updated_by      Int?
-  updated_at      DateTime          @default(now()) @db.DateTime(0)
-  deleted_at      DateTime?         @db.DateTime(0)
-  case_body_parts case_body_parts[]
-
-  @@index([created_by], map: "idx_bp_created_by")
-  @@index([order], map: "idx_bp_order")
-}
-
-model case_body_parts {
-  case_study_id Int
-  body_part_id  Int
-  body_parts    body_parts   @relation(fields: [body_part_id], references: [id], onUpdate: Restrict, map: "fk_body_case")
-  case_studies  case_studies @relation(fields: [case_study_id], references: [id], onUpdate: Restrict, map: "fk_case_body")
-
-  @@id([case_study_id, body_part_id])
-  @@index([body_part_id, case_study_id], map: "idx_bp_case")
-}
-
-model case_clinical_symptoms {
-  case_study_id       Int
-  clinical_symptom_id Int
-  case_studies        case_studies      @relation(fields: [case_study_id], references: [id], onUpdate: Restrict, map: "fk_case_clin")
-  clinical_symptoms   clinical_symptoms @relation(fields: [clinical_symptom_id], references: [id], onUpdate: Restrict, map: "fk_clin_case")
-
-  @@id([case_study_id, clinical_symptom_id])
-  @@index([clinical_symptom_id, case_study_id], map: "idx_clin_case")
-}
-
-model case_microbiome_factors {
-  case_study_id        Int
-  microbiome_factor_id Int
-  case_studies         case_studies       @relation(fields: [case_study_id], references: [id], onUpdate: Restrict, map: "fk_case_micro")
-  microbiome_factors   microbiome_factors @relation(fields: [microbiome_factor_id], references: [id], onUpdate: Restrict, map: "fk_micro_case")
-
-  @@id([case_study_id, microbiome_factor_id])
-  @@index([microbiome_factor_id, case_study_id], map: "idx_micro_case")
-}
-
-model case_studies {
-  id                      Int                       @id @default(autoincrement())
-  author_id               Int
-  nutritional_history_id  Int?
-  product_id              Int?
-  created_by              Int?
-  created_at              DateTime                  @default(now()) @db.DateTime(0)
-  updated_by              Int?
-  updated_at              DateTime                  @default(now()) @db.DateTime(0)
-  deleted_at              DateTime?                 @db.DateTime(0)
-  published               Boolean                   @default(false)
-  published_at            DateTime?                 @db.DateTime(0)
-  view_count              Int                       @default(0)
-  case_body_parts         case_body_parts[]
-  case_clinical_symptoms  case_clinical_symptoms[]
-  case_microbiome_factors case_microbiome_factors[]
-  nutritional_histories   nutritional_histories?    @relation(fields: [nutritional_history_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cs_nutrition")
-  products                products?                 @relation(fields: [product_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cs_product")
-  users                   users                     @relation(fields: [author_id], references: [id], onUpdate: Restrict, map: "fk_cs_user")
-  case_study_images       case_study_images[]
-  events                  events[]
-  patients                patients?
-
-  @@index([author_id], map: "idx_cs_author")
-  @@index([nutritional_history_id], map: "idx_cs_nutrition")
-  @@index([product_id], map: "idx_cs_product")
-}
-
-model case_study_images {
-  id            Int                           @id @default(autoincrement())
-  case_study_id Int
-  url           String                        @db.VarChar(512)
-  orientation   case_study_images_orientation @default(portrait)
-  sort_order    Int                           @default(0)
-  caption       String?                       @db.VarChar(255)
-  created_at    DateTime                      @default(now()) @db.DateTime(0)
-  case_studies  case_studies                  @relation(fields: [case_study_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_csi_case")
-
-  @@index([case_study_id, sort_order], map: "idx_csi_case")
-}
-
-model clinical_symptoms {
-  id                     Int                      @id @default(autoincrement())
-  code                   String                   @unique(map: "code") @db.VarChar(100)
-  created_by             Int?
-  created_at             DateTime                 @default(now()) @db.DateTime(0)
-  updated_by             Int?
-  updated_at             DateTime                 @default(now()) @db.DateTime(0)
-  deleted_at             DateTime?                @db.DateTime(0)
-  case_clinical_symptoms case_clinical_symptoms[]
-
-  @@index([created_by], map: "idx_csym_created_by")
-}
-
-model events {
-  id            Int           @id @default(autoincrement())
-  user_id       Int?
-  case_study_id Int?
-  event_type    String        @db.VarChar(100)
-  metadata      String?       @db.LongText
-  created_at    DateTime      @default(now()) @db.DateTime(0)
-  case_studies  case_studies? @relation(fields: [case_study_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_events_case")
-  users         users?        @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_events_user")
-
-  @@index([case_study_id], map: "idx_events_case")
-  @@index([user_id], map: "idx_events_user")
-}
-
-model magic_links {
-  id         Int       @id @default(autoincrement())
-  user_id    Int
-  token      String    @unique(map: "token") @db.VarChar(255)
-  created_at DateTime  @default(now()) @db.DateTime(0)
-  expires_at DateTime  @db.DateTime(0)
-  used_at    DateTime? @db.DateTime(0)
-  used       Boolean   @default(false)
-  ip_address String?   @db.VarChar(45)
-  user_agent String?   @db.Text
-  users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_ml_user")
-
-  @@index([user_id], map: "idx_ml_user")
-}
-
-model microbiome_factors {
-  id                      Int                       @id @default(autoincrement())
-  code                    String                    @unique(map: "code") @db.VarChar(100)
-  created_by              Int?
-  created_at              DateTime                  @default(now()) @db.DateTime(0)
-  updated_by              Int?
-  updated_at              DateTime                  @default(now()) @db.DateTime(0)
-  deleted_at              DateTime?                 @db.DateTime(0)
-  case_microbiome_factors case_microbiome_factors[]
-
-  @@index([created_by], map: "idx_mf_created_by")
-}
-
-model nutritional_histories {
-  id           Int            @id @default(autoincrement())
-  code         String         @unique(map: "code") @db.VarChar(100)
-  created_by   Int?
-  created_at   DateTime       @default(now()) @db.DateTime(0)
-  updated_by   Int?
-  updated_at   DateTime       @default(now()) @db.DateTime(0)
-  deleted_at   DateTime?      @db.DateTime(0)
-  case_studies case_studies[]
-
-  @@index([created_by], map: "idx_nh_created_by")
-}
-
-model patients {
-  id             Int               @id @default(autoincrement())
-  case_study_id  Int               @unique(map: "unq_patient_case")
-  age            Int
-  age_unit       patients_age_unit
-  gender         patients_gender
-  family_history Boolean           @default(false)
-  created_by     Int?
-  created_at     DateTime          @default(now()) @db.DateTime(0)
-  updated_by     Int?
-  updated_at     DateTime          @default(now()) @db.DateTime(0)
-  deleted_at     DateTime?         @db.DateTime(0)
-  case_studies   case_studies      @relation(fields: [case_study_id], references: [id], onUpdate: Restrict, map: "fk_patient_case")
-}
-
-model products {
-  id           Int            @id @default(autoincrement())
-  code         String         @unique(map: "code") @db.VarChar(100)
-  created_by   Int?
-  created_at   DateTime       @default(now()) @db.DateTime(0)
-  updated_by   Int?
-  updated_at   DateTime       @default(now()) @db.DateTime(0)
-  deleted_at   DateTime?      @db.DateTime(0)
-  case_studies case_studies[]
-
-  @@index([created_by], map: "idx_pr_created_by")
-}
-
 model roles {
   id         Int          @id @default(autoincrement())
   code       String       @unique(map: "code") @db.VarChar(50)
@@ -205,16 +21,6 @@ model roles {
   @@index([created_by], map: "idx_roles_created_by")
 }
 
-model sessions {
-  id         String   @id @db.Char(36)
-  user_id    Int
-  created_at DateTime @default(now()) @db.DateTime(0)
-  expires_at DateTime @db.DateTime(0)
-  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_s_user")
-
-  @@index([user_id], map: "idx_s_user")
-}
-
 model user_roles {
   user_id Int
   role_id Int
@@ -226,47 +32,17 @@ model user_roles {
 }
 
 model users {
-  id             Int            @id @default(autoincrement())
-  name           String         @db.VarChar(255)
-  specialization String?        @db.VarChar(255)
-  workplace      String?        @db.VarChar(255)
-  email          String         @unique(map: "email") @db.VarChar(255)
+  id             Int          @id @default(autoincrement())
+  name           String?      @db.VarChar(255)
+  specialization String?      @db.VarChar(255)
+  workplace      String?      @db.VarChar(255)
+  email          String       @unique(map: "email") @db.VarChar(255)
   created_by     Int?
-  created_at     DateTime       @default(now()) @db.DateTime(0)
+  created_at     DateTime     @default(now()) @db.DateTime(0)
   updated_by     Int?
-  updated_at     DateTime       @default(now()) @db.DateTime(0)
-  deleted_at     DateTime?      @db.DateTime(0)
-  case_studies   case_studies[]
-  events         events[]
-  magic_links    magic_links[]
-  sessions       sessions[]
+  updated_at     DateTime     @default(now()) @db.DateTime(0)
+  deleted_at     DateTime?    @db.DateTime(0)
   user_roles     user_roles[]
 
   @@index([created_by], map: "idx_users_created_by")
-}
-
-enum case_study_images_orientation {
-  portrait
-  landscape
-}
-
-enum patients_age_unit {
-  day
-  month
-  year
-}
-
-enum patients_gender {
-  Chlapec
-  Diev_a  @map("Dievča")
-}
-
-model translation {
-  id       Int    @id @default(autoincrement())
-  language String @db.VarChar(10)
-  key      String @db.VarChar(255)
-  value    String @db.Text
-
-  @@unique([language, key], map: "unq_translation_language_key")
-  @@index([language], map: "idx_translation_language")
 }

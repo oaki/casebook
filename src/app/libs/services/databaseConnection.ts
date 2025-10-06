@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({
   errorFormat: "minimal",
-  log: ["error"],
+  log: ["query"],
 });
 
 async function connectWithRetry(retries = Infinity, delay = 3000) {

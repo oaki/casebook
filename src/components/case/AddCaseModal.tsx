@@ -1,6 +1,6 @@
 'use client';
 
-import {FC, useMemo, useState} from 'react';
+import {FC, useEffect,useMemo, useState} from 'react';
 import {Box, Dialog, DialogActions, DialogContent,} from '@mui/material';
 import {DialogTitleWithClose} from '@/components/dialog/DialogTitleWithClose';
 import {NextButton} from '@/components/form/NextButton';
@@ -17,13 +17,27 @@ import {Provider as JotaiProvider, useAtom} from 'jotai';
 import {caseFormDataAtom, currentStepAtom} from '@/state/caseFormAtoms';
 import {getStep1Schema, getStep2Schema, getStep3Schema, getStep4Schema, getStep5Schema} from '@/components/case/validation';
 import {useTranslation} from "react-i18next";
+import {UserData} from "@/app/[lang]/dashboard/page";
 
 
-const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}) => {
+const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCloseAction}) => {
     const {t} = useTranslation();
     const [currentStep, setCurrentStep] = useAtom(currentStepAtom);
     const [formData, setFormData] = useAtom(caseFormDataAtom);
     const [errors, setErrors] = useState<Record<string, string>>({});
+
+    useEffect(() => {
+        if (open && userData?.name && userData?.specialization && userData?.workplace) {
+            setFormData(prev => ({
+                ...prev,
+                name: userData.name || '',
+                specialization: userData.specialization || '',
+                workplace: userData.workplace || ''
+            }));
+
+            setCurrentStep(1);
+        }
+    }, [open, userData, setFormData, setCurrentStep]);
 
     const currentSchema = useMemo(() => {
         switch (currentStep) {
@@ -99,7 +113,6 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
     const handleClose = () => {
         setCurrentStep(0);
         setFormData({
-            title: '',
             name: '',
             specialization: '',
             workplace: '',
@@ -244,24 +257,26 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({open, onCloseAction}
     );
 };
 
-export const AddCaseModal: FC<AddCaseModalProps> = ({open, onCloseAction}) => {
+export const AddCaseModal: FC<AddCaseModalProps> = ({open, onCloseAction, userData}) => {
     if (!open) {
         return null;
     }
 
     return (
         <JotaiProvider>
-            <AddCaseModalContent open={open} onCloseAction={onCloseAction}/>
+            <AddCaseModalContent userData={userData} open={open} onCloseAction={onCloseAction}/>
         </JotaiProvider>
     );
 };
 
 type AddCaseModalProps = {
     open: boolean;
+    userData: UserData;
     onCloseAction: () => void;
 };
 
 type AddCaseModalContentProps = {
     open: boolean;
+    userData: UserData;
     onCloseAction: () => void;
 };

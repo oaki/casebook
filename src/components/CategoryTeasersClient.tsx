@@ -117,7 +117,6 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                                     />
                                 </Box>
                                 <Typography variant="h5" gutterBottom sx={{margin: 0}}>{category.title}</Typography>
-                                {/*<Typography variant="body1" color="text.secondary">{category.description}</Typography>*/}
                             </StyledCategoryTeaser>
                         );
                     })}
