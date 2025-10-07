@@ -124,8 +124,6 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
                 if (!saveResult.success) {
                     throw new Error(saveResult.error || 'Failed to save case');
                 }
-
-                setCurrentStep(6);
             } catch (error) {
                 console.error('Error submitting case:', error);
                 setSubmitError(error instanceof Error ? error.message : 'An error occurred while saving your case');

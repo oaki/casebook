@@ -7,6 +7,9 @@ import Image from 'next/image';
 import {useAtom} from 'jotai';
 import {organHighlightAtom} from "@/components/hoverTeaserAtom";
 import {useTranslation} from "react-i18next";
+import { useRouter } from 'next/navigation';
+import {allPartsIcon} from "@/lib/getBodyParts";
+
 
 const StyledCategoryTeaser = styled(Paper)(() => ({
     display: 'flex',
@@ -26,40 +29,17 @@ const StyledCategoryTeaser = styled(Paper)(() => ({
     }
 }));
 
-// Map svg_region to icon paths and colors
-const getIconConfig = (svgRegion: string): { path: string; color: string } => {
-    const iconMap: Record<string, { path: string; color: string }> = {
-        "digestive_system": {
-            path: '/assets/icons/intestine.svg',
-            color: '#8B7BA8', // Purple
-        },
-        'skin': {
-            path: '/assets/icons/skin.svg',
-            color: '#D4916C', // Orange/Peach
-        },
-        'respiratory_system': {
-            path: '/assets/icons/lungs.svg',
-            color: '#82A884', // Green
-        },
-        'all': {
-            path: '/assets/icons/stethoscope.svg',
-            color: '#B8A888', // Beige
-        },
-    };
-
-    return iconMap[svgRegion] || {
-        path: '/assets/icons/stethoscope.svg',
-        color: '#B8A888',
-    };
-};
 
 export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categories}) => {
+    const router = useRouter();
 
     const [organHighlight, setOrganHighlight] = useAtom(organHighlightAtom);
     console.log({organHighlight})
-    const allIconMap = getIconConfig('all');
+    const allIconMap = allPartsIcon;
 
-    const {t} = useTranslation();
+    const {t,i18n } = useTranslation();
+    const currentLang = i18n.language;
+
     return (
         <>
             <Box sx={{
@@ -77,7 +57,10 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                     width: '100%',
                 }}>
                     {categories.map((category) => {
-                        const iconConfig = getIconConfig(category.svg_region);
+                        const iconConfig = category.organFile;
+                        if(!iconConfig){
+                            return null;
+                        }
                         return (
                             <StyledCategoryTeaser
                                 key={category.id}
@@ -85,7 +68,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
 
                                 onMouseEnter={() => {
                                     setOrganHighlight({
-                                        hover: [category.svg_region],
+                                        hover: [category.code],
                                         position: '0px'
                                     });
                                 }}
@@ -96,8 +79,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                                     });
                                 }}
                                 onClick={() => {
-                                    // Handle category click - could navigate to specific body part cases
-                                    console.log('Selected category:', category);
+                                    router.push(`/${currentLang}/casestudies?category[]=${category.code}`);
                                 }}
                             >
                                 <Box sx={{
@@ -109,7 +91,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                                     padding: '8px',
                                 }}>
                                     <Image
-                                        src={iconConfig.path}
+                                        src={iconConfig.src}
                                         alt={category.title}
                                         width={64}
                                         height={64}
@@ -137,8 +119,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                             });
                         }}
                         onClick={() => {
-                            // Handle category click - could navigate to specific body part cases
-                            console.log('Selected all categories');
+                            router.push(`/${currentLang}/casestudies`);
                         }}
                     >
                         <Box sx={{
@@ -150,7 +131,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                             padding: '8px',
                         }}>
                             <Image
-                                src={allIconMap.path}
+                                src={allIconMap.src}
                                 alt={t('buttons.allCases')}
                                 width={64}
                                 height={64}
@@ -165,12 +146,18 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
     );
 };
 
+export type OrganFile = {
+    body: string;
+    src: string;
+    alt: string;
+    color: string;
+};
 export type Category = {
     id: number;
     code: string;
-    svg_region: string;
     order: number;
     title: string;
+    organFile?: OrganFile;
 }
 
 type CategoryTeasersClientProps = {

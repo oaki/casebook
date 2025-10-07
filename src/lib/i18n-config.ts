@@ -168,13 +168,7 @@ export const i18nConfig = {
                         usedProductPlaceholder: 'Neocate Syneo',
                         treatmentDescriptionLabel: 'Popis liečby',
                         treatmentDescriptionPlaceholder: 'Popíšte liečbu',
-                        attachmentsLabel: 'Prílohy',
-                        productOptions: {
-                            neocate_syneo: 'Neocate Syneo',
-                            neocate_lcp: 'Neocate LCP',
-                            neocate_advance: 'Neocate Advance',
-                            neocate_junior: 'Neocate Junior'
-                        }
+                        attachmentsLabel: 'Prílohy'
                     },
                     summary: {
                         title: 'Krok 5/6: Súhrn',
@@ -214,7 +208,8 @@ export const i18nConfig = {
                     }
                 },
                 buttons: {
-                    allCases: 'Všetky kazuistiky'
+                    allCases: 'Všetky kazuistiky',
+                    openCaseStudy: 'Otvoriť prípadovú štúdiu'
                 },
                 header: {
                     productList: 'Zoznam produktov',
@@ -390,13 +385,7 @@ export const i18nConfig = {
                         usedProductPlaceholder: 'Neocate Syneo',
                         treatmentDescriptionLabel: 'Popis léčby',
                         treatmentDescriptionPlaceholder: 'Popište léčbu',
-                        attachmentsLabel: 'Přílohy',
-                        productOptions: {
-                            neocate_syneo: 'Neocate Syneo',
-                            neocate_lcp: 'Neocate LCP',
-                            neocate_advance: 'Neocate Advance',
-                            neocate_junior: 'Neocate Junior'
-                        }
+                        attachmentsLabel: 'Přílohy'
                     },
                     summary: {
                         title: 'Krok 5/6: Souhrn',
@@ -436,7 +425,8 @@ export const i18nConfig = {
                     }
                 },
                 buttons: {
-                    allCases: 'Všechny kazuistiky'
+                    allCases: 'Všechny kazuistiky',
+                    openCaseStudy: 'Otevřít případovou studii'
                 },
                 header: {
                     productList: 'Seznam produktů',

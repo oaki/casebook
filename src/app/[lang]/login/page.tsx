@@ -11,7 +11,7 @@ type LoginPageProps = {
 export default async function LoginPage({params}: LoginPageProps) {
     const {lang} = await params;
     const {t} = await getTranslations(lang);
-    console.log({t, lang})
+
     return (
         <Box
             sx={{

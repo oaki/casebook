@@ -7,12 +7,12 @@ import {prisma} from "@/app/libs/services/databaseConnection";
 
 const DashboardPage = async () => {
     const session = await requireAuth();
-    const isAdmin = session.user?.roles?.includes('admin') ?? false;
+    const canAddCase = session.user?.roles?.some(role => ['admin', 'moderator'].includes(role)) ?? false;
+    let userData: UserData = null;
 
-    let userData:UserData = null;
     if (session?.user?.email) {
         userData = await prisma.users.findUnique({
-            where: { email: session.user.email },
+            where: {email: session.user.email},
             select: {
                 name: true,
                 specialization: true,
@@ -20,7 +20,6 @@ const DashboardPage = async () => {
             }
         });
     }
-    console.log({userData, session})
     return (
         <div>
             <Header/>
@@ -28,9 +27,9 @@ const DashboardPage = async () => {
                 <Grid spacing={2} container>
                     <CategoryFilter/>
                 </Grid>
-                {isAdmin && (
+                {canAddCase && (
                     <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '2rem'}}>
-                        <AddCaseButton userData={userData} />
+                        <AddCaseButton userData={userData}/>
                     </div>
                 )}
             </Container>

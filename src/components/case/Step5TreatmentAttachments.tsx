@@ -10,16 +10,7 @@ import {FormTextArea} from '@/components/form/FormTextArea';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
 import {ImageUpload} from '@/components/form/ImageUpload';
 import {CaseFormData} from '@/state/caseFormAtoms';
-
-const productOptions = [
-    {value: 'neocate_syneo', label: 'Neocate Syneo'},
-    {value: 'neocate_infant', label: 'Neocate Infant'},
-    {value: 'neocate_junior', label: 'Neocate Junior'},
-    {value: 'nutrilon_allergy_care_syneo', label: 'Nutrilon Allergy Care Syneo+'},
-    {value: 'nutrilon_comfort_colics', label: 'Nutrilon Comfort & Colics'},
-    {value: 'nutrilon_ar', label: 'Nutrilon AR'},
-    {value: 'nutrilon_nutriton', label: 'Nutrilon Nutriton'},
-];
+import {productOptions} from '@/lib/productOptions';
 
 export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
     formData,
@@ -28,10 +19,6 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
     onBlur,
 }) => {
     const {t} = useTranslation();
-    const translatedProductOptions = productOptions.map(option => ({
-        ...option,
-        label: t(`caseForm.treatment.productOptions.${option.value}`)
-    }));
 
     return (
         <Box sx={{pt: 2}}>
@@ -63,7 +50,7 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                         helperText={errors.usedProduct}
                     >
                         <MenuItem value="" disabled>{t('caseForm.treatment.usedProductPlaceholder')}</MenuItem>
-                        {translatedProductOptions.map((option) => (
+                        {productOptions.map((option) => (
                             <MenuItem key={option.value} value={option.value}>
                                 {option.label}
                             </MenuItem>

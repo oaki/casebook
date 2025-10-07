@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next';
 import {Box, Chip, Typography} from '@mui/material';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {CaseFormData} from '@/state/caseFormAtoms';
+import {productOptions} from '@/lib/productOptions';
 
 export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
     const {t} = useTranslation();
@@ -16,7 +17,7 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
     const microbiome = useMemo(() => formData.microbiomeFactors.map((v) => t(`caseForm.examinationFindings.microbiomeFactorsOptions.${v}`)), [formData.microbiomeFactors, t]);
     const nutrition = t(`caseForm.examinationFindings.nutritionalHistoryOptions.${formData.nutritionalHistory}`) || formData.nutritionalHistory || '-';
     const symptoms = useMemo(() => formData.clinicalSymptoms.map((v) => t(`caseForm.examinationFindings.clinicalSymptomsOptions.${v}`)), [formData.clinicalSymptoms, t]);
-    const product = t(`caseForm.treatment.productOptions.${formData.usedProduct}`) || formData.usedProduct || '-';
+    const product = productOptions.find(p => p.value === formData.usedProduct)?.label || formData.usedProduct || '-';
 
     return (
         <Box sx={{pt: 2}}>

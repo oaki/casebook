@@ -1,42 +1,39 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import Image from 'next/image';
 import {Box} from '@mui/material';
-import { motion, AnimatePresence } from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 import {useAtom} from "jotai/index";
 import {organHighlightAtom} from "@/components/hoverTeaserAtom";
-
-// Map database svg_region to actual file paths for the three available body parts
-const organFileMap: Record<string, { src: string; alt: string }> = {
-  'skin': { src: '/assets/body/organ-koza.svg', alt: 'Skin' },
-  'digestive_system': { src: '/assets/body/organ-traviaci-trakt.svg', alt: 'Digestive System' },
-  'respiratory_system': { src: '/assets/body/organ-dychaci-trakt.svg', alt: 'Respiratory System' },
-};
+import {getBodyParts} from "@/lib/getBodyParts";
+import {useTranslation} from "react-i18next";
+import {OrganFile} from "@/components/CategoryTeasersClient";
 
 interface BabyProps {
-    visibleOrgans?: string[]; // Now using svg_region strings from database
+    visibleOrgans: OrganFile[] ;
 }
 
 const BabyWithCircles = () => {
     const [organHighlight] = useAtom(organHighlightAtom);
-    console.log('organHighlight', organHighlight)
+    const {t} = useTranslation();
+    const bodyParts = getBodyParts(t);
     const [animationComplete, setAnimationComplete] = useState(false);
 
     // Determine visible organs based on hover state
-    const visibleOrgans = React.useMemo(() => {
+    const visibleOrgans: OrganFile[] = useMemo(() => {
         if (!organHighlight.hover || organHighlight.hover.length === 0) {
             return [];
         }
 
-        // If hovering "all", show all available organs
         if (organHighlight.hover.includes('all')) {
-            return Object.keys(organFileMap);
+            return bodyParts.map(item => item.organFile).filter((item): item is OrganFile => item !== undefined);;
         }
 
-        // Return the organs that exist in organFileMap
-        return organHighlight.hover.filter(organ => organFileMap[organ]);
-    }, [organHighlight.hover]);
+        const o = bodyParts.filter((bodyPart) => organHighlight.hover?.includes(bodyPart.code)).map(item => item.organFile);
+
+        return o.filter((item): item is OrganFile => item !== undefined);
+    }, [organHighlight.hover, bodyParts]);
 
     useEffect(() => {
         // Start animation after component mounts
@@ -59,14 +56,14 @@ const BabyWithCircles = () => {
                 overflow: 'hidden',
             }}
         >
-        <motion.div
-            initial={{ x: '0%' }}
-            animate={{ x: animationComplete ? '-25%' : '0%' }}
-            transition={{ duration: 1.5, ease: [0.8, 0, 0.2, 1] }} // slow-fast-slow cubic-bezier
-            style={{ width: '100%', height: '100%' }}
-        >
-            <Baby visibleOrgans={visibleOrgans} />
-        </motion.div>
+            <motion.div
+                initial={{x: '0%'}}
+                animate={{x: animationComplete ? '-25%' : '0%'}}
+                transition={{duration: 1.5, ease: [0.8, 0, 0.2, 1]}} // slow-fast-slow cubic-bezier
+                style={{width: '100%', height: '100%'}}
+            >
+                <Baby visibleOrgans={visibleOrgans}/>
+            </motion.div>
         </Box>
     );
 };
@@ -114,18 +111,17 @@ const Circles = () => {
         </Box>
     )
 }
-const Baby = ({ visibleOrgans = [] }: BabyProps) => {
+const Baby = ({visibleOrgans = []}: BabyProps) => {
     const fadeAnimation = {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        transition: { duration: 0.5 }
+        initial: {opacity: 0},
+        animate: {opacity: 1},
+        exit: {opacity: 0},
+        transition: {duration: 0.5}
     };
 
     return (
         <div>
-            <Circles />
-            {/* Base body image, always visible */}
+            <Circles/>
             <Image
                 src="/assets/body/body-default.png"
                 alt="Background"
@@ -138,23 +134,18 @@ const Baby = ({ visibleOrgans = [] }: BabyProps) => {
 
             {/* Animated organ layers */}
             <AnimatePresence>
-                {visibleOrgans.map((organKey) => {
-                    const organ = organFileMap[organKey];
-                    if (!organ) {
-                        return null;
-                    }
-
+                {visibleOrgans.map((organ) => {
                     return (
                         <motion.div
-                            key={organKey}
+                            key={organ.src}
                             initial={fadeAnimation.initial}
                             animate={fadeAnimation.animate}
                             exit={fadeAnimation.exit}
                             transition={fadeAnimation.transition}
-                            style={{ position: 'absolute', width: '100%', height: '100%' }}
+                            style={{position: 'absolute', width: '100%', height: '100%'}}
                         >
                             <Image
-                                src={organ.src}
+                                src={organ.body}
                                 alt={organ.alt}
                                 fill
                                 priority
