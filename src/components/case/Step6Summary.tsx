@@ -78,11 +78,6 @@ export const Step6Summary: FC<Step6SummaryProps> = ({formData}) => {
                     ) : ('-')}
                 </ValueCell>
 
-                <LabelCell text={t('caseForm.summary.otherSymptomsLabel')} />
-                <ValueCell>
-                    <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.otherSymptoms || '-'}</Typography>
-                </ValueCell>
-
                 <LabelCell text={t('caseForm.summary.diagnosisLabel')} />
                 <ValueCell>
                     <Typography sx={{whiteSpace: 'pre-wrap', color: '#3C3C3C', lineHeight: 1.4}}>{formData.diagnosis || '-'}</Typography>

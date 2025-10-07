@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const secret = process.env.IMAGE_TOKEN_SECRET as string;
+const secret = process.env.IMAGE_TOKEN_SECRET || 'IMAGE_TOKEN_SECRETjasjdaads';
 
 if (!secret) {
   throw new Error('IMAGE_TOKEN_SECRET environment variable is not set');

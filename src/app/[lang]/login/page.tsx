@@ -1,7 +1,5 @@
 import {Box} from "@mui/material";
 import Logo from "../../../components/Logo";
-
-import {getTranslations} from "@/lib/i18n-server";
 import {LoginForm} from "@/app/[lang]/login/form";
 
 type LoginPageProps = {
@@ -10,7 +8,6 @@ type LoginPageProps = {
 
 export default async function LoginPage({params}: LoginPageProps) {
     const {lang} = await params;
-    const {t} = await getTranslations(lang);
 
     return (
         <Box
@@ -24,7 +21,7 @@ export default async function LoginPage({params}: LoginPageProps) {
             }}
         >
             <Logo/>
-            <LoginForm lang={lang} />
+            <LoginForm lang={lang}/>
         </Box>
     );
 };

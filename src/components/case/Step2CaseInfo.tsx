@@ -1,13 +1,14 @@
 'use client';
 
 import {FC} from 'react';
-import {Box, MenuItem, FormHelperText, Typography} from '@mui/material';
+import {Box, MenuItem, FormHelperText} from '@mui/material';
 import {LabeledInput} from '@/components/form/LabeledInput';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {FormSelect} from '@/components/form/FormSelect';
 import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
 import {AffectedSystemsToggle} from '@/components/form/AffectedSystemsToggle';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
+import {FormLabel} from '@/components/form/FormLabel';
 import {CaseFormData} from '@/state/caseFormAtoms';
 import {useTranslation} from "react-i18next";
 
@@ -43,19 +44,9 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
                     helperText={errors.patientAgeMonths}
                 />
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.caseInfo.genderLabel')}<RequiredAsterisk />
-                    </Typography>
+                    </FormLabel>
                     <FormSelect
                         name="gender"
                         value={formData.gender}
@@ -69,19 +60,9 @@ export const Step2CaseInfo: FC<Step2CaseInfoProps> = ({formData, errors, onChang
                     </FormSelect>
                 </FormFieldWrapper>
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '8px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.caseInfo.affectedSystemsLabel')}<RequiredAsterisk />
-                    </Typography>
+                    </FormLabel>
                     <Box>
                         <AffectedSystemsToggle
                             value={formData.affectedSystems}

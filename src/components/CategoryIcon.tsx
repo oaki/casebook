@@ -15,7 +15,7 @@ export const CategoryIcon: FC<CategoryIconProps> = ({code, size= 'large'}) => {
 
     const sizeMap = {
         small: {
-            size: 20,
+            size: 32,
             radius: 8,
             padding: 4,
         },

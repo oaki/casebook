@@ -2,12 +2,13 @@
 
 import {FC} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Box, Typography, MenuItem} from '@mui/material';
+import {Box, MenuItem} from '@mui/material';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
 import {FormSelect} from '@/components/form/FormSelect';
 import {FormTextArea} from '@/components/form/FormTextArea';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
+import {FormLabel} from '@/components/form/FormLabel';
 import {ImageUpload} from '@/components/form/ImageUpload';
 import {CaseFormData} from '@/state/caseFormAtoms';
 import {productOptions} from '@/lib/productOptions';
@@ -27,19 +28,9 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.treatment.usedProductLabel')}<RequiredAsterisk />
-                    </Typography>
+                    </FormLabel>
                     <FormSelect
                         name="usedProduct"
                         value={formData.usedProduct}
@@ -59,19 +50,9 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                 </FormFieldWrapper>
 
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.treatment.treatmentDescriptionLabel')}<RequiredAsterisk />
-                    </Typography>
+                    </FormLabel>
                     <FormTextArea
                         name="treatmentDescription"
                         value={formData.treatmentDescription}
@@ -85,19 +66,9 @@ export const Step5TreatmentAttachments: FC<Step5TreatmentAttachmentsProps> = ({
                 </FormFieldWrapper>
 
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.treatment.attachmentsLabel')}
-                    </Typography>
+                    </FormLabel>
                     <ImageUpload
                         files={formData.attachments}
                         onChange={(files) => onChange('attachments', files)}

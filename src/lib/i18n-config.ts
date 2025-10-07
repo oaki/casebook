@@ -83,6 +83,9 @@ export const i18nConfig = {
                         continue: 'Pokračovať',
                         close: 'Zavrieť'
                     },
+                    messages: {
+                        saving: 'Ukladám...'
+                    },
                     authorInfo: {
                         title: 'Základné údaje o autorovi',
                         nameLabel: 'Celé meno (vrátane titulu)',
@@ -320,6 +323,9 @@ export const i18nConfig = {
                         continue: 'Pokračovat',
                         close: 'Zavřít'
                     },
+                    messages: {
+                        saving: 'Ukládám...'
+                    },
                     authorInfo: {
                         title: 'Základní údaje o autorovi',
                         nameLabel: 'Celé jméno (včetně titulu)',
@@ -391,8 +397,8 @@ export const i18nConfig = {
                             respiratoryInfections: 'Respirační infekce',
                             failureToThrive: 'Neprospívání'
                         },
-                        otherSymptomsLabel: 'Jiné symptomy / Poznámky',
-                        otherSymptomsPlaceholder: 'Zadejte další symptomy nebo poznámky...'
+                        otherSymptomsLabel: 'Popis problému',
+                        otherSymptomsPlaceholder: 'Zadejte popis problému...'
                     },
                     diagnosis: {
                         title: 'Krok 3/5: Informace o pacientovi',

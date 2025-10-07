@@ -6,6 +6,8 @@ import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {FormTextArea} from '@/components/form/FormTextArea';
 import {CaseFormData} from '@/state/caseFormAtoms';
 import {useTranslation} from "react-i18next";
+import {FormLabel} from "@/components/form/FormLabel";
+import {FormFieldWrapper} from "@/components/form/FormFieldWrapper";
 
 export const Step4Diagnosis: FC<Step4DiagnosisProps> = ({
                                                             formData,
@@ -15,14 +17,17 @@ export const Step4Diagnosis: FC<Step4DiagnosisProps> = ({
                                                         }) => {
     const {t} = useTranslation();
     return (
-        <Box sx={{pt: 2}}>
+        <Box>
             <FormGroupTitle>
                 {t('caseForm.diagnosis.title')}
             </FormGroupTitle>
-            <Box sx={{display: 'grid', gap: 2}}>
+
+            <FormFieldWrapper>
+                <FormLabel>
+                    {t('caseForm.diagnosis.diagnosisLabel')}
+                </FormLabel>
                 <FormTextArea
                     name="diagnosis"
-                    label={t('caseForm.diagnosis.diagnosisLabel')}
                     value={formData.diagnosis}
                     onChange={(e) => onChange('diagnosis', e.target.value)}
                     onBlur={() => onBlur('diagnosis')}
@@ -32,7 +37,7 @@ export const Step4Diagnosis: FC<Step4DiagnosisProps> = ({
                     helperText={errors.diagnosis}
                     required
                 />
-            </Box>
+            </FormFieldWrapper>
         </Box>
     );
 };

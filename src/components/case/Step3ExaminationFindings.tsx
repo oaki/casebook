@@ -1,13 +1,14 @@
 'use client';
 
 import {FC} from 'react';
-import {Box, Typography, MenuItem} from '@mui/material';
+import {Box, MenuItem} from '@mui/material';
 import {FormGroupTitle} from '@/components/form/FormGroupTitle';
 import {FormFieldWrapper} from '@/components/form/FormFieldWrapper';
 import {FormSelect} from '@/components/form/FormSelect';
 import {FormMultiSelect} from '@/components/form/FormMultiSelect';
 import {FormTextArea} from '@/components/form/FormTextArea';
 import {RequiredAsterisk} from '@/components/form/RequiredAsterisk';
+import {FormLabel} from '@/components/form/FormLabel';
 import {CaseFormData} from '@/state/caseFormAtoms';
 import {useTranslation} from "react-i18next";
 import {i18nConfig} from "@/lib/i18n-config";
@@ -32,19 +33,9 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
             </FormGroupTitle>
             <Box sx={{display: 'grid', gap: 2}}>
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.examinationFindings.familyHistoryLabel')}<RequiredAsterisk/>
-                    </Typography>
+                    </FormLabel>
                     <FormSelect
                         name="familyHistory"
                         value={formData.familyHistory}
@@ -62,19 +53,9 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                 </FormFieldWrapper>
 
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.examinationFindings.microbiomeFactorsLabel')}<RequiredAsterisk/>
-                    </Typography>
+                    </FormLabel>
                     <FormMultiSelect
                         name="microbiomeFactors"
                         value={formData.microbiomeFactors}
@@ -87,19 +68,9 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                 </FormFieldWrapper>
 
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.examinationFindings.nutritionalHistoryLabel')}<RequiredAsterisk/>
-                    </Typography>
+                    </FormLabel>
                     <FormSelect
                         name="nutritionalHistory"
                         value={formData.nutritionalHistory}
@@ -117,19 +88,9 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                 </FormFieldWrapper>
 
                 <FormFieldWrapper>
-                    <Typography
-                        sx={{
-                            color: '#3C3C3C',
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            pt: {
-                                xs: 0,
-                                sm: '16px',
-                            },
-                        }}
-                    >
+                    <FormLabel>
                         {t('caseForm.examinationFindings.clinicalSymptomsLabel')}<RequiredAsterisk/>
-                    </Typography>
+                    </FormLabel>
                     <FormMultiSelect
                         name="clinicalSymptoms"
                         value={formData.clinicalSymptoms}
@@ -141,15 +102,20 @@ export const Step3ExaminationFindings: FC<Step3ExaminationFindingsProps> = ({
                     />
                 </FormFieldWrapper>
 
-                <FormTextArea
-                    name="otherSymptoms"
-                    label={t('caseForm.examinationFindings.otherSymptomsLabel')}
-                    value={formData.otherSymptoms}
-                    onChange={(e) => onChange('otherSymptoms', e.target.value)}
-                    onBlur={() => onBlur('otherSymptoms')}
-                    error={!!errors.otherSymptoms}
-                    helperText={errors.otherSymptoms}
-                />
+                <FormFieldWrapper>
+                    <FormLabel>
+                        {t('caseForm.examinationFindings.otherSymptomsLabel')}
+                    </FormLabel>
+                    <FormTextArea
+                        name="otherSymptoms"
+                        value={formData.otherSymptoms}
+                        onChange={(e) => onChange('otherSymptoms', e.target.value)}
+                        onBlur={() => onBlur('otherSymptoms')}
+                        error={!!errors.otherSymptoms}
+                        helperText={errors.otherSymptoms}
+                    />
+                </FormFieldWrapper>
+
             </Box>
         </Box>
     );
