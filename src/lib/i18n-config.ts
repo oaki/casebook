@@ -5,56 +5,56 @@ export const i18nConfig = {
                 validation: {
                     email: {
                         required: 'Email je povinný',
-                        invalid: 'Prosím zadajte platný email'
+                        invalid: 'Prosím, skontrolujte zadaný email'
                     },
                     agreement: {
-                        required: 'Musíte súhlasiť s podmienkami používania'
+                        required: 'Pre pokračovanie je potrebné odsúhlasiť podmienky používania'
                     },
                     token: {
-                        missing: 'Chýbajúci token pre overenie',
-                        invalid: 'Neplatný alebo vypršaný token'
+                        missing: 'Chýbajúce údaje na overenie prihlásenia',
+                        invalid: 'Neplatná authentikácia používateľa'
                     }
                 },
                 form: {
                     email: {
-                        label: 'Emailová adresa'
+                        label: 'E-mailová adresa'
                     },
                     agreement: {
-                        label: 'Súhlasím s',
-                        termsLink: 'podmienkami používania'
+                        label: 'Súhlasím so',
+                        termsLink: 'Všeobecnými podmienkami používania'
                     },
                     submit: {
                         continue: 'Pokračovať'
                     },
                     errors: {
-                        sendFailed: 'Nepodarilo sa odoslať e-mail. Skúste to prosím znova.'
+                        sendFailed: 'Nepodarilo sa odoslať e-mail. Skúste to prosím znovu.'
                     }
                 },
                 page: {
-                    title: 'Prihláste sa do svojho účtu',
-                    subtitle: "Zadajte svoju emailovú adresu a pošleme vám bezpečný prihlasovací odkaz."
+                    title: 'Prihlásenie do aplikácie',
+                    subtitle: "Vážená pani doktorka, vážený pán doktor, do aplikácie sa prihlásite zadaním svojej e-mailovej adresy."
                 },
                 verifyRequest: {
                     title: 'Skontrolujte svoj email',
-                    subtitle: 'Prihlasovací odkaz bol odoslaný na vašu emailovú adresu. Prosím skontrolujte svoju schránku a kliknite na odkaz pre pokračovanie.'
+                    subtitle: 'Kliknite na unikátny odkaz, ktorý sme poslali na Váš e-mail.'
                 },
                 auth: {
                     verification: {
-                        loading: 'Overujeme váš prístup...',
-                        wait: 'Prosím počkajte, zatiaľ čo overujeme váš token.',
+                        loading: 'Overujeme prístup...',
+                        wait: 'Prosím počkajte, overujeme Vaše prihlasovacie údaje.',
                         failed: 'Chyba overenia',
-                        error: 'Chyba pri overovaní tokenu',
-                        successMessage: 'Úspešne ste sa prihlásili. Presmerúvame vás...',
-                        invalidToken: 'Neplatný overovací token.',
-                        expiredToken: 'Platnosť tokenu vypršala. Vyžiadajte si nový prihlasovací odkaz.',
-                        genericError: 'Počas overovania tokenu sa vyskytla chyba.'
+                        error: 'Chyba pri overovaní údajov',
+                        successMessage: 'Vaše prihlásenie bolo úspešné, počkajte na presmerovanie.',
+                        invalidToken: 'Neplatné overovacie údaje',
+                        expiredToken: 'Platnosť prihlásenia vypršala. Vyžiadajte si prosím nový prihlasovací odkaz.',
+                        genericError: 'Počas overovania prihlasovacích údajov sa vyskytla chyba, skuste to znova.'
                     },
                     login: {
                         success: 'Úspešne ste sa prihlásili',
                         successful: 'Úspešné prihlásenie'
                     },
                     redirect: {
-                        message: 'Presmerúvame vás na hlavnú stránku...'
+                        message: 'Počkajte na presmerovanie do aplikácie.'
                     },
                     back: {
                         login: 'Späť na prihlásenie'
@@ -62,13 +62,13 @@ export const i18nConfig = {
                 },
                 email: {
                     greeting: "Vážená pani doktorka, vážený pán doktor,",
-                    thankYou: "ďakujeme za váš záujem o prístup do",
+                    thankYou: "ďakujeme za Váš záujem o prístup do",
                     appName: "Nutricia I CASEBOOK",
                     appDescription: "našej odbornej aplikácie určenej pre lekárov a zdravotníckych pracovníkov.",
                     instruction: "Pre dokončenie registrácie a získanie plného prístupu k obsahu prosím kliknite na nasledujúci odkaz:",
                     buttonText: "Dokončiť registráciu do Nutricia I CASEBOOK",
-                    linkNote: "(Tento odkaz je jedinečný a platí len pre vás.)",
-                    closing: "Veríme, že v aplikácii nájdete cenné informácie, ktoré vás obohatia vo vašej každodennej praxi.",
+                    linkNote: "(Tento odkaz je jedinečný a platí len pre Vás.)",
+                    closing: "Veríme, že v aplikácii nájdete cenné informácie, ktoré Vás obohatia v každodennej praxi.",
                     signature: "Tím Nutricia I CASEBOOK",
                     viewOnline: "Zobraziť e-mail online",
                     subject: 'Prístup do Nutricia | CASEBOOK'
@@ -85,15 +85,15 @@ export const i18nConfig = {
                     },
                     authorInfo: {
                         title: 'Základné údaje o autorovi',
-                        nameLabel: 'Vaše meno',
+                        nameLabel: 'Celé meno (vrátane titulu)',
                         namePlaceholder: 'MUDr. Ján Novák, PhD.',
-                        specializationLabel: 'Vaša špecializácia',
+                        specializationLabel: 'Špecializácia',
                         specializationPlaceholder: 'Pediater',
-                        workplaceLabel: 'Vaše pracovisko',
+                        workplaceLabel: 'Pracovisko',
                         workplacePlaceholder: 'Univerzitná Nemocnica Bratislava'
                     },
                     caseInfo: {
-                        title: 'Krok 1/6: Základné údaje prípadu',
+                        title: 'Krok 1/5: Informácie o pacientovi',
                         caseNameLabel: 'Názov kazuistiky',
                         caseNamePlaceholder: 'Problémy so zažívaním dieťaťa po liečbe matky ATB',
                         patientAgeLabel: 'Vek pacienta v mesiacoch',
@@ -109,7 +109,7 @@ export const i18nConfig = {
                         }
                     },
                     examinationFindings: {
-                        title: 'Krok 2/6: Vyšetrenie a nález',
+                        title: 'Krok 2/5: Informácie o pacientovi',
                         familyHistoryLabel: 'Rodinná anamnéza',
                         familyHistoryOptions: {
                             no: 'Nie',
@@ -126,20 +126,20 @@ export const i18nConfig = {
                             childAtb: 'Užívanie ATB u dieťaťa',
                             smoking: 'Fajčenie'
                         },
-                        nutritionalHistoryLabel: 'Nutričná anamnéza',
+                        nutritionalHistoryLabel: 'Nutričná história',
                         nutritionalHistoryOptions: {
                             mm_no_elimination: 'MM (bez eliminačnej diéty matky)',
                             mm_with_elimination: 'MM (s eliminačnej diéty matky)',
-                            standard_formula: 'Štandardná formula (značka)',
-                            phf: 'pHF (značka)',
-                            ehf: 'eHF (značka)',
-                            aaf: 'AAF (značka)'
+                            standard_formula: 'Štandardná formula',
+                            phf: 'Parciálne hydrolyzovaná formula',
+                            ehf: 'Extenzívne hydrolyzovaná formula',
+                            aaf: 'Aminokyselinovaná formula'
                         },
-                        clinicalSymptomsLabel: 'Klinické symptómy',
+                        clinicalSymptomsLabel: 'Klinické príznaky',
                         clinicalSymptomsOptions: {
                             eczema: 'Ekzém',
                             atopicDermatitis: 'Atopická dermatitída',
-                            urticaria: 'Urtikácia',
+                            urticaria: 'Urtikária',
                             reflux: 'Reflux',
                             regurgitation: 'Regurgitácia',
                             colic: 'Kolika',
@@ -158,53 +158,53 @@ export const i18nConfig = {
                         otherSymptomsPlaceholder: 'Zadajte ďalšie symptómy alebo poznámky...'
                     },
                     diagnosis: {
-                        title: 'Krok 3/6: Diagnóza',
-                        diagnosisLabel: 'Diagnóza',
-                        diagnosisPlaceholder: '2x UZ vyšetrenie pre vylúčenie pylorostenózy a invaginácie. Po zavedení Neocate Syneo rýchly ústup ťažkostí do 48 hodín...'
+                        title: 'Krok 3/5: Informácie o pacientovi',
+                        diagnosisLabel: 'Diagnostika a manažment pacienta',
+                        diagnosisPlaceholder: '2x UZ vyšetrenie pre vylúčenie pylorostenózy a invaginácia. Po zavedení Neocate Syneo rýchly ústup ťažkostí do 48 hodín – po 24 hod. dieťa už nevracalo, po 48 hodinách už zmizla aj krv v stolici. Dojča prospieva, z pôrodnej váhy 3.017 g chlapec po 6 mesiacoch dosahuje 6.640 g.'
                     },
                     treatment: {
-                        title: 'Krok 4/6: Liečba a prílohy',
+                        title: 'Krok 4/5: Informácie o pacientovi',
                         usedProductLabel: 'Použitý produkt',
                         usedProductPlaceholder: 'Neocate Syneo',
-                        treatmentDescriptionLabel: 'Popis liečby',
-                        treatmentDescriptionPlaceholder: 'Popíšte liečbu',
+                        treatmentDescriptionLabel: 'Diskusia a záver',
+                        treatmentDescriptionPlaceholder: 'Neocate Syneo mal v prípade chlapca zásadný význam na jeho zdravie a pohodu rodiny. Masívny nález krvi v stolici nielen veľmi stresoval rodičov, ale samozrejme ohrozoval zdravie dieťaťa (napr. anémiou). Aj pomerne časté zvracanie mohlo ohroziť dieťa (neprospievanie, rozvrat minerálového metabolizmu).',
                         attachmentsLabel: 'Prílohy'
                     },
                     summary: {
-                        title: 'Krok 5/6: Súhrn',
+                        title: 'Krok 5/5: Skontrolujte vyplnené údaje',
                         caseNameLabel: 'Názov kazuistiky',
                         patientAgeLabel: 'Vek dieťaťa v mesiacoch',
-                        patientAgeMonths: 'mesiace',
+                        patientAgeMonths: 'mesiace/ov',
                         genderLabel: 'Pohlavie',
                         affectedSystemsLabel: 'Postihnuté sústavy',
                         familyHistoryLabel: 'Rodinná anamnéza',
                         microbiomeFactorsLabel: 'Faktory ovplyvňujúce mikrobióm',
-                        nutritionalHistoryLabel: 'Nutričná anamnéza',
+                        nutritionalHistoryLabel: 'Nutričná história',
                         clinicalSymptomsLabel: 'Klinické symptómy',
-                        diagnosisLabel: 'Diagnóza',
+                        diagnosisLabel: 'Diagnostika a manžment pacienta',
                         usedProductLabel: 'Použitý produkt',
-                        treatmentDescriptionLabel: 'Popis liečby'
+                        treatmentDescriptionLabel: 'Diskusia a záver'
                     },
                     submission: {
-                        title: 'Ďakujeme, Vaša kazuistika bola úspešne odoslaná na schválenie.',
-                        message: 'Naši administrátori teraz podrobia Vašu kazuistiku kontrole. Pokiaľ bude všetko v poriadku, kazuistika bude publikovaná a dostupná k nahliadnutiu v našej aplikácii.'
+                        title: 'Ďakujeme za vyplnenie kazuistiky.',
+                        message: 'Kazuistika bola úspešne odoslaná na schválenie. Po schválení bude publikovaná a dostupná k nahliadnutiu v našej aplikácii.'
                     },
                     validation: {
-                        nameRequired: 'Vaše meno je povinné',
-                        specializationRequired: 'Vaša špecializácia je povinná',
-                        workplaceRequired: 'Vaše pracovisko je povinné',
-                        caseNameMin: 'Názov kazuistiky musí mať aspoň 3 znaky',
-                        patientAgeRequired: 'Vek pacienta je povinný',
-                        genderRequired: 'Pohlavie je povinné',
-                        affectedSystemsMin: 'Vyberte aspoň jeden postihnutý systém',
-                        familyHistoryRequired: 'Rodinná anamnéza je povinná',
-                        microbiomeFactorsMin: 'Vyberte aspoň jeden mikrobiómový faktor',
-                        nutritionalHistoryRequired: 'Nutričná história je povinná',
-                        clinicalSymptomsMin: 'Vyberte aspoň jeden klinický symptóm',
-                        problemDescriptionMin: 'Popis problému musí mať aspoň 10 znakov',
-                        diagnosisMin: 'Diagnóza musí mať aspoň 10 znakov',
+                        nameRequired: 'Povinný údaj',
+                        specializationRequired: 'Povinný údaj',
+                        workplaceRequired: 'Povinný údaj',
+                        caseNameMin: 'Názov kazuistiky musí mať aspoň 15 znakov',
+                        patientAgeRequired: 'Povinný údaj',
+                        genderRequired: 'Povinný údaj',
+                        affectedSystemsMin: 'Vyberte aspoň jednu sústavu',
+                        familyHistoryRequired: 'Povinný údaj',
+                        microbiomeFactorsMin: 'Vyberte aspoň jeden faktor ovplyvňujúci mikrobióm',
+                        nutritionalHistoryRequired: 'Povinný údaj',
+                        clinicalSymptomsMin: 'Vyberte aspoň jeden klinický príznak',
+                        problemDescriptionMin: 'Úvod do problematiky musí mať aspoň 200 znakov',
+                        diagnosisMin: 'Diagnostika a manažment pacienta musí mať aspoň 200 znakov',
                         usedProductRequired: 'Použitý produkt je povinný',
-                        treatmentDescriptionMin: 'Popis liečby musí mať aspoň 10 znakov'
+                        treatmentDescriptionMin: 'Diskusia a záver musí mať aspoň 200 znakov'
                     }
                 },
                 buttons: {
@@ -243,23 +243,23 @@ export const i18nConfig = {
                 validation: {
                     email: {
                         required: 'Email je povinný',
-                        invalid: 'Prosím zadejte platný email'
+                        invalid: 'Prosím, zkontrolujte zadaný e-mail'
                     },
                     agreement: {
-                        required: 'Musíte souhlasit s podmínkami používání'
+                        required: 'Pro pokračování je nutné souhlasit s podmínkami používání'
                     },
                     token: {
-                        missing: 'Chybějící token pro ověření',
-                        invalid: 'Neplatný nebo vypršaný token'
+                        missing: 'Chybějící údaje pro ověření přihlášení',
+                        invalid: 'Neplatná autentikace uživatele'
                     }
                 },
                 form: {
                     email: {
-                        label: 'Emailová adresa'
+                        label: 'E-mailová adresa'
                     },
                     agreement: {
-                        label: 'Souhlasím s',
-                        termsLink: 'podmínkami používání'
+                        label: 'Souhlasím se',
+                        termsLink: 'Všeobecnými podmínkami používání'
                     },
                     submit: {
                         continue: 'Pokračovat'
@@ -269,30 +269,30 @@ export const i18nConfig = {
                     }
                 },
                 page: {
-                    title: 'Přihlaste se do svého účtu',
-                    subtitle: "Zadejte svou emailovou adresu a pošleme vám bezpečný přihlašovací odkaz."
+                    title: 'Přihlášení do aplikace',
+                    subtitle: "Vážená paní doktorko, vážený pane doktore, do aplikace se přihlásíte zadáním své e-mailové adresy."
                 },
                 verifyRequest: {
                     title: 'Zkontrolujte svůj email',
-                    subtitle: 'Přihlašovací odkaz byl odeslán na vaši emailovou adresu. Prosím zkontrolujte svou schránku a klikněte na odkaz pro pokračování.'
+                    subtitle: 'Klikněte na unikátní odkaz, který jsme poslali na Váš e-mail.'
                 },
                 auth: {
                     verification: {
-                        loading: 'Ověřujeme váš přístup...',
-                        wait: 'Prosím počkejte, zatímco ověřujeme váš token.',
+                        loading: 'Ověřujeme přístup...',
+                        wait: 'Prosím vyčkejte, ověřujeme Vaše přihlašovací údaje.',
                         failed: 'Chyba ověření',
-                        error: 'Chyba při ověřování tokenu',
-                        successMessage: 'Úspěšně jste se přihlásili. Přesměrováváme vás...',
-                        invalidToken: 'Neplatný ověřovací token.',
-                        expiredToken: 'Platnost tokenu vypršela. Vyžádejte si nový přihlašovací odkaz.',
-                        genericError: 'Během ověřování tokenu se vyskytla chyba.'
+                        error: 'Chyba při ověřování údajů',
+                        successMessage: 'Vaše přihlášení bylo úspěšné, počkejte na přesměrování.',
+                        invalidToken: 'Neplatné ověřovací údaje',
+                        expiredToken: 'Platnost přihlášení vypršela. Vyžádejte si prosím nový přihlašovací odkaz.',
+                        genericError: 'Během ověřování přihlašovacích údajů došlo k chybě, zkuste to znovu.'
                     },
                     login: {
-                        success: 'Úspešne ste sa prihlásili',
+                        success: 'Úspěšně jste se přihlásili',
                         successful: 'Úspěšné přihlášení'
                     },
                     redirect: {
-                        message: 'Přesměrováváme vás na hlavní stránku...'
+                        message: 'Počkejte na přesměrování do aplikace.'
                     },
                     back: {
                         login: 'Zpět na přihlášení'
@@ -300,13 +300,13 @@ export const i18nConfig = {
                 },
                 email: {
                     greeting: "Vážená paní doktorko, vážený pane doktore,",
-                    thankYou: "děkujeme za váš zájem o přístup do",
+                    thankYou: "děkujeme za Váš zájem o přístup do",
                     appName: "Nutricia I CASEBOOK",
                     appDescription: "naší odborné aplikace určené pro lékaře a zdravotnické pracovníky.",
                     instruction: "Pro dokončení registrace a získání plného přístupu k obsahu prosím klikněte na následující odkaz:",
                     buttonText: "Dokončit registraci do Nutricia I CASEBOOK",
-                    linkNote: "(Tento odkaz je jedinečný a platí pouze pro vás.)",
-                    closing: "Věříme, že v aplikaci naleznete cenné informace, které vás obohatí ve vaší každodenní praxi.",
+                    linkNote: "(Tento odkaz je jedinečný a platí pouze pro Vás.)",
+                    closing: "Věříme, že v aplikaci naleznete cenné informace, které Vás obohatí ve vaší každodenní praxi.",
                     signature: "Tým Nutricia I CASEBOOK",
                     viewOnline: "Zobrazit e-mail online",
                     subject: 'Přístup do Nutricia | CASEBOOK'
@@ -322,17 +322,17 @@ export const i18nConfig = {
                     },
                     authorInfo: {
                         title: 'Základní údaje o autorovi',
-                        nameLabel: 'Vaše jméno',
+                        nameLabel: 'Celé jméno (včetně titulu)',
                         namePlaceholder: 'MUDr. Jan Novák, PhD.',
-                        specializationLabel: 'Vaše specializace',
+                        specializationLabel: 'Specializace',
                         specializationPlaceholder: 'Pediatr',
-                        workplaceLabel: 'Vaše pracoviště',
-                        workplacePlaceholder: 'Univerzitní Nemocnice Bratislava'
+                        workplaceLabel: 'Pracoviště',
+                        workplacePlaceholder: 'Univerzitní Nemocnice Brno'
                     },
                     caseInfo: {
-                        title: 'Krok 1/6: Základní údaje případu',
+                        title: 'Krok 1/5: Informace o pacientovi',
                         caseNameLabel: 'Název kazuistiky',
-                        caseNamePlaceholder: 'Problémy se zažíváním dítěte po léčbě matky ATB',
+                        caseNamePlaceholder: 'Trávicí potíže dítěte po léčbě matky ATB',
                         patientAgeLabel: 'Věk pacienta v měsících',
                         patientAgePlaceholder: '4',
                         genderLabel: 'Pohlaví',
@@ -346,7 +346,7 @@ export const i18nConfig = {
                         }
                     },
                     examinationFindings: {
-                        title: 'Krok 2/6: Vyšetření a nález',
+                        title: 'Krok 2/5: Informace o pacientovi',
                         familyHistoryLabel: 'Rodinná anamnéza',
                         familyHistoryOptions: {
                             no: 'Ne',
@@ -363,20 +363,20 @@ export const i18nConfig = {
                             childAtb: 'Užívání ATB u dítěte',
                             smoking: 'Kouření'
                         },
-                        nutritionalHistoryLabel: 'Nutriční anamnéza',
+                        nutritionalHistoryLabel: 'Nutriční historie',
                         nutritionalHistoryOptions: {
                             mm_no_elimination: 'MM (bez eliminační diety matky)',
                             mm_with_elimination: 'MM (s eliminační dietou matky)',
-                            standard_formula: 'Standardní formule (značka)',
-                            phf: 'pHF (značka)',
-                            ehf: 'eHF (značka)',
-                            aaf: 'AAF (značka)'
+                            standard_formula: 'Standardní formule',
+                            phf: 'Částečně hydrolyzovaná formule',
+                            ehf: 'Extenzivně hydrolyzovaná formule',
+                            aaf: 'Aminokyselinová formule'
                         },
-                        clinicalSymptomsLabel: 'Klinické symptomy',
+                        clinicalSymptomsLabel: 'Klinické příznaky',
                         clinicalSymptomsOptions: {
                             eczema: 'Ekzém',
                             atopicDermatitis: 'Atopická dermatitida',
-                            urticaria: 'Kopřivka',
+                            urticaria: 'Urtikárie',
                             reflux: 'Reflux',
                             regurgitation: 'Regurgitace',
                             colic: 'Kolika',
@@ -384,7 +384,7 @@ export const i18nConfig = {
                             bloodMucusInStool: 'Krev / Hlen ve stolici',
                             diarrhea: 'Průjem',
                             flatulence: 'Plynatost',
-                            dyschezia: 'Dyschezie',
+                            dyschezia: 'Dyschézie',
                             hardStool: 'Tvrdá stolice',
                             wheezing: 'Sípání',
                             rhinitis: 'Rýma',
@@ -395,53 +395,53 @@ export const i18nConfig = {
                         otherSymptomsPlaceholder: 'Zadejte další symptomy nebo poznámky...'
                     },
                     diagnosis: {
-                        title: 'Krok 3/6: Diagnóza',
-                        diagnosisLabel: 'Diagnóza',
-                        diagnosisPlaceholder: '2x UZ vyšetření pro vyloučení pylorostenózy a invaginace. Po zavedení Neocate Syneo rychlý ústup potíží do 48 hodin...'
+                        title: 'Krok 3/5: Informace o pacientovi',
+                        diagnosisLabel: 'Diagnostika a manažment pacienta',
+                        diagnosisPlaceholder: '2× UZ vyšetření pro vyloučení pylorostenózy a invaginace. Po nasazení Neocate Syneo rychlý ústup potíží do 48 hodin – po 24 hod. dítě již nezvracelo, po 48 hodinách zmizela i krev ve stolici. Kojence prospívá, z porodní váhy 3 017 g chlapec po 6 měsících dosahuje 6 640 g.'
                     },
                     treatment: {
-                        title: 'Krok 4/6: Léčba a přílohy',
+                        title: 'Krok 4/5: Informace o pacientovi',
                         usedProductLabel: 'Použitý produkt',
                         usedProductPlaceholder: 'Neocate Syneo',
-                        treatmentDescriptionLabel: 'Popis léčby',
-                        treatmentDescriptionPlaceholder: 'Popište léčbu',
+                        treatmentDescriptionLabel: 'Diskuze a závěr',
+                        treatmentDescriptionPlaceholder: 'Neocate Syneo měl v případě chlapce zásadní význam pro jeho zdraví a pohodu rodiny. Masivní nález krve ve stolici nejen velmi stresoval rodiče, ale samozřejmě ohrožoval zdraví dítěte (např. anémií). Také poměrně časté zvracení mohlo dítě ohrozit (neprospívání, rozvrat minerálového metabolismu).',
                         attachmentsLabel: 'Přílohy'
                     },
                     summary: {
-                        title: 'Krok 5/6: Souhrn',
+                        title: 'Krok 5/5: Zkontrolujte vyplněné údaje',
                         caseNameLabel: 'Název kazuistiky',
                         patientAgeLabel: 'Věk dítěte v měsících',
-                        patientAgeMonths: 'měsíce',
+                        patientAgeMonths: 'měsíce/ů',
                         genderLabel: 'Pohlaví',
                         affectedSystemsLabel: 'Postižené soustavy',
                         familyHistoryLabel: 'Rodinná anamnéza',
                         microbiomeFactorsLabel: 'Faktory ovlivňující mikrobiom',
-                        nutritionalHistoryLabel: 'Nutriční anamnéza',
-                        clinicalSymptomsLabel: 'Klinické symptomy',
-                        diagnosisLabel: 'Diagnóza',
+                        nutritionalHistoryLabel: 'Nutriční historie',
+                        clinicalSymptomsLabel: 'Klinické příznaky',
+                        diagnosisLabel: 'Diagnostika a management pacienta',
                         usedProductLabel: 'Použitý produkt',
-                        treatmentDescriptionLabel: 'Popis léčby'
+                        treatmentDescriptionLabel: 'Diskuze a závěr'
                     },
                     submission: {
-                        title: 'Děkujeme, Vaše kazuistika byla úspěšně odeslána ke schválení.',
-                        message: 'Naši administrátoři nyní podrobí Vaši kazuistiku kontrole. Pokud bude vše v pořádku, kazuistika bude publikována a dostupná k nahlédnutí v naší aplikaci.'
+                        title: 'Děkujeme za vyplnění kazuistiky.',
+                        message: 'Kazuistika byla úspěšně odeslána ke schválení. Po schválení bude publikována a dostupná k nahlédnutí v naší aplikaci.'
                     },
                     validation: {
-                        nameRequired: 'Vaše jméno je povinné',
-                        specializationRequired: 'Vaše specializace je povinná',
-                        workplaceRequired: 'Vaše pracoviště je povinné',
-                        caseNameMin: 'Název kazuistiky musí mít alespoň 3 znaky',
-                        patientAgeRequired: 'Věk pacienta je povinný',
-                        genderRequired: 'Pohlaví je povinné',
-                        affectedSystemsMin: 'Vyberte alespoň jeden postižený systém',
-                        familyHistoryRequired: 'Rodinná anamnéza je povinná',
-                        microbiomeFactorsMin: 'Vyberte alespoň jeden mikrobiomový faktor',
-                        nutritionalHistoryRequired: 'Nutriční historie je povinná',
-                        clinicalSymptomsMin: 'Vyberte alespoň jeden klinický symptom',
-                        problemDescriptionMin: 'Popis problému musí mít alespoň 10 znaků',
-                        diagnosisMin: 'Diagnóza musí mít alespoň 10 znaků',
-                        usedProductRequired: 'Použitý produkt je povinný',
-                        treatmentDescriptionMin: 'Popis léčby musí mít alespoň 10 znaků'
+						nameRequired: "Povinný údaj",
+						specializationRequired: "Povinný údaj",
+						workplaceRequired: "Povinný údaj",
+						caseNameMin: "Název kazuistiky musí mít alespoň 15 znaků",
+						patientAgeRequired: "Povinný údaj",
+						genderRequired: "Povinný údaj",
+						affectedSystemsMin: "Vyberte alespoň jednu soustavu",
+						familyHistoryRequired: "Povinný údaj",
+						microbiomeFactorsMin: "Vyberte alespoň jeden faktor ovlivňující mikrobiom",
+						nutritionalHistoryRequired: "Povinný údaj",
+						clinicalSymptomsMin: "Vyberte alespoň jeden klinický příznak",
+						problemDescriptionMin: "Úvod do problematiky musí mít alespoň 200 znaků",
+						diagnosisMin: "Diagnostika a management pacienta musí mít alespoň 200 znaků",
+						usedProductRequired: "Použitý produkt je povinný",
+						treatmentDescriptionMin: "Diskuze a závěr musí mít alespoň 200 znaků"
                     }
                 },
                 buttons: {
@@ -462,6 +462,7 @@ export const i18nConfig = {
                     usedProduct: 'Použitý produkt',
                     introduction: 'Úvod do problematiky',
                     patientManagement: 'Manažment pacienta',
+                    nutritionalHistory: 'Nutriční anamnéza',
                     months: 'měsíc',
                     monthsPlural: 'měsíce',
                     genderMale: 'Chlapec',
