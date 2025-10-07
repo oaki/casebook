@@ -36,7 +36,6 @@
     "react-dropzone": "^14.3.8",
     "react-i18next": "^16.0.0",
     "resend": "^6.1.0",
-    "sharp": "^0.34.4",
     "validator": "^13.15.15",
     "zod": "^3.22.2"
   },

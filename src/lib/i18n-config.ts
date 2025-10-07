@@ -211,6 +211,26 @@ export const i18nConfig = {
                     allCases: 'Všetky kazuistiky',
                     openCaseStudy: 'Otvoriť prípadovú štúdiu'
                 },
+                caseDetail: {
+                    author: 'Autor',
+                    specialization: 'Špecializácia',
+                    workplace: 'Pracovisko',
+                    patient: 'Pacient',
+                    age: 'Vek',
+                    gender: 'Pohlavie',
+                    familyHistory: 'Rodinná anamnéza',
+                    riskFactors: 'Rizikové faktory',
+                    clinicalSymptoms: 'Klinické príznaky',
+                    otherSymptoms: 'Iné symptómy',
+                    usedProduct: 'Použitý produkt',
+                    introduction: 'Úvod do problematiky',
+                    patientManagement: 'Manažment pacienta',
+                    nutritionalHistory: 'Nutričná anamnéza',
+                    months: 'mesiac',
+                    monthsPlural: 'mesiace',
+                    genderMale: 'Chlapec',
+                    genderFemale: 'Dievča'
+                },
                 header: {
                     productList: 'Zoznam produktov',
                     language: 'Jazyk',
@@ -427,6 +447,25 @@ export const i18nConfig = {
                 buttons: {
                     allCases: 'Všechny kazuistiky',
                     openCaseStudy: 'Otevřít případovou studii'
+                },
+                caseDetail: {
+                    author: 'Autor',
+                    specialization: 'Specializace',
+                    workplace: 'Pracoviště',
+                    patient: 'Pacient',
+                    age: 'Věk',
+                    gender: 'Pohlaví',
+                    familyHistory: 'Rodinná anamnéza',
+                    riskFactors: 'Rizikové faktory',
+                    clinicalSymptoms: 'Klinické symptomy',
+                    otherSymptoms: 'Jiné symptomy',
+                    usedProduct: 'Použitý produkt',
+                    introduction: 'Úvod do problematiky',
+                    patientManagement: 'Manažment pacienta',
+                    months: 'měsíc',
+                    monthsPlural: 'měsíce',
+                    genderMale: 'Chlapec',
+                    genderFemale: 'Dívka'
                 },
                 header: {
                     productList: 'Seznam produktů',
