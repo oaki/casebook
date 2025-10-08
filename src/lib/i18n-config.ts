@@ -157,7 +157,7 @@ export const i18nConfig = {
                             respiratoryInfections: 'Respiračné infekcie',
                             failureToThrive: 'Neprospievanie'
                         },
-                        otherSymptomsLabel: 'Iné symptómy / Poznámky',
+                        otherSymptomsLabel: 'Popis Poznámky',
                         otherSymptomsPlaceholder: 'Zadajte ďalšie symptómy alebo poznámky...'
                     },
                     diagnosis: {
