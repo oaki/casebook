@@ -1,7 +1,7 @@
 'use client';
 
 import {FC, useState} from 'react';
-import PrimaryButton from '@/components/PrimaryButton';
+import PrimaryButton from '@/components/buttons/PrimaryButton';
 import {AddCaseModal} from '@/components/case/AddCaseModal';
 import {useTranslation} from "react-i18next";
 import {UserData} from "@/app/[lang]/dashboard/page";

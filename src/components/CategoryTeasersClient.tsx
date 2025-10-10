@@ -79,7 +79,7 @@ export const CategoryTeasersClient: FC<CategoryTeasersClientProps> = ({categorie
                                     });
                                 }}
                                 onClick={() => {
-                                    router.push(`/${currentLang}/casestudies?category[]=${category.code}`);
+                                    router.push(`/${currentLang}/casestudies?categories=${category.code}`);
                                 }}
                             >
                                 <Box sx={{

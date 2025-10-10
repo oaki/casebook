@@ -2,6 +2,13 @@ export const i18nConfig = {
     resources: {
         sk: {
             translation: {
+                filter: {
+                    title: 'Filtrovat pripadove studie',
+                    affectedSystem: 'Postihnutá orgánová sústava',
+                    product: 'Použitý produkt',
+                    reset: 'Resetovať filter',
+                    showCases: 'Zobrazit kazuistiky'
+                },
                 validation: {
                     email: {
                         required: 'Email je povinný',
@@ -32,7 +39,7 @@ export const i18nConfig = {
                 },
                 page: {
                     title: 'Prihlásenie do aplikácie',
-                    subtitle: "Vážená pani doktorka, vážený pán doktor, do aplikácie sa prihlásite zadaním svojej e-mailovej adresy."
+                    subtitle: "Vážená pani doktorko, vážený pán doktor, do aplikácie sa prihlásite zadaním svojej e-mailovej adresy."
                 },
                 verifyRequest: {
                     title: 'Skontrolujte svoj email',
@@ -61,7 +68,7 @@ export const i18nConfig = {
                     }
                 },
                 email: {
-                    greeting: "Vážená pani doktorka, vážený pán doktor,",
+                    greeting: "Vážená pani doktorko, vážený pán doktor,",
                     thankYou: "ďakujeme za Váš záujem o prístup do",
                     appName: "Nutricia I CASEBOOK",
                     appDescription: "našej odbornej aplikácie určenej pre lekárov a zdravotníckych pracovníkov.",
@@ -208,7 +215,7 @@ export const i18nConfig = {
                         diagnosisMin: 'Diagnostika a manažment pacienta musí mať aspoň 200 znakov',
                         usedProductRequired: 'Použitý produkt je povinný',
                         treatmentDescriptionMin: 'Diskusia a záver musí mať aspoň 200 znakov'
-                    }
+                    },
                 },
                 buttons: {
                     allCases: 'Všetky kazuistiky',
@@ -243,6 +250,13 @@ export const i18nConfig = {
         },
         cz: {
             translation: {
+                filter: {
+                    title: 'Filtrovat případové studie',
+                    affectedSystem: 'Postižená orgánová soustava',
+                    product: 'Použitý produkt',
+                    reset: 'Resetovat filtr',
+                    showCases: 'Zobrazit kazuistiky'
+                },
                 validation: {
                     email: {
                         required: 'Email je povinný',

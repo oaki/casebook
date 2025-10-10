@@ -1,8 +1,8 @@
 import React from 'react';
 import {Grid} from '@mui/material';
-import BabyWithCircles from './BabyWithCircles';
 import {CategoryTeasers} from "@/components/CategoryTeasers";
 import {Provider} from "jotai";
+import BabyWithCircles from "@/components/baby/BabyWithCircles";
 
 
 

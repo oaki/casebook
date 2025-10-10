@@ -30,7 +30,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
     const [submitError, setSubmitError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (open && userData?.name && userData?.specialization && userData?.workplace) {
+        if (open && currentStep === 0 && userData?.name && userData?.specialization && userData?.workplace) {
             setFormData(prev => ({
                 ...prev,
                 name: userData.name || '',
@@ -40,7 +40,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
 
             setCurrentStep(1);
         }
-    }, [open, userData, setFormData, setCurrentStep]);
+    }, [open, userData, setFormData, setCurrentStep, currentStep]);
 
     const currentSchema = useMemo(() => {
         switch (currentStep) {
@@ -130,6 +130,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
             } finally {
                 setIsSubmitting(false);
             }
+            setCurrentStep(6);
             return;
         }
 
@@ -278,7 +279,7 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
             }}
         >
             <DialogTitleWithClose onClose={handleClose}>
-                {t('caseForm.addCaseTitle')}
+                {currentStep!==6 && t('caseForm.addCaseTitle')}
             </DialogTitleWithClose>
             <DialogContent dividers>
                 {renderStepContent()}
@@ -294,7 +295,10 @@ const AddCaseModalContent: FC<AddCaseModalContentProps> = ({userData, open, onCl
                     </Box>
                 )}
                 <Box sx={{ml: 'auto'}}>
-                    <NextButton onClick={handleNext}>
+                    <NextButton onClick={handleNext} disabled={isSubmitting}>
+                        {isSubmitting && currentStep === 5
+                            ? <CircularProgress size={20} sx={{mr: 1}} />
+                            : null}
                         {currentStep === 5 && t('caseForm.buttons.submit')}
                         {currentStep < 5 && t('caseForm.buttons.continue')}
                         {currentStep === 6 && t('caseForm.buttons.close')}

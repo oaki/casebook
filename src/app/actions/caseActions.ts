@@ -180,7 +180,6 @@ export async function updateUserData(userData: UserUpdateInput) {
       await userRepository.updateProfile(session.user.id, updateData);
     }
 
-    revalidatePath('/dashboard');
     return { success: true };
   } catch (error) {
     console.error('Error updating user profile:', error);

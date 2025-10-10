@@ -1,9 +1,9 @@
 'use client';
 
 import {FC, ReactNode} from 'react';
-import {Typography} from '@mui/material';
+import {Typography, SxProps} from '@mui/material';
 
-export const FormGroupTitle: FC<FormGroupTitleProps> = ({children}) => {
+export const FormGroupTitle: FC<FormGroupTitleProps> = ({children, sx}) => {
     return (
         <Typography
             variant="h6"
@@ -12,7 +12,7 @@ export const FormGroupTitle: FC<FormGroupTitleProps> = ({children}) => {
                 fontSize: '22px',
                 fontWeight: 700,
                 color: '#2B3C90',
-
+                ...sx,
             }}
         >
             {children}
@@ -22,5 +22,6 @@ export const FormGroupTitle: FC<FormGroupTitleProps> = ({children}) => {
 
 type FormGroupTitleProps = {
     children: ReactNode;
+    sx?: SxProps;
 };
 

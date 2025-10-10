@@ -14,11 +14,11 @@ import {
 import {useTranslation} from 'react-i18next';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import PrimaryButton from "../../../components/PrimaryButton";
 import {sendLoginEmailAction} from "./actions";
 import {createLoginSchema} from "./validation";
 import "@/lib/i18n";
 import { useFormStatus } from "react-dom";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
 
 const SubmitButton: FC = () => {

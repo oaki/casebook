@@ -24,14 +24,19 @@ const DashboardPage = async () => {
         <div>
             <Header/>
             <Container maxWidth="lg">
+
+                <Grid container justifyContent="flex-end">
+                    {canAddCase && (
+                        <div style={{zIndex: 1, marginRight: '2rem'}}>
+                            <AddCaseButton userData={userData}/>
+                        </div>
+                    )}
+                </Grid>
                 <Grid spacing={2} container>
                     <CategoryFilter/>
                 </Grid>
-                {canAddCase && (
-                    <div style={{display: 'flex', justifyContent: 'flex-end', marginRight: '2rem'}}>
-                        <AddCaseButton userData={userData}/>
-                    </div>
-                )}
+
+
             </Container>
         </div>
     );
