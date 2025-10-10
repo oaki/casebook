@@ -1,6 +1,5 @@
 import Header from "@/app/header";
 import {Box, Container, Grid} from "@mui/material";
-import {getSession} from "@/lib/session";
 import {redirect} from "next/navigation";
 import BabyWithCircles from "@/components/baby/BabyWithCircles";
 
@@ -12,59 +11,7 @@ import {AddCaseButton} from "@/components/case/AddCaseButton";
 import {requireAuth} from "@/lib/auth";
 import {UserData} from "@/app/[lang]/dashboard/page";
 import {getFiltersFromSearchParams} from "@/lib/getFiltersFromSearchParams";
-
-export type CaseData = {
-    id: number;
-    author: string;
-    specialization: string;
-    workplace: string;
-    case_name: string;
-    affected_systems: string[];
-}
-
-async function getCases(categories?: string[]): Promise<CaseData[]> {
-    const cases = await prisma.cases.findMany({
-        where: {
-            deleted_at: null
-        },
-        select: {
-            id: true,
-            case_name: true,
-            affected_systems: true,
-            user: {
-                select: {
-                    name: true,
-                    specialization: true,
-                    workplace: true,
-
-                }
-            }
-        }
-    });
-
-    // Transform the data
-    const transformedCases = cases.map(caseItem => ({
-        id: caseItem.id,
-        author: caseItem.user.name || '',
-        specialization: caseItem.user.specialization || '',
-        workplace: caseItem.user.workplace || '',
-        case_name: caseItem.case_name,
-        affected_systems: Array.isArray(caseItem.affected_systems)
-            ? caseItem.affected_systems as string[]
-            : []
-    }));
-
-    // Filter by categories if provided
-    if (categories && categories.length > 0) {
-        return transformedCases.filter(caseItem =>
-            caseItem.affected_systems.some(system =>
-                categories.includes(system)
-            )
-        );
-    }
-
-    return transformedCases;
-}
+import {getCases} from "@/app/libs/services/caseService";
 
 const CaseStudies = async ({
                                searchParams,
@@ -119,7 +66,7 @@ const CaseStudies = async ({
                             {canAddCase && (
                                 <AddCaseButton userData={userData}/>
                             )}
-                            <FilterDialog categories={categories} products={products} />
+                            <FilterDialog categories={categories} products={products}/>
                         </Box>
                         <List cases={cases} lang={lang}/>
                     </Grid>

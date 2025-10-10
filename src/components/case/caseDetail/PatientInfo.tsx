@@ -2,8 +2,8 @@
 import { FC } from "react";
 import { Table, TableBody, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { CaseDetailData } from "@/app/[lang]/casestudies/[id]/page";
 import { InfoRow } from "@/components/case/caseDetail/InfoRow";
+import {CaseDetailData} from "@/app/libs/services/caseService";
 
 export const PatientInfo: FC<PatientInfoProps> = ({ caseData }) => {
     const { t } = useTranslation();

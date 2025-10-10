@@ -1,33 +1,23 @@
 'use client';
-import { FC } from "react";
+import {FC} from "react";
 import {Box, Container, Grid} from "@mui/material";
 import {CategoryIcon} from "@/components/CategoryIcon";
-import {CaseDetailData} from "./page";
-import { CaseHeader } from "@/components/case/caseDetail/CaseHeader";
-import { PatientInfo } from "@/components/case/caseDetail/PatientInfo";
-import  CaseContent from "@/components/case/caseDetail/CaseContent";
+import {CaseHeader} from "@/components/case/caseDetail/CaseHeader";
+import {PatientInfo} from "@/components/case/caseDetail/PatientInfo";
+import CaseContent from "@/components/case/caseDetail/CaseContent";
 import ImageGallery from "@/components/case/caseDetail/ImageGallery";
 import {CaseStudyNavigation} from "@/components/case/caseDetail/CaseStudyNavigation";
+import {CaseDetailData} from "@/app/libs/services/caseService";
 
-const CaseDetailClient: FC<CaseDetailClientProps> = ({ caseData }) => {
-    const handlePrev = () => {
-        // todo
-    }
-    const handleNext = () => {
-        // todo
-    }
-    const handleGridClick = () => {
-        // todo
-    }
-
+const CaseDetailClient: FC<CaseDetailClientProps> = ({linkToFilter, caseData, nextLink, prevLink}) => {
     return (
         <Container maxWidth="lg" sx={{py: 4}}>
             <Grid container spacing={4}>
                 <Grid size={{xs: 12}}>
                     <CaseStudyNavigation
-                        onPrev={handlePrev}
-                        onNext={handleNext}
-                        onGridClick={handleGridClick}
+                        nextLink={nextLink}
+                        prevLink={prevLink}
+                        linkToFilter={linkToFilter}
                     />
                 </Grid>
                 <Grid size={{xs: 12, md: 8}}>
@@ -37,7 +27,7 @@ const CaseDetailClient: FC<CaseDetailClientProps> = ({ caseData }) => {
                         specialization={caseData.specialization}
                         workplace={caseData.workplace}
                     />
-                    <PatientInfo caseData={caseData} />
+                    <PatientInfo caseData={caseData}/>
                     <CaseContent
                         diagnosis={caseData.diagnosis}
                         treatment_description={caseData.treatment_description}
@@ -67,4 +57,6 @@ export default CaseDetailClient;
 
 type CaseDetailClientProps = {
     caseData: CaseDetailData;
+    linkToFilter: string;
+    nextLink?:string, prevLink?: string;
 };

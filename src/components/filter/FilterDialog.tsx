@@ -6,7 +6,6 @@ import {useTranslation} from "react-i18next";
 import SecondaryButton from "@/components/buttons/SecondaryButton";
 import {FormGroupTitle} from "@/components/form/FormGroupTitle";
 import {AffectedSystemsToggle} from "@/components/form/AffectedSystemsToggle";
-import {getBodyParts} from "@/lib/getBodyParts";
 import ProductsToggle from "@/components/form/ProductsToggle";
 import {CancelButton} from "@/components/form/CancelButton";
 import {NextButton} from "@/components/form/NextButton";
@@ -23,9 +22,6 @@ const FilterDialog: FC<FilterDialogProps> = ({products, categories}) => {
     const handleClose = () => {
         setOpenFilter(false);
     }
-
-    const bodyParts = getBodyParts(t);
-
 
     const [selectedCategories, setSelectedCategories] = useState(categories || []);
     const [selectedProducts, setSelectedProducts] = useState(products || []);

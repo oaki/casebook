@@ -1,13 +1,16 @@
 "use client";
 import {FC} from "react";
-import {CaseData} from "@/app/[lang]/casestudies/page";
+
 import {CategoryIcon} from "@/components/CategoryIcon";
 import {Box, Button, Link, Stack, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
+import {createFiltersLink} from "@/lib/clientFilters";
+import {CaseData} from "@/app/libs/services/caseService";
 
 
-const List: FC<ListProps> = ({cases, lang}) => {
+const List: FC<ListProps> = ({cases, lang, categories, products}) => {
     const {t} = useTranslation();
+
     return (
         <Stack
             component="section"
@@ -48,7 +51,7 @@ const List: FC<ListProps> = ({cases, lang}) => {
 
                         <Button
                             component={Link}
-                            href={`/${lang}/casestudies/${caseItem.id}`}
+                            href={createFiltersLink(`/${lang}/casestudies/${caseItem.id}`, categories, products)}
                             variant="text"
                             size={'small'}
                             endIcon={
@@ -56,7 +59,6 @@ const List: FC<ListProps> = ({cases, lang}) => {
                                     component="img"
                                     src="/assets/icons/caret-right.svg"
                                     alt=""
-
                                     sx={{
                                         width: 32,
                                         height: 32,
@@ -84,6 +86,8 @@ const List: FC<ListProps> = ({cases, lang}) => {
 type ListProps = {
     cases: CaseData[];
     lang: string;
+    categories?: string[];
+    products?: string[];
 }
 
 export default List;
